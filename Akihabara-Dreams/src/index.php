@@ -44,18 +44,9 @@ include("../src/includes/header.php");
         <div class="carousel-track">
             <?php foreach ($featuredProducts as $product): ?>
                 <div class="carousel-slide">
-                    <div class="card product-card featured-product">
-                        <div class="product-badge">Destacado</div>
-                        <div class="product-image-container">
-                            <img class="product-image" src="../resources/images/productos/portadas/<?php echo htmlspecialchars($product->getPhoto()); ?>" alt="<?php echo htmlspecialchars($product->getName()); ?>">
-                        </div>
-                        <div class="card-body">
-                            <h3><?php echo htmlspecialchars($product->getName()); ?></h3>
-                            <p class="product-price"><?php echo number_format($product->getPrice(), 2); ?> €</p>
-                            <p class="product-description"><?php echo htmlspecialchars(substr($product->getDescription(), 0, 100)); ?><?php echo strlen($product->getDescription()) > 100 ? '...' : ''; ?></p>
-                            <a href="views/product.php?id=<?php echo $product->getId(); ?>" class="btn-view-product">Ver detalles</a>
-                        </div>
-                    </div>
+                    <a href="views/product.php?id=<?php echo $product->getId(); ?>" class="featured-image-link">
+                        <img class="featured-image" src="../resources/images/productos/portadas/<?php echo htmlspecialchars($product->getPhoto()); ?>" alt="<?php echo htmlspecialchars($product->getName()); ?>">
+                    </a>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -71,7 +62,7 @@ include("../src/includes/header.php");
     </div>
 </section>
 
-<?php include("../src/includes/generateBestProducts.php"); ?>
+<?php include("../src/includes/generateProducts.php"); ?>
 
 <div class="container">
     <!-- Sección de Usuarios -->
@@ -191,3 +182,5 @@ include("../src/includes/header.php");
 </div>
 
 <script src="../resources/js/carrousel.js"></script>
+<script src="../resources/js/sidebar.js"></script>
+<script src="../resources/js/category-carousel.js"></script>

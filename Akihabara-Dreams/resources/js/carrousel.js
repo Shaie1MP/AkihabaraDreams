@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let slideWidth = slides[0].getBoundingClientRect().width;
     let slideIndex = 0;
-    let slidesPerView = getNumSlidesPerView();
     
     // Configurar posición inicial de los slides
     function setSlidePosition() {
@@ -18,19 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Obtener número de slides visibles según el ancho de la ventana
-    function getNumSlidesPerView() {
-        if (window.innerWidth >= 1024) return 3;
-        if (window.innerWidth >= 768) return 2;
-        return 1;
-    }
-    
     // Mover a un slide específico
     function moveToSlide(targetIndex) {
         if (targetIndex < 0) {
+            targetIndex = slides.length - 1;
+        } else if (targetIndex >= slides.length) {
             targetIndex = 0;
-        } else if (targetIndex > slides.length - slidesPerView) {
-            targetIndex = slides.length - slidesPerView;
         }
         
         track.style.transform = 'translateX(-' + (slideWidth * targetIndex) + 'px)';
@@ -60,13 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Responsive
     window.addEventListener('resize', () => {
-        const newSlidesPerView = getNumSlidesPerView();
-        if (newSlidesPerView !== slidesPerView) {
-            slidesPerView = newSlidesPerView;
-            if (slideIndex > slides.length - slidesPerView) {
-                slideIndex = slides.length - slidesPerView;
-            }
-        }
         setSlidePosition();
         moveToSlide(slideIndex);
     });
@@ -74,16 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar
     setSlidePosition();
     
-    // Autoplay opcional
+    // Autoplay
     let autoplayInterval;
     
     function startAutoplay() {
         autoplayInterval = setInterval(() => {
-            let nextIndex = slideIndex + 1;
-            if (nextIndex > slides.length - slidesPerView) {
-                nextIndex = 0;
-            }
-            moveToSlide(nextIndex);
+            moveToSlide(slideIndex + 1);
         }, 5000); // Cambiar cada 5 segundos
     }
     
@@ -105,4 +86,39 @@ document.addEventListener('DOMContentLoaded', function() {
     nextButton.addEventListener('mouseleave', startAutoplay);
     prevButton.addEventListener('mouseleave', startAutoplay);
     dotsNav.addEventListener('mouseleave', startAutoplay);
+    
+    // Navegación con teclado
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') {
+            moveToSlide(slideIndex + 1);
+        } else if (e.key === 'ArrowLeft') {
+            moveToSlide(slideIndex - 1);
+        }
+    });
+    
+    // Soporte para gestos táctiles
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    track.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoplay();
+    }, {passive: true});
+    
+    track.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoplay();
+    }, {passive: true});
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+            // Deslizar a la izquierda
+            moveToSlide(slideIndex + 1);
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+            // Deslizar a la derecha
+            moveToSlide(slideIndex - 1);
+        }
+    }
 });

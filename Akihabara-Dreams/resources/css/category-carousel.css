@@ -1,0 +1,144 @@
+/* Estilos para las secciones de categoría */
+.category-section {
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.category-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.view-all-link {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 7rem;
+}
+
+.view-all-link:hover {
+  text-decoration: underline;
+}
+
+/* Estilos del carrusel de categoría */
+.category-carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0 30px;
+}
+
+.category-carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.category-carousel-slide {
+  flex: 0 0 20%; /* 5 productos por fila */
+  max-width: 20%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.category-carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  color: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.category-carousel-button:hover {
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.category-carousel-button.prev {
+  left: 10px;
+}
+
+.category-carousel-button.next {
+  right: 10px;
+}
+
+.view-all-mobile {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.view-all-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.view-all-button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  .category-carousel-slide {
+    flex: 0 0 25%; /* 4 productos por fila */
+    max-width: 25%;
+  }
+}
+
+@media (max-width: 991px) {
+  .category-carousel-slide {
+    flex: 0 0 33.333%; /* 3 productos por fila */
+    max-width: 33.333%;
+  }
+}
+
+@media (max-width: 767px) {
+  .category-carousel-slide {
+    flex: 0 0 50%; /* 2 productos por fila */
+    max-width: 50%;
+  }
+  
+  .view-all-link {
+    display: none;
+  }
+  
+  .view-all-mobile {
+    display: block;
+  }
+}
+
+@media (max-width: 575px) {
+  .category-carousel-slide {
+    flex: 0 0 100%; /* 1 producto por fila */
+    max-width: 100%;
+  }
+  
+  .category-carousel-button {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}

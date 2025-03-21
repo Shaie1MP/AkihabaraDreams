@@ -16,6 +16,7 @@ class ProductsRepository {
                                $result['description'], 
                                $result['price'],
                                $result['stock'],
+                               $result['category'],
                                $result['photo']);
         $statement = $this->pdo->prepare('select * from Product_photos where id_product = :id_product');
         $statement->execute(['id_product' => $id]);
@@ -41,6 +42,7 @@ class ProductsRepository {
                                     $item['description'], 
                                     $item['price'], 
                                     $item['stock'], 
+                                    $item['category'],
                                     $item['photo']);
             $statement = $this->pdo->prepare('select * from Product_photos where id_product = :id_product');
             $statement->execute(['id_product' => $item['id_product']]);
@@ -59,12 +61,13 @@ class ProductsRepository {
         $this->pdo->beginTransaction();
 
         try {
-            $statement = $this->pdo->prepare('insert into Products (name, description, price, stock, photo)
-                                                    values (:name, :description, :price, :stock, :photo)');
+            $statement = $this->pdo->prepare('insert into Products (name, description, price, stock, category, photo)
+                                                    values (:name, :description, :price, :stock, :category, :photo)');
             $statement->execute(['name' => $product->getName(), 
                                 'description' => $product->getDescription(),
                                 'price' => $product->getPrice(),
                                 'stock' => $product->getStock(),
+                                'category'=> $product->getCategory(),
                                 'photo' => $newName]);
             $id = $this->pdo->lastInsertId();
 
@@ -97,6 +100,7 @@ class ProductsRepository {
                                                                         description = :description,
                                                                         price = :price,
                                                                         stock = :stock,
+                                                                        category = :category,
                                                                         photo = :photo
                                                     where id_product = :id_product');
             
@@ -104,6 +108,7 @@ class ProductsRepository {
                                     'description' => $product->getDescription(),
                                     'price' => $product->getPrice(),
                                     'stock' => $product->getStock(),
+                                    'category'=> $product->getCategory(),
                                     'photo' => $newName,
                                     'id_product' => $product->getId()]);
 
