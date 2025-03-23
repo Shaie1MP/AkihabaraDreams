@@ -1,0 +1,143 @@
+/* Estilos para el carousel de productos */
+.category-section {
+  margin-bottom: 60px;
+}
+
+.product-carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 20px 0 50px;
+}
+
+.product-carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.product-carousel-slide {
+  min-width: 200px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* En pantallas grandes, mostrar 5 productos a la vez */
+@media (min-width: 1200px) {
+  .product-carousel-slide {
+      min-width: calc(20% - 20px);
+  }
+}
+
+/* En pantallas medianas, mostrar 3 productos a la vez */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .product-carousel-slide {
+      min-width: calc(33.333% - 20px);
+  }
+}
+
+/* En pantallas pequeñas, mostrar 2 productos a la vez */
+@media (max-width: 767px) and (min-width: 481px) {
+  .product-carousel-slide {
+      min-width: calc(50% - 20px);
+  }
+}
+
+/* En pantallas muy pequeñas, mostrar 1 producto a la vez */
+@media (max-width: 480px) {
+  .product-carousel-slide {
+      min-width: calc(100% - 20px);
+  }
+}
+
+.product-carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.product-carousel-button:hover {
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.product-carousel-button.prev {
+  left: 10px;
+}
+
+.product-carousel-button.next {
+  right: 10px;
+}
+
+.product-carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+}
+
+.product-carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  border: none;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-carousel-dot.active {
+  background-color: #ff6347;
+  transform: scale(1.2);
+}
+
+.no-products {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Ajustes para mantener la consistencia con el estilo existente */
+.product-carousel-container .product-card {
+  margin: 0;
+  height: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .product-carousel-button {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-carousel-button {
+      width: 25px;
+      height: 25px;
+      font-size: 12px;
+  }
+}

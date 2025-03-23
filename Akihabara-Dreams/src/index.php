@@ -183,4 +183,4 @@ include("../src/includes/header.php");
 
 <script src="../resources/js/carrousel.js"></script>
 <script src="../resources/js/sidebar.js"></script>
-<script src="../resources/js/category-carousel.js"></script>
+<script src="../resources/js/product-carousel.js"></script>
