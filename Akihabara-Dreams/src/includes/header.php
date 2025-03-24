@@ -60,7 +60,7 @@
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/promociones" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/src/views/promociones.php" class="sidebar-link">
 
                         <span>PROMOCIONES</span>
                     </a>

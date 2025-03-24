@@ -31,6 +31,7 @@ body {
 
 .section-title {
     text-align: center;
+    justify-content: center;
     font-size: 2rem;
     font-weight: bold;
     margin: 2rem 0;
@@ -120,6 +121,7 @@ body {
 .product-card {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .product-image-container {
@@ -297,7 +299,7 @@ body {
   }
   
   .carousel-slide {
-    min-width: 100%; /* Mostrar solo un slide a la vez */
+    min-width: 100%; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -308,7 +310,7 @@ body {
   .featured-image-link {
     display: block;
     width: 100%;
-    height: 500px; /* Altura fija para todas las imágenes */
+    height: 500px;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -442,7 +444,7 @@ body {
     }
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .cards-container {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

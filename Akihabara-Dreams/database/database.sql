@@ -95,6 +95,21 @@ ORDER BY
     selled_quantity DESC
 LIMIT 3;
 
+CREATE VIEW Products_With_Promotions AS
+SELECT 
+    p.*,
+    pr.discount,
+    pr.id_promotion,
+    ROUND(p.price * (1 - (pr.discount / 100)), 2) AS discounted_price
+    FROM 
+        Products p
+    INNER JOIN 
+        Product_promotions pp ON p.id_product = pp.id_product
+    INNER JOIN 
+        Promotion pr ON pp.id_promotion = pr.id_promotion
+    ORDER BY 
+        p.id_product;
+
 CREATE VIEW View_Order_Details AS
 SELECT 
     dp.id_order,
@@ -282,4 +297,4 @@ INSERT INTO Order_details (id_order, id_product, quantity, subtotal) VALUES
 (18, 20, 1, 12.99),
 (19, 21, 1, 25.99),
 (20, 22, 1, 45.99),
-(21, 23, 29.99);
+(21, 23, 1, 29.99);
