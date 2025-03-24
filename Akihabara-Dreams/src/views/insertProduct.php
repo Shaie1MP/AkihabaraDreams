@@ -9,9 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST["description"] ?? null;
     $price = $_POST["price"] ?? null;
     $stock = $_POST["stock"] ?? null;
+    $category = $_POST["category"] ?? null;
     $photo = $_FILES["photo"] ?? null;
     
-    $product = new Product(null, $name, $description, $price, $stock, $photo);
+    $product = new Product(null, $name, $description, $price, $stock, $category, $photo);
 
     $repo = new ProductsRepository($pdo);
     $controller = new ProductsController($repo);

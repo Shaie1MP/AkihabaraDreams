@@ -1,6 +1,7 @@
 
 <link rel="stylesheet" href="../resources/css/navbar.css">
 <link rel="stylesheet" href="../resources/css/index.css">
+<link rel="stylesheet" href="../resources/css/products.css">
 
 
 <?php
@@ -183,4 +184,3 @@ include("../src/includes/header.php");
 
 <script src="../resources/js/carrousel.js"></script>
 <script src="../resources/js/sidebar.js"></script>
-<script src="../resources/js/product-carousel.js"></script>

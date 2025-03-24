@@ -48,6 +48,7 @@ a{
 .img-logo {
     width: 230px;
     height: 35px;
+    margin-right: 70px;
 }
 
 .navbar-menu {
@@ -65,7 +66,7 @@ a{
 }
 
 .navbar-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+  color: var(--secondary-color);
 }
 
 /* Estilos para el modal lateral */
