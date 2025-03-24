@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="../../resources/css/navbar.css">
 <link rel="stylesheet" href="../../resources/css/figures.css">
 <link rel="stylesheet" href="../../resources/css/products.css">
-
+<link rel="stylesheet" href="../../resources/css/footer.css">
 
 <?php
 require_once "../config/database.php";
@@ -50,5 +50,7 @@ echo '<div class="products-container">';
         
     }
 echo '</div>';
+
+include("../../src/includes/footer.php");
 
 ?>

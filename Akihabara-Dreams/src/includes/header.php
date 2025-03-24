@@ -24,56 +24,56 @@
 <div id="sidebar-modal" class="sidebar-modal">
     <div class="sidebar-content">
         <div class="sidebar-header">
-            <h2>Menú</h2>
+            <h2>MENU</h2>
             <button id="close-sidebar" class="close-sidebar" aria-label="Cerrar menú">&times;</button>
         </div>
         <div class="sidebar-body">
             <ul class="sidebar-menu">
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/src/" class="sidebar-link">
-                        <span>Inicio</span>
+                        <span>INICIO</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/micuenta" class="sidebar-link">
-                        <span>Mi Cuenta</span>
+                        <span>MI CUENTA</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/src/views/mangas.php" class="sidebar-link">
-                        <span>Mangas</span>
+                        <span>MANGAS</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/src/views/figuras.php" class="sidebar-link">
-                        <span>Figuras</span>
+                        <span>FIGURAS</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/src/views/merchandising.php" class="sidebar-link">
-                        <span>Merchandising</span>
+                        <span>MERCHANDISING</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/carrito" class="sidebar-link">
-                        <span>Carrito</span>
+                        <span>CARRITO</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/promociones" class="sidebar-link">
 
-                        <span>Promociones</span>
+                        <span>PROMOCIONES</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/contacto" class="sidebar-link">
-                        <span>Contacto</span>
+                        <span>CONTACTO</span>
                     </a>
                 </li>
                 <?php if (isset($_SESSION['user'])): ?>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/logout" class="sidebar-link">
-                        <span>Cerrar Sesión</span>
+                        <span>CERRAR SESIÓN</span>
                     </a>
                 </li>
                 <?php endif; ?>

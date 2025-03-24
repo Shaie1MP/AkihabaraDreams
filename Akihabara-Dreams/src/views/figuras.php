@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="../../resources/css/navbar.css">
 <link rel="stylesheet" href="../../resources/css/figures.css">
 <link rel="stylesheet" href="../../resources/css/products.css">
+<link rel="stylesheet" href="../../resources/css/footer.css">
 
 
 <?php
@@ -49,5 +50,7 @@ foreach ($products as $product) {
     }
 }
 echo '</div>';
+
+include("../../src/includes/footer.php");
 
 ?>
