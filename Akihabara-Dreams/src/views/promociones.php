@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="../../resources/css/products.css">
 <link rel="stylesheet" href="../../resources/css/footer.css">
 <link rel="stylesheet" href="../../resources/css/pagination.css">
-<link rel="stylesheet" href="../../resources/css/promotion-products.css">
 
 <?php
 require_once "../config/database.php";

@@ -1,0 +1,218 @@
+/* Estilos para la página de Mi Cuenta */
+:root {
+    --primary-color: #333;
+    --secondary-color: #ff6347;
+    --background-color: #f8f8f8;
+    --card-background: #fff;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+    --text-light: #666;
+}
+
+.account-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.account-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.account-header h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.account-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--secondary-color);
+}
+
+.account-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.account-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+@media (min-width: 768px) {
+    .account-content {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .account-orders, .admin-panel {
+        grid-column: 1 / -1;
+    }
+}
+
+.account-info, .account-address, .account-orders, .admin-panel {
+    background-color: var(--background-color);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.account-info h2, .account-address h2, .account-orders h2, .admin-panel h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 576px) {
+    .info-item {
+        flex-direction: row;
+        gap: 10px;
+    }
+}
+
+.info-label {
+    font-weight: bold;
+    color: var(--text-light);
+    min-width: 100px;
+}
+
+.info-value {
+    color: var(--text-color);
+}
+
+.address-box {
+    padding: 15px;
+    background-color: var(--card-background);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.no-data {
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.view-all-button {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.view-all-button:hover {
+    color: #e55a3d;
+    text-decoration: underline;
+}
+
+.admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.admin-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.admin-button:hover {
+    background-color: #555;
+}
+
+.account-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.action-button {
+    display: inline-block;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.action-button.edit {
+    background-color: #4a4a4a;
+    color: white;
+}
+
+.action-button.edit:hover {
+    background-color: var(--secondary-color);
+}
+
+.action-button.password {
+    background-color: #4a4a4a;
+    color: white;
+}
+
+.action-button.password:hover {
+    background-color: var(--secondary-color);
+}
+
+.action-button.logout {
+    background-color: #4a4a4a;
+    color: white;
+}
+
+.action-button.logout:hover {
+    background-color: var(--secondary-color);
+}
+
+.action-button.delete {
+    background-color: #4a4a4a;
+    color: white;
+}
+
+.action-button.delete:hover {
+    background-color: var(--secondary-color);
+}
+
+@media (max-width: 576px) {
+    .account-actions {
+        flex-direction: column;
+    }
+    
+    .action-button {
+        width: 100%;
+    }
+}

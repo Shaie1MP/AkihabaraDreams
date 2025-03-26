@@ -1,8 +1,138 @@
+/* Estilos para el footer */
 .footer {
-    background-color: var(--primary-color);
-    padding: 1rem 0;
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0 20px;
+    margin-top: 50px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.footer-section h3 {
+    color: #ff6347; /* Color secundario que coincide con el carrito */
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #ff6347;
+}
+
+.footer-section p {
+    margin-bottom: 10px;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+.footer-section ul li a:hover {
+    color: #ff6347;
+    transform: translateX(5px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 30px;
+    border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .footer-section h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Iconos de redes sociales (si quieres añadirlos) */
+.social-icons {
     display: flex;
-    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-icons a {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: #444;
+    border-radius: 50%;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #ff6347;
+    transform: translateY(-3px);
+}
+
+/* Formulario de suscripción (opcional) */
+.subscribe-form {
+    margin-top: 15px;
+}
+
+.subscribe-form input {
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.subscribe-form button {
+    padding: 10px 15px;
+    background-color: #ff6347;
     color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.subscribe-form button:hover {
+    background-color: #e5533e;
 }

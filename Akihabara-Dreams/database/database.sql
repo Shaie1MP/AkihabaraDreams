@@ -124,8 +124,8 @@ INNER JOIN
 ON 
     dp.id_product = p.id_product;
 
--- Users table
 INSERT INTO Users (name, username, password, email, phone, address, profilePic, role) VALUES
+('Sergio Martín', 'sergio_mu', 'macarrones', 'sergio_mu@gmail.com', '34-65-467-4563', 'Calle Doña Perfecta, 22', 'sergio_mu.png', 'admin'),
 ('Carlos Pérez', 'carlos123', 'hashed_password_4', 'carlos@email.com', '34-91-123-4567', 'Calle Mayor 12, Madrid', 'carlos123.jpg', 'usuario'),
 ('María López', 'maria_lopez', 'hashed_password_5', 'maria@email.com', '34-91-234-5678', 'Avenida Diagonal 45, Barcelona', 'maria_lopez.jpg', 'usuario'),
 ('Juan García', 'juan_garcia', 'hashed_password_6', 'juan@email.com', '34-91-345-6789', 'Calle de la Paz 23, Valencia', 'juan_garcia.jpg', 'usuario'),
@@ -147,8 +147,6 @@ INSERT INTO Users (name, username, password, email, phone, address, profilePic, 
 ('Samuel Vargas', 'samuel_vargas', 'hashed_password_22', 'samuel@email.com', '34-91-901-2346', 'Calle de la Libertad 12, Cádiz', 'samuel_vargas.jpg', 'usuario'),
 ('Natalia Peña', 'natalia_pena', 'hashed_password_23', 'natalia@email.com', '34-91-012-3457', 'Calle de la Paz 34, Tarragona', 'natalia_pena.jpg', 'usuario');
 
-
--- Products table
 INSERT INTO Products (name, description, price, stock, category, photo) VALUES
 ('Figura de Goku', 'Figura de acción de Goku de Dragon Ball', 45.99, 150, 'figuras', 'goku.jpg'),
 ('manga naruto', 'Tomo 41 del manga de naruto', 12.50, 20, 'mangas', 'manga naruto.jpg'),
@@ -198,7 +196,6 @@ INSERT INTO Products (name, description, price, stock, category, photo) VALUES
 ('Manga de Mob Psycho 100', 'Manga completo de Mob Psycho 100', 34.99, 80, 'mangas', 'mobpsycho.jpg'),
 ('Taza de Demon Slayer', 'Taza con diseño de Demon Slayer', 12.99, 140, 'merchandising', 'tazaslayer.jpg');
 
--- Product_photos table
 INSERT INTO Product_photos (id_product, photo) VALUES
 (1, 'gokuAd1.jpg'),
 (3, 'gojoAd1.jpg'),
@@ -222,13 +219,11 @@ INSERT INTO Product_photos (id_product, photo) VALUES
 (41, 'gintokiAd1.jpg'),
 (41, 'gintokiAd2.jpg');
 
--- Promotion table
 INSERT INTO Promotion (code, discount, description, start_date, end_date) VALUES
 ('SUMMER2023', 15, 'Summer Sale 2023', '2023-06-01', '2023-08-31'),
 ('NEWUSER10', 10, 'New User Discount', '2023-01-01', '2023-12-31'),
 ('ANIME5OFF', 5, 'Anime Lovers Discount', '2023-05-01', '2023-07-31');
 
--- Product_promotions table
 INSERT INTO Product_promotions (id_product, id_promotion) VALUES
 (1, 1),
 (2, 1),
@@ -244,13 +239,11 @@ INSERT INTO Product_promotions (id_product, id_promotion) VALUES
 (18, 1),
 (9, 3);
 
--- Cart table
 INSERT INTO Cart (id_user, id_product, quantity) VALUES
 (2, 1, 2),
 (2, 3, 1),
 (3, 2, 1);
 
--- Orders table
 INSERT INTO Orders (id_user, order_date, arrive_date, address, billing, state) VALUES
 (1, '2023-05-01', '2023-05-15', 'Calle Mayor 12, Madrid', 'Tarjeta de crédito terminada en 5678', 'enviado'),
 (1, '2023-06-01', '2023-06-15', 'Calle Mayor 12, Madrid', 'PayPal', 'procesando'),

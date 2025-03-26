@@ -1,10 +1,11 @@
-
 <link rel="stylesheet" href="../resources/css/navbar.css">
 <link rel="stylesheet" href="../resources/css/index.css">
 <link rel="stylesheet" href="../resources/css/products.css">
 <link rel="stylesheet" href="../resources/css/footer.css">
 
 <?php
+session_start();
+
 require_once 'config/database.php';
 require_once "repositories/usersRepository.php";
 require_once 'models/user.php';
@@ -40,7 +41,7 @@ include("../src/includes/header.php");
 <!-- Carrusel de Productos Destacados -->
 <section class="section featured-section">
     <h2 class="section-title">Productos Destacados</h2>
-    
+
     <div class="carousel-container">
         <div class="carousel-track">
             <?php foreach ($featuredProducts as $product): ?>
@@ -51,10 +52,10 @@ include("../src/includes/header.php");
                 </div>
             <?php endforeach; ?>
         </div>
-        
+
         <button class="carousel-button prev" aria-label="Anterior">&#10094;</button>
         <button class="carousel-button next" aria-label="Siguiente">&#10095;</button>
-        
+
         <div class="carousel-dots">
             <?php for ($i = 0; $i < count($featuredProducts); $i++): ?>
                 <button class="carousel-dot <?php echo $i === 0 ? 'active' : ''; ?>" data-index="<?php echo $i; ?>" aria-label="Ir a slide <?php echo $i + 1; ?>"></button>
@@ -65,13 +66,20 @@ include("../src/includes/header.php");
 
 <?php include("../src/includes/generateProducts.php"); ?>
 
-    <!-- Enlaces de navegación -->
-    <div class="nav-links">
+<!-- Enlaces de navegación -->
+<div class="nav-links">
+    <?php if (isset($_SESSION['user'])): ?>
+        <a href="views/myAccount.php" class="nav-link">Mi Cuenta</a>
+    <?php else: ?>
         <a href="views/login.php" class="nav-link">Login</a>
+        <a href="views/register.php" class="nav-link">Register</a>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['user']) && unserialize($_SESSION['user'])->getRole() === 'admin'): ?>
         <a href="views/insertProduct.php" class="nav-link">Agregar producto</a>
         <a href="views/insertPromotion.php" class="nav-link">Agregar promoción</a>
-        <a href="views/register.php" class="nav-link">Register</a>
-    </div>
+    <?php endif; ?>
+</div>
 </div>
 
 <?php

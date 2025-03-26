@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Configuración de paginación
-    const productsPerPage = 8;
+    const productsPerPage = 10;
     const totalPages = Math.ceil(totalProducts / productsPerPage);
     let currentPage = 1;
 

@@ -10,10 +10,42 @@
         </div>
         <div>
             <ul class="navbar-menu">
-                <li><a href="/Akihabara-Dreams/admin" class="navbar-link">Buscar</a></li>
-                <li><a href="/Akihabara-Dreams/catalogo" class="navbar-link">Carrito</a></li>
-                <li><a href="/Akihabara-Dreams/micuenta"
-                    class="navbar-link"><?php echo isset($_SESSION['user']) ? htmlspecialchars(unserialize($_SESSION['user'])->getNombreUsuario()) : 'Cuenta'; ?></a>
+                <li>
+                    <a href="#" class="navbar-link search-link">
+                        <img src="/Akihabara-Dreams/resources/images/commons/search.png" alt="Buscar" width="24" height="24">
+                    </a>
+                </li>
+                <li>
+                    <div class="cart-icon-container" id="cart-icon-container">
+                        <img src="/Akihabara-Dreams/resources/images/commons/cart.png" alt="Carrito" class="cart-icon" width="24" height="24">
+                        <span class="cart-count" id="cart-count">0</span>
+                        
+                        <!-- Mini carrito desplegable -->
+                        <div class="mini-cart" id="mini-cart">
+                            <div class="mini-cart-header">
+                                <h3 class="mini-cart-title">Tu Carrito</h3>
+                                <button class="mini-cart-close" id="mini-cart-close">&times;</button>
+                            </div>
+                            <div class="mini-cart-items" id="mini-cart-items">
+                                <!-- Los items del carrito se cargarán dinámicamente con JavaScript -->
+                            </div>
+                            <div class="mini-cart-footer">
+                                <div class="mini-cart-total">
+                                    <span>Total:</span>
+                                    <span id="mini-cart-total">€0.00</span>
+                                </div>
+                                <div class="mini-cart-buttons">
+                                    <a href="/Akihabara-Dreams/src/views/cart.php" class="mini-cart-button view">Ver Carrito</a>
+                                    <a href="/Akihabara-Dreams/src/views/checkout.php" class="mini-cart-button checkout">Pagar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="/Akihabara-Dreams/src/views/myAccount.php" class="navbar-link">
+                        <?php echo isset($_SESSION['user']) ? htmlspecialchars(unserialize($_SESSION['user'])->getUsername()) : 'Cuenta'; ?>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -35,7 +67,7 @@
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/micuenta" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/src/views/myAccount.php" class="sidebar-link">
                         <span>MI CUENTA</span>
                     </a>
                 </li>
@@ -55,13 +87,12 @@
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/carrito" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/src/views/cart.php" class="sidebar-link">
                         <span>CARRITO</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/src/views/promociones.php" class="sidebar-link">
-
                         <span>PROMOCIONES</span>
                     </a>
                 </li>
@@ -72,7 +103,7 @@
                 </li>
                 <?php if (isset($_SESSION['user'])): ?>
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/logout" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/src/controllers/logout.php" class="sidebar-link">
                         <span>CERRAR SESIÓN</span>
                     </a>
                 </li>
@@ -84,3 +115,13 @@
 
 <!-- Overlay para oscurecer el fondo cuando el modal está abierto -->
 <div id="overlay" class="overlay"></div>
+
+<!-- Notificación de producto añadido al carrito -->
+<div class="cart-notification" id="cart-notification">
+    <span class="cart-notification-icon">✓</span>
+    <span class="cart-notification-message">Producto añadido al carrito</span>
+</div>
+
+<!-- Incluir el CSS del carrito -->
+<link rel="stylesheet" href="/Akihabara-Dreams/resources/css/cart.css">
+
