@@ -1,0 +1,144 @@
+:root {
+    --primary-color: #bb5b5b;
+    --secondary-color: #f4a28c;
+    --background-color: #f0ebed;
+    --text-color: #2c2326;
+    --card-background: #ffffff;
+}
+
+body {
+    font-family: 'Comfortaa', Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 450px;
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+#flip-toggle:checked~.flip-card .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-color: var(--card-background);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg) translateY(-13%);
+    height: 135%;
+}
+
+
+h1,
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Comfortaa', Arial, sans-serif;
+}
+
+button,
+.flip-button {
+    background-color: var(--primary-color);
+    color: var(--card-background);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover,
+.flip-button:hover {
+    background-color: #6c4658;
+}
+
+.flip-prompt {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.flip-button {
+    display: inline-block;
+    text-decoration: none;
+    width: -webkit-fill-available;
+}
+
+#flip-toggle {
+    display: none;
+}

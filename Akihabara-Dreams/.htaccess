@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /Akihabara-Dreams/
+
+# Permitir acceso directo solo a archivos de ciertos tipos (CSS, JS, imágenes, etc.)
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ [NC]
+
+# Redirigir todo a public/index.php, sin importar si es una carpeta o archivo existente
+RewriteRule ^(.*)$ public/index.php [QSA,L]

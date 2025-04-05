@@ -16,7 +16,8 @@
 }
 
 .footer-section h3 {
-    color: #ff6347; /* Color secundario que coincide con el carrito */
+    color: #ff6347;
+    /* Color secundario que coincide con el carrito */
     font-size: 1.3rem;
     margin-bottom: 15px;
     position: relative;
@@ -79,7 +80,7 @@
         grid-template-columns: 1fr;
         text-align: center;
     }
-    
+
     .footer-section h3::after {
         left: 50%;
         transform: translateX(-50%);

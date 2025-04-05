@@ -1,0 +1,58 @@
+.error-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.error-description {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.error-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.error-item {
+    background-color: var(--card-background);
+    border-left: 5px solid var(--primary-color);
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.error-item h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.error-item p {
+    margin: 10px 0 0;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.error-button {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: var(--card-background);
+    background-color: var(--button-color);
+    text-decoration: none;
+    border-radius: 5px;
+    width: fit-content;
+    transition: background-color 0.3s;
+}
+
+.error-button:hover {
+    background-color: var(--button-hover);
+}

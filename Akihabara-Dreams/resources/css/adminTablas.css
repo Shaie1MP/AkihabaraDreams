@@ -1,0 +1,116 @@
+.container{
+    width: -webkit-fill-available;
+}
+#id-header, #toggle-descripcion-larga{
+    cursor: pointer;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+}
+
+td img {
+    width: 50px;
+    height: 50px;
+}
+
+td ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+td ul li {
+    margin-bottom: 5px;
+}
+
+td button {
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    width: 100px;
+}
+
+td button:hover {
+    background-color: var(--button-hover);
+}
+
+@media (max-width: 1079px) {
+    .container {
+        width: -webkit-fill-available;
+        padding: 10px;
+    }
+    
+    table {
+        font-size: 14px;
+    }
+
+    td img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    td button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+
+.create {
+    margin-bottom: 20px;
+}
+
+.btn-create {
+    background-color: var(--button-color);
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    
+    margin: 10px auto 0 auto;
+    display: flex;
+    width: 330px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.btn-create:hover {
+    background-color: var(--button-hover);
+}
+
+img{
+    object-fit: cover;
+}
