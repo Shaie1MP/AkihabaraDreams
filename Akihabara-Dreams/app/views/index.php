@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/footer.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/index.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/product-grid.css">
 </head>
 
 <body>
@@ -15,13 +16,11 @@
     include '../resources/commons/navbar.php';
     ?>
 
+    <section class="hero">
+        <a href="/Akihabara-Dreams/catalogo" class="cta-button">Explorar juegos</a>
+    </section>
     <div class="container">
-        <section class="hero">
-            <h1>Bienvenido a Akihabara Dreams</h1>
-            <p>Tu tienda online española de juegos de mesa. Descubre nuevas aventuras, estrategias y diversión para toda
-                la familia.</p>
-            <a href="/Akihabara-Dreams/catalogo" class="cta-button">Explorar juegos</a>
-        </section>
+
 
         <section class="featured-games">
             <h2>Productos Destacados</h2>
@@ -29,29 +28,31 @@
             include '../app/includes/generarJuegosDestacados.php';
             ?>
         </section>
-        
-        <!-- Nueva sección de mangas -->
-        <section class="manga-section">
+
+        <!-- Sección de mangas con nuevo estilo -->
+        <section class="product-section">
             <h2>MANGAS</h2>
-            <div class="manga-grid">
+            <div class="product-grid">
                 <?php
                 include '../app/includes/generarMangas.php';
                 ?>
             </div>
         </section>
 
-        <section class="manga-section">
+        <!-- Sección de figuras con nuevo estilo -->
+        <section class="product-section">
             <h2>FIGURAS</h2>
-            <div class="manga-grid">
+            <div class="product-grid">
                 <?php
                 include '../app/includes/generarFiguras.php';
                 ?>
             </div>
         </section>
 
-        <section class="manga-section">
+        <!-- Sección de merchandising con nuevo estilo -->
+        <section class="product-section">
             <h2>MERCHANDISING</h2>
-            <div class="manga-grid">
+            <div class="product-grid">
                 <?php
                 include '../app/includes/generarMerchandising.php';
                 ?>
@@ -72,3 +73,4 @@
 
     <script src="/Akihabara-Dreams/resources/js/carousel.js"></script>
 </body>
+
