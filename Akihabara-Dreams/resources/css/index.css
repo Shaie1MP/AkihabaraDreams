@@ -15,13 +15,31 @@ h2 {
 }
 
 .hero {
-  background-image: url("../images/commons/banner2.jpg");
+  display: flex;
+  justify-content: space-between;
+  background-color: #f0f0f0;
   object-fit: initial;
-  color: var(--card-background);
-  height: 350px;
-  padding: 3rem 0;
+  color: var(--primary-color);
+  height: 450px;
+  padding: 1.5rem 0;
   text-align: center;
-  margin-bottom: 2rem;
+}
+
+.hero img {
+  display: flex;
+  justify-content: right;
+  width: 350px;
+  height: 600px;
+  object-fit: cover;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 2rem 0 2rem;
 }
 
 .hero a {
@@ -35,10 +53,23 @@ h2 {
   margin: 0 auto;
 }
 
-.featured-games,
-.about-us {
+.featured-games {
   margin-bottom: 2rem;
   text-align: justify;
+}
+
+.about-us {
+  margin: 2rem 6rem 2rem 6rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  text-align: justify;
+}
+
+.about-text {
+  display: block;
+  justify-content: center;
+  margin: 20px;
 }
 
 .game-grid {
@@ -91,10 +122,32 @@ h2 {
 }
 
 .section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Botón de enlace para secciones */
+.section-link-button {
+  display: inline-block;
+  background-color: #f0f0f0;
+  color: #333;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 10px;
+  right: 0;
+  z-index: 1;
+}
+
+.section-link-button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Manga, Figuras y Merchandising Sections - NUEVO ESTILO */
@@ -381,6 +434,20 @@ h2 {
   overflow: hidden;
 }
 
+/* Product Section - NUEVO ESTILO */
+.product-section {
+  margin: 50px 0;
+  position: relative;
+}
+
+.product-section h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  margin-top: 0;
+  text-align: center;
+}
+
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .featured-carousel-item {
@@ -401,6 +468,13 @@ h2 {
   .manga-section h2 {
     font-size: 2rem;
     margin-bottom: 30px;
+  }
+
+  .section-link-button {
+    position: static;
+    display: block;
+    width: fit-content;
+    margin: -20px auto 20px;
   }
 }
 
@@ -438,4 +512,3 @@ h2 {
     padding: 20px;
   }
 }
-

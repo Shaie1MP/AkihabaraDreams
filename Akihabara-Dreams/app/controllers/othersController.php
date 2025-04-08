@@ -18,6 +18,21 @@ class OtthersController {
         include '../app/views/catalogo.php';
     }
 
+    public function mangas(){
+        $products = $this->othersRepository->mangas();
+        include '../app/views/catalogo.php';
+    }
+
+    public function figures(){
+        $products = $this->othersRepository->figures();
+        include '../app/views/catalogo.php';
+    }
+
+    public function merchandising(){
+        $products = $this->othersRepository->merchandising();
+        include '../app/views/catalogo.php';
+    }
+
     public function index(){
         $products = $this->othersRepository->index();
         include '../app/views/index.php';

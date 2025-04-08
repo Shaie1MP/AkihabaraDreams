@@ -74,7 +74,7 @@ try {
                     $cartSession = new Cart($userSession->getId());
                     $_SESSION['carrito'] = serialize($cartSession);
                 }
-                
+
                 $cartController = new CartController(new CartRepository($connection), $cartSession);
                 switch ($action) {
                     case 'add':
@@ -135,6 +135,24 @@ try {
             $controller->catalog();
             break;
 
+        case 'mangas':
+            $repositorio = new OthersRepository($connection);
+            $controller = new OtthersController($repositorio);
+            $controller->mangas();
+            break;
+
+        case 'figuras':
+            $repositorio = new OthersRepository($connection);
+            $controller = new OtthersController($repositorio);
+            $controller->figures();
+            break;
+
+        case 'merchandising':
+            $repositorio = new OthersRepository($connection);
+            $controller = new OtthersController($repositorio);
+            $controller->merchandising();
+            break;
+
         case 'registrar':
             $controller = new usersController(new UsersRepository($connection));
             $controller->register(new User(
@@ -176,4 +194,3 @@ try {
 <?php
 ob_end_flush();
 ?>
-
