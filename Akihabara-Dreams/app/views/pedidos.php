@@ -8,7 +8,7 @@ include '../app/includes/comprobarDivisa.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedidos - Akihabara Dreams</title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
-
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/information.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/pedidos.css">

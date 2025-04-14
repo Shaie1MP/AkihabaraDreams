@@ -39,4 +39,5 @@
 
 .error-button:hover {
     background-color: var(--button-hover);
+    color: var(--secondary-color);
 }

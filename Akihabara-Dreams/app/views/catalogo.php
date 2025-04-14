@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/cart.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/search.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/pag.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/producto.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/products.css">
 </head>
 
@@ -19,17 +20,16 @@
     include '../resources/commons/search.html';
     ?>
 
-    <main id="productList">
+    <main id="catalog-container">
         <?php
         include '../app/includes/comprobarDivisa.php';
         include '../app/includes/generarCatalogo.php';
         ?>
     </main>
-    <!-- <a href="https://boardgamegeek.com">Para pillar las imágenes</a> -->
     <div id="paginacion"></div>
     
-        <script src="/Akihabara-Dreams/resources/js/search.js"></script>
-        <script src="/Akihabara-Dreams/resources/js/pag.js"></script>
+    <script src="/Akihabara-Dreams/resources/js/search.js"></script>
+    <script src="/Akihabara-Dreams/resources/js/pag.js"></script>
         
 
 <?php
@@ -47,6 +47,7 @@ if(isset($_SESSION['usuario'])){
 include '../resources/commons/footer.php';
 ?>
 <script src="/Akihabara-Dreams/resources/js/carrito.js"></script>
+<script src="/Akihabara-Dreams/resources/js/filters.js"></script>
 </body>
 
 </html>

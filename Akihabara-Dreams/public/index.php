@@ -79,6 +79,8 @@ try {
                 switch ($action) {
                     case 'add':
                         $cartController->addElement($idUrl);
+                        header('Location: /Akihabara-Dreams/productos/info/' . $idUrl);
+                        exit;
                         break;
                     case 'eliminar':
                         $cartController->deleteElement($idUrl);
@@ -151,6 +153,9 @@ try {
             $repositorio = new OthersRepository($connection);
             $controller = new OtthersController($repositorio);
             $controller->merchandising();
+            break;
+
+        case 'contacto':
             break;
 
         case 'registrar':

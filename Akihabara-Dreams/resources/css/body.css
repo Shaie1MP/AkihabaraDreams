@@ -1,51 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
-
 :root {
-    --primary-color: #bb5b5b;
-    --secondary-color: #f4a28c;
-    --background-color: #f0ebed;
-    --text-color: #2c2326;
-    --card-background: #ffffff;
-    --button-color: #bb5b5b;
-    --button-hover: #6c4658;
-}
-
-body {
-    font-family: 'Comfortaa', Arial, sans-serif;
+    --primary-color: #333;
+    --secondary-color: #5a5a5a;
+    --background-color: #f9f9f9;
+    --card-background: #fff;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+    --text-light: #666;
+    --success-color: #4caf50;
+    --danger-color: #f44336;
+    --button-color: #333;
+    --button-hover: #555;
+    --border-radius: 8px;
+    --shop-pay-color: #ff6347;
+    --font-family: "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-family);
     background-color: var(--background-color);
     color: var(--text-color);
+    line-height: 1.6;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width:none;
-}
-
-.container {
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--card-background);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-@media (max-width: 1079px) {
-    .container {
-        width: -webkit-fill-available;
-        padding: 10px;
-    }
-}
-
-@media (max-width: 1200px) {
-    .container {
-        width: -webkit-fill-available;
-        padding: 10px;
-    }
-}
+  }
+  
+  .no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .no-products p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+  

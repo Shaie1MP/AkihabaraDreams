@@ -1,4 +1,5 @@
 <?php
+
 class Cart {
     public $id_user;
     public $cart;
@@ -11,23 +12,25 @@ class Cart {
     public function getId() {
         return $this->id_user;
     }
+    
     public function getCart() {
         return $this->cart;
     }
 
-    public function addProduct(CartProduct $product) {
+    public function addProduct(CartProduct $product, $quantity = 1) {
         $notFound = true;
 
         foreach ($this->cart as &$item) {
             if ($item['id'] == $product->getProductId()) {
                 $notFound = false;
-                $item['quantity']++;
+
+                $item['quantity'] += $quantity;
                 break;
             }
         }
 
         if ($notFound) {
-            $this->cart[] = ['id' => $product->getProductId(), 'quantity' => 1, 'product' => $product];
+            $this->cart[] = ['id' => $product->getProductId(), 'quantity' => $quantity, 'product' => $product];
         }
     }
 
@@ -46,11 +49,10 @@ class Cart {
 
         foreach ($this->cart as $item) {
             $simplifiedCart[] = [
-                'id_product' => $item['id_product'],
+                'id_product' => $item['id'],
                 'quantity' => $item['quantity']
             ];
         }
         return json_encode($simplifiedCart);
     }
-
 }

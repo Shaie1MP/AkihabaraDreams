@@ -9,6 +9,7 @@ include '../app/includes/comprobarSesion.php';
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/form.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/information.css">
 </head>
 <body>
 <?php include '../resources/commons/navbar.php'; ?>
