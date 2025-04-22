@@ -33,6 +33,7 @@ if (isset($_COOKIE['tarjeta'])) {
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/checkout.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/language-switcher.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         function openModal() {

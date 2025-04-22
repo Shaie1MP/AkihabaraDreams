@@ -5,7 +5,7 @@ $allProducts = $tempProductsRepo->showProducts();
 
 // Filtrar productos de la categoría "mangas"
 $mangaProducts = array_filter($allProducts, function($product) {
-    return strtolower($product->getCategory()) === 'mangas';
+    return strtolower($product->getCategory()) === 'mangas' || strtolower($product->getCategory()) === 'manga';
 });
 
 // Limitar la cantidad de mangas a mostrar (por ejemplo, 5)

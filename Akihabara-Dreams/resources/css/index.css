@@ -21,7 +21,7 @@ h2 {
   position: relative; /* Add position relative */
   color: var(--primary-color);
   height: 600px;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0 0;
   text-align: center;
   background-image: none; /* Remove the background image from here */
 }
@@ -34,10 +34,10 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../images/commons/manga-panel.png');
+  background-image: url('../images/commons/narut.jpg');
   background-size: cover;
   z-index: -1; /* Place it behind the content */
-  opacity: 0.2; /* Set the opacity to 1 (fully opaque) */
+  filter: brightness(0.5); /* Optional: darken the background */
 }
 
 /* Make sure the content is positioned properly */
@@ -50,7 +50,8 @@ h2 {
 .hero img {
   display: flex;
   justify-content: right;
-  width: 350px;
+  margin-right: 50px;
+  width: 600px;
   height: 600px;
   object-fit: cover;
 }
@@ -61,7 +62,12 @@ h2 {
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-left: 50px;
   padding: 0 2rem 0 2rem;
+}
+
+.hero-content h1 {
+  color: #fff; 
 }
 
 .hero a {
@@ -70,7 +76,7 @@ h2 {
 }
 
 .hero p {
-  color: #333;
+  color: #fff;
   font-size: 1.2rem;
   max-width: 800px;
   margin: 0 auto;
@@ -130,11 +136,11 @@ h2 {
 
 .cta-button {
   display: inline-block;
-  background-color: var(--primary-color);
+  background-color: #fa6e56;
   color: var(--card-background);
   text-decoration: none;
   padding: 0.8rem 1.5rem;
-  border-radius: 5px;
+  border-radius: 40px;
   font-weight: bold;
   transition: background-color 0.3s;
   margin-top: 1rem;
@@ -173,7 +179,6 @@ h2 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Manga, Figuras y Merchandising Sections - NUEVO ESTILO */
 .manga-section {
   margin: 50px 0;
 }
@@ -267,7 +272,6 @@ h2 {
   font-style: italic;
 }
 
-/* Featured Games Section - NUEVO ESTILO */
 .featured-games {
   padding: 2rem 0;
   text-align: center;
@@ -283,7 +287,6 @@ h2 {
   color: var(--primary-color);
 }
 
-/* Featured Carousel Styles - NUEVO ESTILO */
 .featured-carousel {
   position: relative;
   max-width: 1200px;
@@ -464,6 +467,7 @@ h2 {
 }
 
 .product-section h2 {
+  color: #fa6e56;
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 30px;

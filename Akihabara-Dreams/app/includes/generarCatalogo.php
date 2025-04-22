@@ -1,21 +1,21 @@
 <?php
 // Encabezado del catálogo - Ahora se generará fuera del grid de productos
 echo '<div class="catalog-header">';
-echo '<button class="filter-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg> Filtrar</button>';
+echo '<button class="filter-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>' . __('filter') .'</button>';
 echo '<div class="sort-dropdown">';
-echo '<span>Ordenar por:</span>';
+echo '<span>' . __('filter_order_by') .':</span>';
 echo '<select id="sortSelect">';
-echo '<option value="recent">Fecha: reciente a antiguo(a)</option>';
-echo '<option value="old">Fecha: antiguo a reciente</option>';
-echo '<option value="price-low">Precio: menor a mayor</option>';
-echo '<option value="price-high">Precio: mayor a menor</option>';
+echo '<option value="recent">' . __('filter_recent') .'</option>';
+echo '<option value="old">' . __('filter_old') .'</option>';
+echo '<option value="price-low">' . __('filter_price_low_high') .'</option>';
+echo '<option value="price-high">' . __('filter_price_high_low') .'</option>';
 echo '</select>';
 echo '</div>';
 
 // Contador de productos
 if (!empty($products)) {
     $count = count($products);
-    echo '<span class="products-count">' . $count . ' productos</span>';
+    echo '<span class="products-count">' . $count . ' ' . __('filter_products') .'</span>';
 }
 echo '</div>';
 
@@ -92,7 +92,7 @@ if (!empty($products)) {
         echo '</div>'; 
     }
 } else {
-    echo '<div class="no-products"><p>Ahora mismo no hay productos disponibles</p></div>';
+    echo '<div class="no-products"><p>' . __('product_not_available') .'</p></div>';
 }
 
 echo '</div>'; 

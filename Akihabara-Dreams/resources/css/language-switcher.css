@@ -1,0 +1,69 @@
+/* Estilos para el selector de idioma */
+.language-switcher {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .language-button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .language-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .language-current {
+    margin-left: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .language-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .language-dropdown:hover .language-dropdown-content {
+    display: block;
+  }
+  
+  .language-dropdown-content a {
+    color: #333;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+  
+  .language-dropdown-content a:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .language-dropdown-content a.active {
+    background-color: #f0f0f0;
+    font-weight: 600;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .language-dropdown-content {
+      right: -10px;
+    }
+  }
+  

@@ -4,6 +4,7 @@
 // include '../app/controllers/';
 // include '../app/repositories/';
 
+include_once __DIR__ . '/../app/includes/language.php';
 
 include '../app/models/cart.php';
 include '../app/models/cartProduct.php';

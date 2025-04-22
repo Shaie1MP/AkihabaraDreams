@@ -1,3 +1,9 @@
+<?php
+// Incluir el sistema de idiomas si no está incluido
+if (!function_exists('__')) {
+    include_once __DIR__ . '/../../app/includes/language.php';
+}
+?>
 <nav class="navbar">
     <div class="navbar-container">
         <div>
@@ -15,7 +21,7 @@
         <div>
             <ul class="navbar-menu">
                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario'] == 'admin') {
-                    echo "<li><a href='/Akihabara-Dreams/admin' class='navbar-link'>Administración</a></li>";
+                    echo "<li><a href='/Akihabara-Dreams/admin' class='navbar-link'>" . __('nav_admin') . "</a></li>";
                 } 
                 ?>
                 <li>
@@ -28,17 +34,24 @@
                 </li>
                 <li>
                     <a class="navbar-link" id="carrito">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart" style="color: white;">
-                            <circle cx="8" cy="21" r="1"></circle>
-                            <circle cx="19" cy="21" r="1"></circle>
-                            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
-                        </svg>
+                        <div class="cart-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart" style="color: white;">
+                                <circle cx="8" cy="21" r="1"></circle>
+                                <circle cx="19" cy="21" r="1"></circle>
+                                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+                            </svg>
+                            <span id="cart-counter" class="cart-counter">0</span>
+                        </div>
                     </a>
                 </li>
                 <li>
                     <a href="/Akihabara-Dreams/micuenta" class="navbar-link">
-                        <?php echo isset($_SESSION['usuario']) ? htmlspecialchars(unserialize($_SESSION['usuario'])->getUserName()) : 'Cuenta'; ?>
+                        <?php echo isset($_SESSION['usuario']) ? htmlspecialchars(unserialize($_SESSION['usuario'])->getUserName()) : __('nav_account'); ?>
                     </a>
+                </li>
+                <!-- Añadir selector de idioma -->
+                <li>
+                    <?php include __DIR__ . '/language-switcher.php'; ?>
                 </li>
             </ul>
         </div>
@@ -49,7 +62,7 @@
 <div id="sidebar-modal" class="sidebar-modal">
     <div class="sidebar-content">
         <div class="sidebar-header">
-            <h2>MENÚ</h2>
+            <h2><?php echo __('nav_menu'); ?></h2>
             <button id="close-sidebar" class="close-sidebar" aria-label="Cerrar menú">&times;</button>
         </div>
         <div class="sidebar-body">
@@ -62,7 +75,7 @@
                                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
                             </svg>
                         </span>
-                        <span>Inicio</span>
+                        <span><?php echo __('nav_home'); ?></span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
@@ -73,11 +86,11 @@
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
                         </span>
-                        <span>Mi Cuenta</span>
+                        <span><?php echo __('nav_account'); ?></span>
                     </a>
                 </li>
                 
-                <div class="sidebar-category">Productos</div>
+                <div class="sidebar-category"><?php echo __('home_featured'); ?></div>
                 
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/catalogo" class="sidebar-link">
@@ -89,7 +102,7 @@
                                 <rect width="7" height="7" x="3" y="14" rx="1"></rect>
                             </svg>
                         </span>
-                        <span>Catálogo</span>
+                        <span><?php echo __('nav_catalog'); ?></span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
@@ -100,7 +113,7 @@
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                             </svg>
                         </span>
-                        <span>Mangas</span>
+                        <span><?php echo __('nav_mangas'); ?></span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
@@ -115,7 +128,7 @@
                                 <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
                             </svg>
                         </span>
-                        <span>Figuras</span>
+                        <span><?php echo __('nav_figures'); ?></span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
@@ -125,14 +138,14 @@
                                 <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
                             </svg>
                         </span>
-                        <span>Merchandising</span>
+                        <span><?php echo __('nav_merch'); ?></span>
                     </a>
                 </li>
                 
-                <div class="sidebar-category">Compras</div>
+                <div class="sidebar-category"><?php echo __('nav_cart'); ?></div>
                 
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/carrito" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/pedidos/realizar" class="sidebar-link">
                         <span class="sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart">
                                 <circle cx="8" cy="21" r="1"></circle>
@@ -140,7 +153,7 @@
                                 <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
                             </svg>
                         </span>
-                        <span>Carrito</span>
+                        <span><?php echo __('nav_cart'); ?></span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
@@ -151,11 +164,11 @@
                                 <path d="M7 7h.01"></path>
                             </svg>
                         </span>
-                        <span>Promociones</span>
+                        <span><?php echo __('nav_promotions'); ?></span>
                     </a>
                 </li>
                 
-                <div class="sidebar-category">Más</div>
+                <div class="sidebar-category"><?php echo __('footer_contact'); ?></div>
                 
                 <li class="sidebar-menu-item">
                     <a href="/Akihabara-Dreams/contacto" class="sidebar-link">
@@ -165,7 +178,7 @@
                                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                             </svg>
                         </span>
-                        <span>Contacto</span>
+                        <span><?php echo __('nav_contact'); ?></span>
                     </a>
                 </li>
                 <?php if (isset($_SESSION['user'])): ?>
@@ -178,19 +191,46 @@
                                     <line x1="21" x2="9" y1="12" y2="12"></line>
                                 </svg>
                             </span>
-                            <span>Cerrar Sesión</span>
+                            <span><?php echo __('nav_logout'); ?></span>
                         </a>
                     </li>
                 <?php endif; ?>
+                
+                <!-- Selector de idioma en el sidebar -->
+                <li class="sidebar-menu-item">
+                    <div class="sidebar-language-switcher">
+                        <div class="sidebar-category"><?php echo __('language'); ?></div>
+                        <div class="language-options">
+                            <a href="<?php echo getLangUrl('es'); ?>" class="sidebar-link <?php echo isLangActive('es') ? 'active' : ''; ?>">
+                                <span class="sidebar-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flag">
+                                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                                        <line x1="4" x2="4" y1="22" y2="15"></line>
+                                    </svg>
+                                </span>
+                                <span><?php echo __('lang_es'); ?></span>
+                            </a>
+                            <a href="<?php echo getLangUrl('en'); ?>" class="sidebar-link <?php echo isLangActive('en') ? 'active' : ''; ?>">
+                                <span class="sidebar-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flag">
+                                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                                        <line x1="4" x2="4" y1="22" y2="15"></line>
+                                    </svg>
+                                </span>
+                                <span><?php echo __('lang_en'); ?></span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
         
         <div class="sidebar-footer">
             <?php if (!isset($_SESSION['usuario'])): ?>
-                <a href="/Akihabara-Dreams/login" class="sidebar-footer-button">Iniciar Sesión</a>
-                <p class="sidebar-footer-text">¿Aún no tienes cuenta? <a href="/Akihabara-Dreams/login" style="color: var(--primary-color);">Regístrate</a></p>
+                <a href="/Akihabara-Dreams/login" class="sidebar-footer-button"><?php echo __('nav_login'); ?></a>
+                <p class="sidebar-footer-text"><?php echo __('nav_no_account'); ?> <a href="/Akihabara-Dreams/login" style="color: var(--primary-color);"><?php echo __('nav_register'); ?></a></p>
             <?php else: ?>
-                <a href="/Akihabara-Dreams/logout.php" class="sidebar-footer-button">Cerrar Sesión</a>
+                <a href="/Akihabara-Dreams/logout.php" class="sidebar-footer-button"><?php echo __('nav_logout'); ?></a>
             <?php endif; ?>
         </div>
     </div>

@@ -5,7 +5,7 @@ $allProducts = $tempProductsRepo->showProducts();
 
 // Filtrar productos de la categoría "merchandising"
 $merchanProducts = array_filter($allProducts, function($product) {
-    return strtolower($product->getCategory()) === 'merchandising';
+    return strtolower($product->getCategory()) === 'merchandising' || strtolower($product->getCategory()) === 'merchandise';
 });
 
 // Limitar la cantidad de productos a mostrar (por ejemplo, 5)

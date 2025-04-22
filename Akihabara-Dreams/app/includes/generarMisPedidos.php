@@ -6,13 +6,13 @@ if(!empty($orders)){
         echo '<div class="order">';
         echo '<details>';
         echo '<summary class="order-summary">';
-        echo '<h2>Pedido #' . $order->getOrderId() . '</h2>';
-        echo '<p>Dirección: ' . $order->getAddress() . '</p>';
-        echo '<p>Fecha de llegada: ' . $order->getArrivalDate() . '</p>';
-        echo '<p>Estado: ' . $order->getState() . '</p>';
+        echo '<h2>' . __('order') . ' #' . $order->getOrderId() . '</h2>';
+        echo '<p>' . __('order_address'). ': ' . $order->getAddress() . '</p>';
+        echo '<p>' . __('order_arrival_date'). ': ' . $order->getArrivalDate() . '</p>';
+        echo '<p>' . __('order_status'). ': ' . $order->getState() . '</p>';
         echo '</summary>';
         echo '<div class="order-details">';
-        echo '<h3>Detalles del Pedido</h3>';
+        echo '<h3>' . __('order_details') . '</h3>';
         echo '<ul>';
         foreach ($order->getOrderDetails() as $detail) {
             $total += $detail->getSubtotal();
@@ -40,5 +40,5 @@ if(!empty($orders)){
         echo '</div>';
     }
 }else{
-    echo '<p>No has realizado ningún pedido</p>';
+    echo '<p>' . __('order_no_orders'). '</p>';
 }

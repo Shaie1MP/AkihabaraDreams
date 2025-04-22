@@ -4,10 +4,11 @@ class Order{
     private $id_user;
     private $order_date;
     private $arrival_date;
-    private $state;
-    private $orderDetails;
     private $address;
     private $billing;
+    private $state;
+    private $orderDetails;
+    
 
 
     public function __construct($id_order, $id_user, $order_date = null, $arrival_date = null, $address, $billing, $state) {
@@ -15,10 +16,11 @@ class Order{
         $this->id_user = $id_user;
         $this->order_date = $order_date ?: (new DateTime())->format('d-m-Y');
         $this->arrival_date = $arrival_date ?: (new DateTime())->modify('+2 weeks')->format('d-m-Y');
-        $this->state = $state;
-        $this->orderDetails = [];
         $this->address = $address;
         $this->billing = $billing;
+        $this->state = $state;
+        $this->orderDetails = [];
+        
     }
 
     public function getOrderId(){
@@ -37,13 +39,6 @@ class Order{
         return $this->arrival_date;
     }
 
-    public function getState(){
-        return $this->state;
-    }
-
-    public function getOrderDetails(){
-        return $this->orderDetails;
-    }
     public function getAddress(){
         return $this->address;
     }
@@ -51,6 +46,14 @@ class Order{
         return $this->billing;
     }
 
+    public function getState(){
+        return $this->state;
+    }
+
+    public function getOrderDetails(){
+        return $this->orderDetails;
+    }
+    
     public function addOrderDetail(OrderDetails $detail){
         $this->orderDetails[] = $detail;
     }

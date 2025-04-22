@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akihabara Dreams - Tu tienda online de Figuras, mangas y más</title>
+    <title>Akihabara Dreams - <?php echo __('home_subtitle'); ?></title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/cart.css">
@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/index.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/product-grid.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/language-switcher.css">
 </head>
 
 <body>
     <?php
+    // Incluir el sistema de idiomas si no está incluido
+    if (!function_exists('__')) {
+        include_once '../app/includes/language.php';
+    }
+    
     include '../resources/commons/navbar.php';
 
     if(isset($_SESSION['usuario'])){
@@ -21,7 +27,7 @@
         echo '<div id="cartModal" class="cart-modal">
         <div class="cart-modal-content">
             <span class="close">×</span>
-            <p>Debes iniciar sesión para usar el carrito.</p>
+            <p>' . __('cart_login_required') . '</p>
             </div>
             </div>';
     }
@@ -29,15 +35,15 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Bienvenido a Akihabara Dreams</h1>
-            <p>Tu tienda online de  mangas, figuras y merchandising</p>
-            <a href="/Akihabara-Dreams/catalogo" class="cta-button">Explorar productos</a>
+            <h1><?php echo __('home_welcome'); ?></h1>
+            <p><?php echo __('home_subtitle'); ?></p>
+            <a href="/Akihabara-Dreams/catalogo" class="cta-button"><?php echo __('home_explore'); ?></a>
         </div>
-        <img src="../Akihabara-Dreams/resources/images/commons/naruto.png" alt="header-image">
+        <!-- <img src="../Akihabara-Dreams/resources/images/commons/team7.png" alt="header-image"> -->
     </section>
     <div class="container">
         <section class="featured-games">
-            <h2>Productos Destacados</h2>
+            <h2><?php echo __('home_featured'); ?></h2>
             <?php
             include '../app/includes/generarJuegosDestacados.php';
             ?>
@@ -46,8 +52,8 @@
         <!-- Sección de mangas con nuevo estilo -->
         <section class="product-section">
             <div class="section-header">
-                <h2>MANGAS</h2>
-                <a href="/Akihabara-Dreams/mangas" class="section-link-button">Ver todos</a>
+                <h2><?php echo __('home_mangas'); ?></h2>
+                <a href="/Akihabara-Dreams/mangas" class="section-link-button"><?php echo __('home_view_all'); ?></a>
             </div>
 
             <div class="product-grid">
@@ -60,8 +66,8 @@
         <!-- Sección de figuras con nuevo estilo -->
         <section class="product-section">
             <div class="section-header">
-                <h2>FIGURAS</h2>
-                <a href="/Akihabara-Dreams/figuras" class="section-link-button">Ver todos</a>
+                <h2><?php echo __('home_figures'); ?></h2>
+                <a href="/Akihabara-Dreams/figuras" class="section-link-button"><?php echo __('home_view_all'); ?></a>
             </div>
             <div class="product-grid">
                 <?php
@@ -73,8 +79,8 @@
         <!-- Sección de merchandising con nuevo estilo -->
         <section class="product-section">
             <div class="section-header">
-                <h2>MERCHANDISING</h2>
-                <a href="/Akihabara-Dreams/merchandising" class="section-link-button">Ver todos</a>
+                <h2><?php echo __('home_merch'); ?></h2>
+                <a href="/Akihabara-Dreams/merchandising" class="section-link-button"><?php echo __('home_view_all'); ?></a>
             </div>
             <div class="product-grid">
                 <?php
@@ -85,14 +91,9 @@
 
         <section class="about-us">
             <div class="about-text">
-                <h2>Sobre Nosotros</h2>
-                <p>Akihabara Dreams es tu tienda online de confianza para figuras, mangas y mucho más. Nos apasiona la cultura
-                    japonesa y trabajamos cada día para ofrecerte una selección única de productos inspirados en el anime, el
-                    manga y los videojuegos.</p>
-                <p>Desde figuras coleccionables de tus personajes favoritos hasta los últimos lanzamientos de manga, en 
-                    Akihabara Dreams cuidamos cada detalle para brindarte calidad, autenticidad y una experiencia de compra 
-                    inolvidable. Con envíos rápidos a toda España y atención al cliente cercana y especializada, estamos aquí 
-                    para ayudarte a vivir tu pasión al máximo.</p>
+                <h2><?php echo __('home_about_title'); ?></h2>
+                <p><?php echo __('home_about_p1'); ?></p>
+                <p><?php echo __('home_about_p2'); ?></p>
             </div>
 
             <div class="image-container">

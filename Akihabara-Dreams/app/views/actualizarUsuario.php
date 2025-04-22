@@ -8,6 +8,7 @@ include '../app/includes/comprobarRol.php';
     <title>Actualizar Usuario - Akihabara Dreams</title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/information.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/language-switcher.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/form.css">

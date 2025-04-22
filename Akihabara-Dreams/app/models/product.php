@@ -26,7 +26,7 @@ class Product {
     }
 
     public function getName() {
-        return $this->name;
+        return translateProductName($this->id_product, $this->name);
     }
 
     public function getPrice() {
@@ -38,7 +38,7 @@ class Product {
     }
 
     public function getDescription() {
-        return $this->description;
+        return translateProductDescription($this->id_product, $this->description);
     }
 
     public function getStock() {
@@ -46,7 +46,7 @@ class Product {
     }
 
     public function getCategory() {
-        return $this->category;
+        return translateCategory($this->category);
     }
 
     public function getAdditionalPhotos() {

@@ -11,7 +11,7 @@ $userSession = unserialize($_SESSION['usuario']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $userSession->getUsername(); ?></title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
-
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/language-switcher.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/cart.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
@@ -25,7 +25,7 @@ $userSession = unserialize($_SESSION['usuario']);
 
     <div class="container">
         <div class="header">
-            <h1>Información de la cuenta</h1>
+            <h1><?php echo __('account_info')?></h1>
             <div class="avatar">
                 <img src="/Akihabara-Dreams/resources/images/usuarios/<?php echo $userSession->getProfilePic() ?>"
                     alt="Avatar del usuario">
@@ -35,24 +35,24 @@ $userSession = unserialize($_SESSION['usuario']);
             <div class="user-info">
                 <div class="details">
                     <div class="detail-item">
-                        <p><strong>Nombre:</strong></p>
+                        <p><strong><?php echo __('account_name')?>:</strong></p>
                         <p><?php echo $userSession->getName(); ?></p>
                         <br>
                     </div>
                     <div class="detail-item">
-                        <p><strong>Nombre de Usuario:</strong></p>
+                        <p><strong><?php echo __('account_username')?>:</strong></p>
                         <p><?php echo $userSession->getUserName(); ?></p>
                         <br>
                     </div>
                     <div class="detail-item">
-                        <p><strong>Correo:</strong></p>
+                        <p><strong><?php echo __('account_email')?>:</strong></p>
                         <p><?php echo $userSession->getEmail(); ?></p>
                     </div>
                 </div>
             </div>
 
             <div class="addresses">
-                <h2>Direcciones</h2>
+                <h2><?php echo __('account_addresses')?></h2>
                 <?php
                 $addresses = $userSession->getAddresses();
                 $foundedAddress = false;
@@ -65,24 +65,24 @@ $userSession = unserialize($_SESSION['usuario']);
                 }
 
                 if (!$foundedAddress): ?>
-                    <p>No tienes direcciones ahora mismo.</p>
+                    <p><?php echo __('account_no_addresses')?>.</p>
                 <?php else: ?>
                     <?php foreach ($addresses as $index => $address): ?>
                         <?php if ($address !== null&& $address !== ''): ?>
                             <div class="address">
-                                <p>Dirección <?php echo $index + 1; ?></p>
+                                <p><?php echo __('account_address')?> <?php echo $index + 1; ?></p>
                                 <address><?php echo htmlspecialchars($address); ?></address>
                                 <div class="addressAction">
                                     <form action="/Akihabara-Dreams/cookies/defecto" method="post">
                                         <input type="hidden" name="address"
                                             value="<?php echo htmlspecialchars($address); ?>">
-                                        <button type="submit">Dirección por defecto</button>
+                                        <button type="submit"><?php echo __('account_default_address')?></button>
                                     </form>
 
                                     <form action="/Akihabara-Dreams/cookies/facturacion" method="post">
                                         <input type="hidden" name="address"
                                             value="<?php echo htmlspecialchars($address); ?>">
-                                        <button type="submit">Dirección de facturación</button>
+                                        <button type="submit"><?php echo __('account_billing_address')?></button>
                                     </form>
                                 </div>
                             </div>
@@ -92,26 +92,26 @@ $userSession = unserialize($_SESSION['usuario']);
 
             </div>
             <div class="preferences">
-                <h2>Preferencias</h2>
+                <h2><?php echo __('account_preferences')?></h2>
                 <form class="currency-form" action="/Akihabara-Dreams/cookies/divisa" method="post">
                     <div class="currency-selector">
-                        <label for="currency">Elige tu divisa:</label>
+                        <label for="currency"><?php echo __('account_currency')?>:</label>
                         <select id="currency" name="currency">
-                            <option value="eur" <?php echo ($currency === 'eur') ? 'selected' : ''; ?>>EUR - Euro</option>
-                            <option value="usd" <?php echo ($currency === 'usd') ? 'selected' : ''; ?>>USD - Dólar estadounidense</option>
-                            <option value="gbp" <?php echo ($currency === 'gbp') ? 'selected' : ''; ?>>GBP - Libra esterlina</option>
+                            <option value="eur" <?php echo ($currency === 'eur') ? 'selected' : ''; ?>><?php echo __('account_eur')?></option>
+                            <option value="usd" <?php echo ($currency === 'usd') ? 'selected' : ''; ?>><?php echo __('account_usd')?></option>
+                            <option value="gbp" <?php echo ($currency === 'gbp') ? 'selected' : ''; ?>><?php echo __('account_gbp')?></option>
                         </select>
-                        <button type="submit">Guardar Preferencias</button>
+                        <button type="submit"><?php echo __('account_save_changes')?></button>
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="actions">
-            <a href="/Akihabara-Dreams/logout"><button>Cerrar Sesión</button></a>
-            <a href="/Akihabara-Dreams/micuenta/actualizar"><button>Editar Datos</button></a>
-            <a href="/Akihabara-Dreams/pedidos/mispedidos"><button>Ver Mis Pedidos</button></a>
-            <a href="/Akihabara-Dreams/micuenta/borrar"><button>Borrar Cuenta</button></a>
+            <a href="/Akihabara-Dreams/logout"><button><?php echo __('account_close_session')?></button></a>
+            <a href="/Akihabara-Dreams/micuenta/actualizar"><button><?php echo __('account_edit_profile')?></button></a>
+            <a href="/Akihabara-Dreams/pedidos/mispedidos"><button><?php echo __('account_view_orders')?></button></a>
+            <a href="/Akihabara-Dreams/micuenta/borrar"><button><?php echo __('delete_account')?></button></a>
         </div>
     </div>
 

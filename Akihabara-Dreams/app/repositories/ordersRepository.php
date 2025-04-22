@@ -90,9 +90,8 @@ class OrdersRepository {
                 $item['address'],
                 $item['billing'],
                 $item['state']
-                
-                
             );
+            
             $statement = $this->connection->prepare('select * from View_Order_Details where id_order = :id_order');
             $statement->execute(['id_order' => $order->getOrderId()]);
             $details = $statement->fetchAll(PDO::FETCH_ASSOC);

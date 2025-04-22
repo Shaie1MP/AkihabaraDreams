@@ -31,21 +31,21 @@
         </div>
         
         <div class="tax-info">
-            Impuestos incluidos. Los <a href="#">gastos de envío</a> se calculan en la pantalla de pago.
+            <?php echo __('tax-info');?>
         </div>
         
         <div class="stock-info">
-            Estado: 
+            <?php echo __('product_status');?>: 
             <?php if ($product->getStock() > 10): ?>
-                <span class="in-stock">En stock (<?php echo $product->getStock(); ?> disponibles)</span>
+                <span class="in-stock"><?php echo __('product_status_in_stock');?> (<?php echo $product->getStock(); ?> <?php echo __('product_available');?>)</span>
             <?php elseif ($product->getStock() > 0): ?>
-                <span class="low-stock">¡Quedan pocos! (<?php echo $product->getStock(); ?> disponibles)</span>
+                <span class="low-stock"><?php echo __('product_status_low_stock');?> (<?php echo $product->getStock(); ?> <?php echo __('product_available');?>)</span>
             <?php else: ?>
-                <span class="out-of-stock">Agotado</span>
+                <span class="out-of-stock"><?php echo __('product_status_out_of_stock');?></span>
             <?php endif; ?>
         </div>
         
-        <div class="quantity-label">Cantidad</div>
+        <div class="quantity-label"><?php echo __('product_quantity');?>:</div>
         <div class="quantity-selector">
             <button class="quantity-decrease">−</button>
             <input type="text" value="1" min="1" id="product-quantity">
@@ -53,22 +53,22 @@
         </div>
         
         <button class="add-to-cart" data-product-id="<?php echo $product->getId(); ?>">
-            Agregar al carrito
+        <?php echo __('product_add');?>
         </button>
         
         <button class="shop-pay-button" data-product-id="<?php echo $product->getId(); ?>">
-            Comprar ahora
+        <?php echo __('product_buy_now');?>
         </button>
         
         <div class="more-payment-options">
-            <a href="#">Más opciones de pago</a>
+            <a href="#"><?php echo __('product_more_payment');?></a>
         </div>
         
         <div class="product-meta">
             <h2><?php echo $product->getName(); ?></h2>
             
             <div class="meta-item">
-                <div class="meta-item-label">Categoría:</div>
+                <div class="meta-item-label"><?php echo __('product_category');?>:</div>
                 <div class="meta-item-value"><?php echo $product->getCategory(); ?></div>
             </div>
         </div>
@@ -83,7 +83,7 @@
 <div id="cartModal" class="cart-modal">
     <div class="cart-modal-content">
         <span class="close">×</span>
-        <h2>Carrito de Compras</h2>
+        <h2><?php echo __('cart_title');?></h2>
         <div id="cartItemsContainer" class="cart-items-container">
             <?php
             if (isset($_SESSION['carrito'])) {
@@ -109,7 +109,7 @@
                             
                             echo '</div>';
                             echo '<form action="/Akihabara-Dreams/carrito/eliminar/' . $item['product']->getProductId() . '" method="post">
-                            <button class="remove-item" type="submit">Eliminar</button>
+                            <button class="remove-item" type="submit">' . __('cart_remove') . '</button>
                             </form>';
                             echo '</div>';
                         }
@@ -123,9 +123,9 @@
             ?>
         </div>
         <div class="cart-footer">
-            <a href="/Akihabara-Dreams/carrito/vaciar"><button class="cart-button">Vaciar Carrito</button></a>
-            <a href="/Akihabara-Dreams/carrito/guardar"><button class="cart-button">Guardar Carrito</button></a>
-            <a href="/Akihabara-Dreams/pedidos/realizar"><button class="cart-button">Realizar Pedido</button></a>
+            <a href="/Akihabara-Dreams/carrito/vaciar"><button class="cart-button"><?php echo __('cart_empty');?></button></a>
+            <a href="/Akihabara-Dreams/carrito/guardar"><button class="cart-button"><?php echo __('cart_save');?></button></a>
+            <a href="/Akihabara-Dreams/pedidos/realizar"><button class="cart-button"><?php echo __('order_realize');?></button></a>
         </div>
     </div>
 </div>

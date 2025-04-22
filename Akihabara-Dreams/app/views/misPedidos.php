@@ -7,6 +7,7 @@ include '../app/includes/comprobarDivisa.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Pedidos - Akihabara Dreams</title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/language-switcher.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/information.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
@@ -20,7 +21,7 @@ include '../resources/commons/navbar.php';
 ?>
 
     <div class="container">
-        <h1>Mis Pedidos</h1>
+        <h1><?php echo __('order_title')?></h1>
         <div id="orders-container">
             <?php
             include '../app/includes/generarMisPedidos.php';

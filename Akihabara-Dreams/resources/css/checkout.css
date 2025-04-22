@@ -217,6 +217,19 @@
     font-size: 1rem;
     transition: border-color 0.3s;
   }
+
+  #card-number {
+    width: 95%;
+  }
+
+  #card-expiration {
+    width: 90%;
+  }
+
+  #card-cvc {
+    width: 90%;
+    -webkit-text-security: disc;
+  }
   
   .form-group select:focus, .form-group input:focus {
     outline: none;

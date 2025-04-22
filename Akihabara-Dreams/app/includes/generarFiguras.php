@@ -5,7 +5,7 @@ $allProducts = $tempProductsRepo->showProducts();
 
 // Filtrar productos de la categoría "figuras"
 $figureProducts = array_filter($allProducts, function($product) {
-    return strtolower($product->getCategory()) === 'figuras';
+    return strtolower($product->getCategory()) === 'figuras' || strtolower($product->getCategory()) === 'figures';
 });
 
 // Limitar la cantidad de figuras a mostrar (por ejemplo, 5)

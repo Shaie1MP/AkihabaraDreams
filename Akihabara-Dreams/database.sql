@@ -142,6 +142,27 @@ INNER JOIN
 ON 
     dp.id_product = p.id_product;
 
+DELIMITER $$
+CREATE PROCEDURE SaveCart(IN userId INT, IN products JSON)
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    DECLARE quantity INT;
+    DECLARE id_product INT;
+    DECLARE num_products INT;
+    SET num_products = JSON_LENGTH(products);
+    DELETE FROM Cart WHERE id_user = userId;
+    WHILE i < num_products DO
+        SET id_product = JSON_UNQUOTE(JSON_EXTRACT(products, CONCAT('$[', i, '].id_product')));
+        SET quantity = JSON_UNQUOTE(JSON_EXTRACT(products, CONCAT('$[', i, '].quantity')));
+        IF id_product IS NOT NULL AND quantity IS NOT NULL THEN
+            INSERT INTO Cart (id_user, id_product, quantity)
+            VALUES (userId, id_product, quantity);
+        END IF;
+        SET i = i + 1;
+    END WHILE;
+END $$
+DELIMITER ;
+
 INSERT INTO Users (name, username, password, email, phone, address_1, address_2, address_3, profilePic, role) VALUES
 ('Sergio Martín', 'sergio_mu', 'macarrones', 'sergio_mu@gmail.com', '34-65-467-4563', 'Calle Doña Perfecta, 22', null, null, 'sergio_mu.png', 'admin'),
 ('Carlos Pérez', 'carlos123', 'hashed_password_4', 'carlos@email.com', '34-91-123-4567', 'Calle Mayor 12, Madrid', null, null, 'carlos123.jpg', 'usuario'),
@@ -282,18 +303,18 @@ INSERT INTO Product_photos (id_product, photo) VALUES
 (58, 'nezukoAd2.jpg'),
 (61, 'rengokuAd1.jpg'),
 (61, 'rengokuAd2.jpg'),
-(64, 'escanorAd1.jpg'),
-(64, 'escanorAd2.jpg'),
-(67, 'itachiAd1.jpg'),
-(67, 'itachiAd2.jpg'),
-(70, 'mikasaAd1.jpg'),
-(73, 'mickeyAd1.jpg'),
-(73, 'mickeyAd2.jpg'),
-(75, 'ryukAd1.jpg'),
-(75, 'ryukAd2.jpg'),
-(78, 'edwardAd1.jpg'),
-(78, 'edwardAd2.jpg'),
-(80, 'nagiAd1.jpg'),
+(65, 'escanorAd1.jpg'),
+(65, 'escanorAd2.jpg'),
+(68, 'itachiAd1.jpg'),
+(68, 'itachiAd2.jpg'),
+(71, 'mikasaAd1.jpg'),
+(74, 'mickeyAd1.jpg'),
+(74, 'mickeyAd2.jpg'),
+(76, 'ryukAd1.jpg'),
+(76, 'ryukAd2.jpg'),
+(79, 'edwardAd1.jpg'),
+(79, 'edwardAd2.jpg'),
+(81, 'nagiAd1.jpg'),
 (85, 'powerAd1.jpg'),
 (85, 'powerAd2.jpg');
 

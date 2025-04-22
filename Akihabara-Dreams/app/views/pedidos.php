@@ -9,6 +9,7 @@ include '../app/includes/comprobarDivisa.php';
     <title>Pedidos - Akihabara Dreams</title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/information.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/language-switcher.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/pedidos.css">
