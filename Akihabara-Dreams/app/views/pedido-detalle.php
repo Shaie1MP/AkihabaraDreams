@@ -7,10 +7,8 @@ if (!isset($_GET['id'])) {
 
 $orderId = $_GET['id'];
 
-// Obtener el pedido si no está definido
-if (!isset($order)) {
-    $order = $ordersRepository->getOrderById($orderId);
-}
+// Obtener el pedido
+$order = $ordersRepository->getOrderById($orderId);
 
 // Verificar si el pedido existe y pertenece al usuario actual
 if (!$order || $order->getUserId() != unserialize($_SESSION['usuario'])->getId()) {
@@ -23,23 +21,15 @@ if (!function_exists('__')) {
     include_once '../app/includes/language.php';
 }
 
-// Generar el PDF del pedido
-require_once '../app/includes/OrderPdfGenerator.php';
-$pdfGenerator = new OrderPdfGenerator();
-$pdfPath = $pdfGenerator->generateOrderPDF($order, unserialize($_SESSION['usuario']), $currency ?? 'eur', $convertion ?? 1);
-
-// Depuración
-$orderDetails = $order->getOrderDetails();
-error_log("Número de productos en la vista: " . count($orderDetails));
-error_log("Dirección de facturación: " . $order->getBilling());
-error_log("Estado del pedido: " . $order->getState());
+// Incluir comprobarDivisa.php para tener disponibles las variables de moneda
+include_once '../app/includes/comprobarDivisa.php';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo getCurrentLang(); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo __('order_confirmation_title'); ?> - Akihabara Dreams</title>
+    <title><?php echo __('order_details_title'); ?> #<?php echo $order->getOrderId(); ?> - Akihabara Dreams</title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
@@ -54,16 +44,10 @@ error_log("Estado del pedido: " . $order->getState());
     
     <div class="confirmation-container">
         <div class="confirmation-header">
-            <div class="confirmation-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h1><?php echo __('order_confirmation_title'); ?></h1>
-            <p><?php echo __('order_confirmation_message'); ?></p>
+            <h1><?php echo __('order_details_title'); ?> #<?php echo $order->getOrderId(); ?></h1>
         </div>
         
         <div class="order-details">
-            <h2><?php echo __('order_details_title'); ?> #<?php echo $order->getOrderId(); ?></h2>
-            
             <div class="order-info">
                 <div class="info-group">
                     <h3><?php echo __('order_date'); ?></h3>
@@ -161,9 +145,8 @@ error_log("Estado del pedido: " . $order->getState());
         </div>
         
         <div class="confirmation-actions">
-            <p><?php echo __('order_email_sent'); ?></p>
             <div class="action-buttons">
-                <a href="<?php echo $pdfPath; ?>" class="btn-secondary" target="_blank">
+                <a href="/Akihabara-Dreams/pedidos/pdf?id=<?php echo $order->getOrderId(); ?>" class="btn-secondary" target="_blank">
                     <i class="fas fa-file-pdf"></i> Descargar Recibo PDF
                 </a>
                 <a href="/Akihabara-Dreams/pedidos/mispedidos" class="btn-secondary">

@@ -38,6 +38,11 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
         $symbol = '£';
     }
     
+    // Generar el PDF del pedido
+    require_once __DIR__ . '/OrderPdfGenerator.php';
+    $pdfGenerator = new OrderPdfGenerator();
+    $pdfPath = $pdfGenerator->generateOrderPDF($order, $user, $currency, $conversionRate);
+    
     // Construir el asunto del correo
     $subject = 'Confirmación de pedido #' . $order->getOrderId() . ' - Akihabara Dreams';
     
@@ -98,10 +103,15 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
     $message .= '<tfoot>';
     $message .= '<tr>';
     $message .= '<td colspan="2" style="padding: 10px; text-align: right; font-weight: bold;">Total:</td>';
-    $message .= '<td style="padding: 10px; text-align: right; font-weight: bold;">' . number_format($displayTotal, 2) . $symbol .'</td>';
+    $message .= '<td style="padding: 10px; text-align: right; font-weight: bold;">' . $symbol . number_format($displayTotal, 2) . '</td>';
     $message .= '</tr>';
     $message .= '</tfoot>';
     $message .= '</table>';
+    
+    // Añadir enlace al PDF
+    $message .= '<div style="text-align: center; margin: 30px 0;">';
+    $message .= '<a href="https://akihabara-dreams.com' . $pdfPath . '" style="background-color: #ff6347; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Descargar Recibo PDF</a>';
+    $message .= '</div>';
     
     $message .= '<p>Si tienes alguna pregunta sobre tu pedido, no dudes en contactarnos respondiendo a este correo o a través de nuestra sección de <a href="https://akihabara-dreams.com/contacto" style="color: #ff6347; text-decoration: none;">contacto</a>.</p>';
     
@@ -117,7 +127,7 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
     $headers = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
     $headers .= "From: Akihabara Dreams <noreply@akihabara-dreams.com>\r\n";
-    $headers .= "Reply-To: soporte@akihabara-dreams.com\r\n"; // Corregido: faltaba el cierre de comillas
+    $headers .= "Reply-To: soporte@akihabara-dreams.com\r\n";
     
     // Intentar usar PHPMailer si está disponible
     if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
@@ -129,6 +139,12 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
             $mail->addAddress($user->getEmail(), $user->getName());
             $mail->Subject = $subject;
             $mail->Body = $message;
+            
+            // Adjuntar el PDF al correo
+            $fullPdfPath = $_SERVER['DOCUMENT_ROOT'] . $pdfPath;
+            if (file_exists($fullPdfPath)) {
+                $mail->addAttachment($fullPdfPath, 'Recibo_Pedido_' . $order->getOrderId() . '.pdf');
+            }
             
             $result = $mail->send();
             error_log("Correo enviado con PHPMailer: " . ($result ? "Éxito" : "Fallo"));
@@ -159,56 +175,11 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
 }
 
 /**
- * Genera un recibo en formato PDF para un pedido
- * 
- * @param Order $order Pedido para el que se generará el recibo
- * @param User $user Usuario que realizó la compra
- * @param string $currency Moneda utilizada (eur, usd, gbp)
- * @param float $conversionRate Tasa de conversión si no es euro
- * @return string Ruta al archivo PDF generado
- */
-function generateOrderPDF($order, $user, $currency = 'eur', $conversionRate = 1) {
-    // Esta función requiere una biblioteca como FPDF o TCPDF
-    // Aquí se implementaría la generación del PDF
-    
-    // Ejemplo de implementación básica (pseudocódigo)
-    /*
-    require_once('tcpdf/tcpdf.php');
-    
-    $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8');
-    $pdf->SetCreator('Akihabara Dreams');
-    $pdf->SetAuthor('Akihabara Dreams');
-    $pdf->SetTitle('Pedido #' . $order->getOrderId());
-    $pdf->SetSubject('Recibo de compra');
-    
-    $pdf->AddPage();
-    
-    // Añadir logo
-    $pdf->Image('path/to/logo.png', 10, 10, 50);
-    
-    // Añadir información del pedido
-    $pdf->SetFont('helvetica', 'B', 16);
-    $pdf->Cell(0, 10, 'Recibo de Compra - Pedido #' . $order->getOrderId(), 0, 1, 'C');
-    
-    // ... Resto de la implementación ...
-    
-    $pdfPath = 'receipts/order_' . $order->getOrderId() . '.pdf';
-    $pdf->Output($pdfPath, 'F');
-    
-    return $pdfPath;
-    */
-    
-    // Por ahora, devolvemos una ruta ficticia
-    return 'receipts/order_' . $order->getOrderId() . '.pdf';
-}
-
-/**
  * Función para encriptar datos (importada de CookieController)
  * 
  * @param string $data Datos a encriptar
  * @return string Datos encriptados en base64
  */
-
 function encrypt($data) {
     $key = hash('sha256', 'macarrones', true);
     $iv = openssl_random_pseudo_bytes(16);
@@ -222,7 +193,6 @@ function encrypt($data) {
  * @param string $data Datos encriptados en base64
  * @return string Datos desencriptados
  */
-
 function decrypt($data) {
     $key = hash('sha256', 'macarrones', true);
     $data = base64_decode($data);
