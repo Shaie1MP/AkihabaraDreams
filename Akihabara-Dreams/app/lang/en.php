@@ -55,7 +55,6 @@ return [
     'order_arrival_date' => 'Arrival Date',
     'order_no_orders' => 'You have no orders yet.',
 
-    
     // Product
     'product_price' => 'Price',
     'product_category' => 'Category',

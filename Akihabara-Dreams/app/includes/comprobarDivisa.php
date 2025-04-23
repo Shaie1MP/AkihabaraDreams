@@ -1,19 +1,29 @@
 <?php
-
+// Verificar si existe una cookie de divisa
 if (isset($_COOKIE['divisa'])) {
     $currency = strtolower($_COOKIE['divisa']);
-    if ($currency == 'usd') {
-        $symbol = '$';
-        $convertion = 1.07;
-    } else if ($currency == 'gbp') {
-        $symbol = '£';
-        $convertion = 0.83;
-    } else {
-        $symbol = '€';
+    
+    // Establecer el símbolo y la tasa de conversión según la divisa
+    switch ($currency) {
+        case 'usd':
+            $symbol = '$';
+            $convertion = 1.07; // Tasa de conversión EUR a USD
+            break;
+        case 'gbp':
+            $symbol = '£';
+            $convertion = 0.83; // Tasa de conversión EUR a GBP
+            break;
+        default:
+            $symbol = '€';
+            $convertion = 1;
+            $currency = 'eur';
     }
-}else {
-    setcookie('divisa', 'eur', time()+3600*24*7, '/');
+} else {
+    // Valores por defecto si no hay cookie
     $symbol = '€';
-    $currency='eur';
+    $convertion = 1;
+    $currency = 'eur';
 }
 
+// Depuración
+error_log("Moneda actual: $currency, Símbolo: $symbol, Tasa de conversión: $convertion");

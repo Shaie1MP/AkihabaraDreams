@@ -7,7 +7,7 @@ if(!empty($orders)){
         echo '<details>';
         echo '<summary class="order-summary">';
         echo '<h2>' . __('order') . ' #' . $order->getOrderId() . '</h2>';
-        echo '<p>' . __('order_address'). ': ' . $order->getAddress() . '</p>';
+        echo '<p>' . __('order_address'). ': ' . $order->getBilling() . '</p>';
         echo '<p>' . __('order_arrival_date'). ': ' . $order->getArrivalDate() . '</p>';
         echo '<p>' . __('order_status'). ': ' . $order->getState() . '</p>';
         echo '</summary>';
