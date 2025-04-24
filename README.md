@@ -21,9 +21,12 @@
 │
 ├── app/
 │   ├── controllers/         # Lógica de controladores
-│   ├── includes/            # Archivos compartidos (header, footer, etc.)
+│   ├── includes/            # Archivos compartidos
+│   ├── lang/                # Archivos para la traducción de la página
 │   ├── models/              # Modelos de datos
 │   ├── repositories/        # Acceso y gestión de datos
+│   ├── translations/        # Archivos con los datos de la BDD traducidos
+│   ├── routes.php           # Archivo para la rutas de confirmación de pedido y descarga de pdf
 │   └── views/               # Vistas HTML/PHP
 │
 ├── config/
