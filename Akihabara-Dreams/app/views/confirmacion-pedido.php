@@ -163,7 +163,7 @@ error_log("Estado del pedido: " . $order->getState());
         <div class="confirmation-actions">
             <p><?php echo __('order_email_sent'); ?></p>
             <div class="action-buttons">
-                <a href="<?php echo $pdfPath; ?>" class="btn-secondary" target="_blank">
+                <a href="/Akihabara-Dreams/pedidos/pdf?id=<?php echo $order->getOrderId(); ?>" class="btn-secondary">
                     <i class="fas fa-file-pdf"></i> Descargar Recibo PDF
                 </a>
                 <a href="/Akihabara-Dreams/pedidos/mispedidos" class="btn-secondary">

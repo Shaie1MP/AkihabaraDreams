@@ -3,6 +3,9 @@
 if (!function_exists('__')) {
     include_once __DIR__ . '/../../app/includes/language.php';
 }
+
+// Incluir la clase User antes de deserializar
+include_once __DIR__ . '/../../app/models/User.php';
 ?>
 <nav class="navbar">
     <div class="navbar-container">

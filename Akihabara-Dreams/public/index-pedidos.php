@@ -13,6 +13,11 @@ switch ($action) {
     case 'confirmacion':
         $controller->showConfirmation($_GET['id'] ?? 0);
         break;
+    case 'pdf':
+        // Manejar la descarga del PDF directamente
+        $orderId = isset($_GET['id']) ? $_GET['id'] : 0;
+        $controller->downloadPdf($orderId);
+        break;
     case 'create':
         if (isset($_POST['card-information'])) {
             $cookieController = new CookieController();

@@ -146,7 +146,7 @@ include_once '../app/includes/comprobarDivisa.php';
         
         <div class="confirmation-actions">
             <div class="action-buttons">
-                <a href="/Akihabara-Dreams/pedidos/pdf?id=<?php echo $order->getOrderId(); ?>" class="btn-secondary" target="_blank">
+                <a href="/Akihabara-Dreams/pedidos/pdf?id=<?php echo $order->getOrderId(); ?>" class="btn-secondary">
                     <i class="fas fa-file-pdf"></i> Descargar Recibo PDF
                 </a>
                 <a href="/Akihabara-Dreams/pedidos/mispedidos" class="btn-secondary">
