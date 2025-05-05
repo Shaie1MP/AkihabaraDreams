@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/index.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/product-grid.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/language-switcher.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/promociones.css">
 </head>
 
 <body>
@@ -39,7 +40,6 @@
             <p><?php echo __('home_subtitle'); ?></p>
             <a href="/Akihabara-Dreams/catalogo" class="cta-button"><?php echo __('home_explore'); ?></a>
         </div>
-        <!-- <img src="../Akihabara-Dreams/resources/images/commons/team7.png" alt="header-image"> -->
     </section>
     <div class="container">
         <section class="featured-games">
@@ -49,7 +49,20 @@
             ?>
         </section>
 
-        <!-- Sección de mangas con nuevo estilo -->
+        <!-- Sección de promociones -->
+        <section class="product-section promociones-section">
+            <div class="section-header">
+                <h2>DESCUENTOS</h2>
+                <a href="/Akihabara-Dreams/ofertas" class="section-link-button">Ver todos</a>
+            </div>
+            <div class="product-grid">
+                <?php
+                include '../app/includes/generarPromocionesIndex.php';
+                ?>
+            </div>
+        </section>
+
+        <!-- Sección de mangas -->
         <section class="product-section">
             <div class="section-header">
                 <h2><?php echo __('home_mangas'); ?></h2>
@@ -63,7 +76,7 @@
             </div>
         </section>
 
-        <!-- Sección de figuras con nuevo estilo -->
+        <!-- Sección de figuras -->
         <section class="product-section">
             <div class="section-header">
                 <h2><?php echo __('home_figures'); ?></h2>
@@ -76,7 +89,7 @@
             </div>
         </section>
 
-        <!-- Sección de merchandising con nuevo estilo -->
+        <!-- Sección de merchandising -->
         <section class="product-section">
             <div class="section-header">
                 <h2><?php echo __('home_merch'); ?></h2>

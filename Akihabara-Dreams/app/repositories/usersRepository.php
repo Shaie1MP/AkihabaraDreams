@@ -14,7 +14,7 @@ class UsersRepository {
 
         $users = [];
         foreach ($result as $item) {
-            $usuarios[] = new User(
+            $users[] = new User(
                 $item['id_user'],
                 $item['name'],
                 $item['username'],
@@ -35,8 +35,12 @@ class UsersRepository {
     public function searchUser($id) {
         $statement = $this->connection->prepare('select * from Users where id_user = :id_user');
         $statement->execute(['id_user' => $id]);
-
+        
         $result = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$result) {
+            throw new Exception('Usuario no encontrado');
+        }
 
         return new User(
             $result['id_user'],

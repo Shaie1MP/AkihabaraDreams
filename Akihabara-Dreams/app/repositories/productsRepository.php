@@ -103,7 +103,8 @@ class ProductsRepository {
         $product = $this->searchProduct($id);
 
         $statement = $this->connection->prepare('delete from Products where id_product = :id_product');
-        $statement->execute(['id' => $id]);
+        $statement->execute(['id_product' => $id]);
+
         return $product;
     }
 
@@ -111,10 +112,10 @@ class ProductsRepository {
         try {
             $this->connection->beginTransaction();
 
-            $statement = $this->connection->prepare('update productos set name = :name, 
+            $statement = $this->connection->prepare('update Products set name = :name, 
                                                                     price = :price, 
                                                                     photo = :photo, 
-                                                                    description =: description, 
+                                                                    description = :description, 
                                                                     stock = :stock,
                                                                     category = :category 
                                                 where id_product = :id_product');

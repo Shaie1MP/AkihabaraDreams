@@ -33,6 +33,11 @@ class OtthersController {
         include '../app/views/catalogo.php';
     }
 
+    public function promotions(){
+        $products = $this->othersRepository->promotions();
+        include '../app/views/catalogo.php';
+    }
+
     public function index(){
         $products = $this->othersRepository->index();
         include '../app/views/index.php';

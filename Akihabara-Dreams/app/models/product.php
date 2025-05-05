@@ -9,6 +9,11 @@ class Product {
     protected $stock;
     protected $category;
     protected $additionalPhotos;
+    public $promotion = null;
+
+    private  $discount = null;
+    private  $promotionDescription = null;
+    private  $discountedPrice = null;
 
     public function __construct($id_product, $name, $price, $photo, $description, $stock, $category) {
         $this->id_product = $id_product;
@@ -56,7 +61,33 @@ class Product {
     public function addPhotos($photoname) {
         array_push($this->additionalPhotos, $photoname);
     }
+
+    // Métodos para promociones
+    public function hasPromotion(): bool {
+        return $this->discount !== null && $this->discount > 0;
+    }
+
+    public function getDiscount(): ?float {
+        return $this->discount;
+    }
+
+    public function setDiscount(?float $discount): void {
+        $this->discount = $discount;
+    }
+
+    public function getPromotionDescription(): ?string {
+        return $this->promotionDescription;
+    }
+
+    public function setPromotionDescription(?string $promotionDescription): void {
+        $this->promotionDescription = $promotionDescription;
+    }
+
+    public function getDiscountedPrice(): ?float {
+        return $this->discountedPrice;
+    }
+
+    public function setDiscountedPrice(?float $discountedPrice): void {
+        $this->discountedPrice = $discountedPrice;
+    }
 }
-
-
-

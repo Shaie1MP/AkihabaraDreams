@@ -9,6 +9,7 @@ echo '<option value="recent">' . __('filter_recent') .'</option>';
 echo '<option value="old">' . __('filter_old') .'</option>';
 echo '<option value="price-low">' . __('filter_price_low_high') .'</option>';
 echo '<option value="price-high">' . __('filter_price_high_low') .'</option>';
+echo '<option value="discount">' . __('filter_discount') .'</option>';
 echo '</select>';
 echo '</div>';
 
@@ -25,14 +26,14 @@ echo '<div class="products-grid">';
 // Generación de productos
 if (!empty($products)) {
     foreach ($products as $product) {
-        // Determinar si el producto está en oferta (ejemplo: si tiene un precio original mayor)
-        $isOnSale = isset($product->getOriginalPrice) && $product->getOriginalPrice() > $product->getPrice();
+        // Determinar si el producto está en promoción
+        $isOnPromotion = $product->hasPromotion();
         
-        // Determinar la categoría del producto (asumiendo que existe un método getCategory)
+        // Determinar la categoría del producto
         $category = method_exists($product, 'getCategory') ? $product->getCategory() : '';
         
-        // Determinar el rango de precio
-        $price = $product->getPrice();
+        // Determinar el rango de precio (usando el precio con descuento si está en promoción)
+        $price = $isOnPromotion ? $product->getDiscountedPrice() : $product->getPrice();
         $priceRange = '';
         if ($price <= 20) {
             $priceRange = '0-20';
@@ -44,19 +45,35 @@ if (!empty($products)) {
             $priceRange = '100+';
         }
         
-        // Determinar disponibilidad (asumiendo que existe un método getStock)
+        // Determinar disponibilidad
         $stock = method_exists($product, 'getStock') ? $product->getStock() : 0;
         $availability = $stock > 0 ? 'in-stock' : 'out-of-stock';
+        
+        // Determinar descuento para filtrado
+        $discount = $isOnPromotion ? $product->getDiscount() : 0;
+        $discountRange = '';
+        if ($discount > 0) {
+            if ($discount <= 10) {
+                $discountRange = '0-10';
+            } elseif ($discount <= 25) {
+                $discountRange = '10-25';
+            } elseif ($discount <= 50) {
+                $discountRange = '25-50';
+            } else {
+                $discountRange = '50+';
+            }
+        }
         
         echo '<div class="product" 
                  onclick="window.location.href=\'/Akihabara-Dreams/productos/info/' . $product->getId() . '\'"
                  data-category="' . htmlspecialchars($category) . '"
                  data-price="' . $priceRange . '"
-                 data-availability="' . $availability . '">';
+                 data-availability="' . $availability . '"
+                 data-discount="' . $discountRange . '">';
         
-        // Etiqueta de oferta si aplica
-        if ($isOnSale) {
-            echo '<div class="offer-badge">Oferta</div>';
+        // Etiqueta de promoción si aplica
+        if ($isOnPromotion) {
+            echo '<div class="promocion-badge">' . $product->getDiscount() . '% OFF</div>';
         }
         
         echo '<div class="product-inner">';
@@ -72,18 +89,23 @@ if (!empty($products)) {
         
         // Precio
         echo '<div class="price">';
-        if ($isOnSale && isset($product->getOriginalPrice)) {
+        if ($isOnPromotion) {
             if ($symbol !== '€') {
-                echo '<span class="original-price">' . $symbol . number_format($product->getOriginalPrice() * $convertion, 2) . '</span>';
+                echo '<span class="precio-original">' . $symbol . number_format($product->getPrice() * $convertion, 2) . '</span>';
+                echo '<span class="precio-descuento">' . $symbol . number_format($product->getDiscountedPrice() * $convertion, 2) . '</span>';
             } else {
-                echo '<span class="original-price">' . $product->getOriginalPrice() . '€</span>';
+                echo '<span class="precio-original">' . number_format($product->getPrice(), 2) . '€</span>';
+                echo '<span class="precio-descuento">' . number_format($product->getDiscountedPrice(), 2) . '€</span>';
             }
-        }
-        
-        if ($symbol !== '€') {
-            echo '<span>' . $symbol . number_format($product->getPrice() * $convertion, 2) . '</span>';
+            
+            // Mostrar descripción de la promoción
+            echo '<div class="promocion-descripcion">' . htmlspecialchars($product->getPromotionDescription()) . '</div>';
         } else {
-            echo '<span>' . $product->getPrice() . '€</span>';
+            if ($symbol !== '€') {
+                echo '<span>' . $symbol . number_format($product->getPrice() * $convertion, 2) . '</span>';
+            } else {
+                echo '<span>' . number_format($product->getPrice(), 2) . '€</span>';
+            }
         }
         echo '</div>'; 
         

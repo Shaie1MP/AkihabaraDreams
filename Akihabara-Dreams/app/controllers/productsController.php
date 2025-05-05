@@ -44,7 +44,7 @@ class ProductsController {
                 array_push($errors, $item);
             }
             if ($item['name'] != null && $item['tmp_name'] != null) {
-                $fotosFinales[] = ['name' => $item['name'], 'tmp_name' => $item['tmp_name']];
+                $finalPhotos[] = ['name' => $item['name'], 'tmp_name' => $item['tmp_name']];
             }
         }
         $photo = $_FILES['photo'] ?? null;
@@ -85,7 +85,7 @@ class ProductsController {
             $route = str_replace('\\', '/', $route);
             
             foreach ($finalPhotos as $item) {
-                if (!move_uploaded_file($item['tmp_name'], $route . $item['nombre'])) {
+                if (!move_uploaded_file($item['tmp_name'], $route . $item['name'])) {
                     throw new Exception('No se ha podido guardar la foto');
                 }
             }
@@ -235,8 +235,8 @@ class ProductsController {
         }
 
         if (empty($errors)) {
-            if (!empty($fotosFinales)) {
-                foreach ($fotosFinales as $item) {
+            if (!empty($finalPhotos)) {
+                foreach ($finalPhotos as $item) {
                     $product->addPhotos($item['name']);
                 }
             }

@@ -45,13 +45,14 @@ if (isset($_COOKIE['tarjeta'])) {
             document.querySelector('.modal-overlay').style.display = 'none';
         }
     </script>
+    <script src="/Akihabara-Dreams/resources/js/validacion-tarjeta.js"></script>
 </head>
 
 <body>
     <?php
     include '../resources/commons/navbar.php';
     ?>
-    
+
     <div class="checkout-container">
         <div class="checkout-header">
             <h1>Finalizar Compra</h1>
@@ -76,7 +77,7 @@ if (isset($_COOKIE['tarjeta'])) {
         <div class="checkout-content">
             <div class="order-summary">
                 <h2>Resumen del Pedido</h2>
-                
+
                 <div class="cart-items">
                     <?php
                     $total = 0;
@@ -85,7 +86,7 @@ if (isset($_COOKIE['tarjeta'])) {
                         $unityPrice = $item['product']->getPrice();
                         $totalItem = $unityPrice * $item['quantity'];
                         $total += $totalItem;
-                        
+
                         echo '<div class="cart-item">';
                         echo '<div class="item-image">';
                         echo '<img src="/Akihabara-Dreams/resources/images/productos/portadas/' . $item['product']->getMainPhoto() . '" alt="' . $item['product']->getProductName() . '">';
@@ -97,20 +98,20 @@ if (isset($_COOKIE['tarjeta'])) {
                         echo '</div>';
                         echo '</div>';
                         echo '<div class="item-total">';
-                        
+
                         if ($symbol === '€') {
                             echo '<span>' . number_format($totalItem, 2) . '€</span>';
                         } else {
                             $totalConvertedItem = $totalItem * $convertion;
                             echo '<span>' . $symbol . number_format($totalConvertedItem, 2) . '</span>';
                         }
-                        
+
                         echo '</div>';
                         echo '</div>';
                     }
                     ?>
                 </div>
-                
+
                 <div class="order-totals">
                     <div class="subtotal">
                         <span>Subtotal</span>
@@ -145,7 +146,7 @@ if (isset($_COOKIE['tarjeta'])) {
 
             <div class="shipping-info">
                 <h2>Información de Envío</h2>
-                
+
                 <form id="order-form" action="/Akihabara-Dreams/pedidos/create" method="POST">
                     <div class="form-group">
                         <label for="shipping-address">
@@ -162,7 +163,7 @@ if (isset($_COOKIE['tarjeta'])) {
                             ?>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="billing-address">
                             <i class="fas fa-file-invoice"></i> Dirección de Facturación
@@ -178,47 +179,47 @@ if (isset($_COOKIE['tarjeta'])) {
                             ?>
                         </select>
                     </div>
-                    
+
                     <button type="button" class="btn-primary" onclick="openModal()">
                         <i class="fas fa-credit-card"></i> Proceder al Pago
                     </button>
-                
+
                     <div class="modal-overlay" onclick="closeModal()">
                         <div class="modal-content" onclick="event.stopPropagation()">
                             <button class="close-modal" onclick="closeModal()">×</button>
                             <h3>Información de Pago</h3>
-                            
+
                             <div class="form-group">
                                 <label for="card-number">
                                     <i class="far fa-credit-card"></i> Número de Tarjeta
                                 </label>
                                 <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456"
-                                    required value="<?php echo isset($number) ? htmlspecialchars($number) : '' ?>">
+                                    maxlength="19" required value="<?php echo isset($number) ? htmlspecialchars($number) : '' ?>">
                             </div>
-                            
+
                             <div class="payment-row">
                                 <div class="form-group">
                                     <label for="card-expiration">
                                         <i class="far fa-calendar-alt"></i> Fecha de Expiración
                                     </label>
-                                    <input type="text" id="card-expiration" name="card-expiration" placeholder="MM/AA" required
-                                        value="<?php echo isset($date) ? htmlspecialchars($date) : '' ?>">
+                                    <input type="text" id="card-expiration" name="card-expiration" placeholder="MM/AA"
+                                        maxlength="5" required value="<?php echo isset($date) ? htmlspecialchars($date) : '' ?>">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="card-cvc">
                                         <i class="fas fa-lock"></i> CVC
                                     </label>
-                                    <input type="text" id="card-cvc" name="card-cvc" placeholder="123" required
-                                        value="<?php echo isset($cvc) ? htmlspecialchars($cvc) : '' ?>">
+                                    <input type="text" id="card-cvc" name="card-cvc" placeholder="123"
+                                        maxlength="4" required value="<?php echo isset($cvc) ? htmlspecialchars($cvc) : '' ?>">
                                 </div>
                             </div>
-                            
+
                             <div class="form-group checkbox-group">
                                 <input type="checkbox" id="save-card" name="card-information">
                                 <label for="save-card">Guardar información de la tarjeta</label>
                             </div>
-                            
+
                             <button type="submit" class="btn-primary">
                                 <i class="fas fa-lock"></i> Pagar Ahora
                             </button>

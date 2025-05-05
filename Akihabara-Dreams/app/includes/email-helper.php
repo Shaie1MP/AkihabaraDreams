@@ -2,6 +2,9 @@
 /**
  * Funciones auxiliares para el envío de correos electrónicos
  */
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 /**
  * Función para depurar errores
@@ -123,55 +126,72 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
     $message .= '</div>';
     $message .= '</body></html>';
     
-    // Cabeceras para enviar correo HTML
-    $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-    $headers .= "From: Akihabara Dreams <noreply@akihabara-dreams.com>\r\n";
-    $headers .= "Reply-To: soporte@akihabara-dreams.com\r\n";
+    // Cargar configuración de correo
+    $config = include __DIR__ . '/../config/mail.php';
     
-    // Intentar usar PHPMailer si está disponible
-    if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
-        try {
-            $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-            $mail->CharSet = 'UTF-8';
-            $mail->isHTML(true);
-            $mail->setFrom('noreply@akihabara-dreams.com', 'Akihabara Dreams');
-            $mail->addAddress($user->getEmail(), $user->getName());
-            $mail->Subject = $subject;
-            $mail->Body = $message;
-            
-            // Adjuntar el PDF al correo
-            $fullPdfPath = $_SERVER['DOCUMENT_ROOT'] . $pdfPath;
-            if (file_exists($fullPdfPath)) {
-                $mail->addAttachment($fullPdfPath, 'Recibo_Pedido_' . $order->getOrderId() . '.pdf');
-            }
-            
-            $result = $mail->send();
-            error_log("Correo enviado con PHPMailer: " . ($result ? "Éxito" : "Fallo"));
-            return $result;
-        } catch (Exception $e) {
-            error_log("Error al enviar correo con PHPMailer: " . $e->getMessage());
-            // Si falla PHPMailer, intentamos con mail()
+    // Guardar el correo en un archivo (útil para desarrollo)
+    if ($config['development']['save_to_file']) {
+        $emailFile = $config['development']['log_directory'] . 'order_' . $order->getOrderId() . '_' . time() . '.html';
+        
+        // Crear directorio si no existe
+        if (!is_dir(dirname($emailFile))) {
+            mkdir(dirname($emailFile), 0777, true);
         }
+        
+        // Guardar el correo en un archivo
+        file_put_contents($emailFile, $message);
+        error_log("Correo guardado en archivo: " . $emailFile);
     }
     
-    // Alternativa: Guardar el correo en un archivo (útil para desarrollo)
-    $emailFile = __DIR__ . '/../../logs/emails/order_' . $order->getOrderId() . '_' . time() . '.html';
-    
-    // Crear directorio si no existe
-    if (!is_dir(dirname($emailFile))) {
-        mkdir(dirname($emailFile), 0777, true);
+    // Intentar usar PHPMailer
+    try {
+        $mail = new PHPMailer(true);
+        
+        // Configuración del servidor
+        $mail->isSMTP();
+        $mail->Host = $config['smtp']['host'];
+        $mail->SMTPAuth = $config['smtp']['auth'];
+        $mail->Username = $config['smtp']['username'];
+        $mail->Password = $config['smtp']['password'];
+        $mail->SMTPSecure = $config['smtp']['encryption'];
+        $mail->Port = $config['smtp']['port'];
+        
+        // Habilitar debug SMTP (0 = desactivado, 1 = mensajes cliente, 2 = mensajes cliente y servidor)
+        $mail->SMTPDebug = 0;
+        
+        // Configuración del correo
+        $mail->CharSet = 'UTF-8';
+        $mail->isHTML(true);
+        $mail->setFrom($config['from']['address'], $config['from']['name']);
+        $mail->addAddress($user->getEmail(), $user->getName());
+        $mail->addReplyTo($config['reply_to']['address'], $config['reply_to']['name']);
+        $mail->Subject = $subject;
+        $mail->Body = $message;
+        
+        // Adjuntar el PDF al correo
+        $fullPdfPath = $_SERVER['DOCUMENT_ROOT'] . $pdfPath;
+        if (file_exists($fullPdfPath)) {
+            $mail->addAttachment($fullPdfPath, 'Recibo_Pedido_' . $order->getOrderId() . '.pdf');
+        }
+        
+        // Enviar el correo
+        $result = $mail->send();
+        error_log("Correo enviado con PHPMailer: " . ($result ? "Éxito" : "Fallo"));
+        return $result;
+    } catch (Exception $e) {
+        error_log("Error al enviar correo con PHPMailer: " . $e->getMessage());
+        
+        // Si falla PHPMailer, intentamos con mail() como último recurso
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+        $headers .= "From: {$config['from']['name']} <{$config['from']['address']}>\r\n";
+        $headers .= "Reply-To: {$config['reply_to']['name']} <{$config['reply_to']['address']}>\r\n";
+        
+        $mailResult = mail($user->getEmail(), $subject, $message, $headers);
+        error_log("Resultado de mail(): " . ($mailResult ? "Éxito" : "Fallo"));
+        
+        return $mailResult;
     }
-    
-    // Guardar el correo en un archivo
-    file_put_contents($emailFile, $message);
-    error_log("Correo guardado en archivo: " . $emailFile);
-    
-    // Intentar enviar con mail() como último recurso
-    $mailResult = mail($user->getEmail(), $subject, $message, $headers);
-    error_log("Resultado de mail(): " . ($mailResult ? "Éxito" : "Fallo"));
-    
-    return $mailResult;
 }
 
 /**

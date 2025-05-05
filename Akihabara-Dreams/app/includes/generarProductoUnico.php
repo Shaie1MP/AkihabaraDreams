@@ -2,77 +2,86 @@
     <!-- Sección de imágenes -->
     <div class="product-images">
         <div class="main-image">
-            <img src="/Akihabara-Dreams/resources/images/productos/portadas/<?php echo $product->getPhoto(); ?>" 
-                 alt="<?php echo $product->getName(); ?>" class="game-image">
+            <img src="/Akihabara-Dreams/resources/images/productos/portadas/<?php echo $product->getPhoto(); ?>"
+                alt="<?php echo $product->getName(); ?>" class="game-image">
         </div>
-        
+
         <?php if (!empty($product->getAdditionalPhotos())): ?>
-        <div class="image-thumbnails">
-            <div class="thumbnail active">
-                <img src="/Akihabara-Dreams/resources/images/productos/portadas/<?php echo $product->getPhoto(); ?>" 
-                     alt="<?php echo $product->getName(); ?>">
-            </div>
-            <?php foreach ($product->getAdditionalPhotos() as $index => $item): ?>
-                <div class="thumbnail">
-                    <img src="/Akihabara-Dreams/resources/images/productos/adicional/<?php echo strtolower($item); ?>" 
-                         alt="<?php echo $product->getName(); ?> - Imagen <?php echo $index + 1; ?>">
+            <div class="image-thumbnails">
+                <div class="thumbnail active">
+                    <img src="/Akihabara-Dreams/resources/images/productos/portadas/<?php echo $product->getPhoto(); ?>"
+                        alt="<?php echo $product->getName(); ?>">
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <?php foreach ($product->getAdditionalPhotos() as $index => $item): ?>
+                    <div class="thumbnail">
+                        <img src="/Akihabara-Dreams/resources/images/productos/adicional/<?php echo strtolower($item); ?>"
+                            alt="<?php echo $product->getName(); ?> - Imagen <?php echo $index + 1; ?>">
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
     </div>
-    
+
     <!-- Sección de detalles -->
     <div class="product-details">
         <h1 class="product-title"><?php echo $product->getName(); ?></h1>
-        
+
         <div class="product-price">
-            <span class="current-price"><?php echo number_format($product->getPrice(), 2); ?>€</span>
-        </div>
-        
-        <div class="tax-info">
-            <?php echo __('tax-info');?>
-        </div>
-        
-        <div class="stock-info">
-            <?php echo __('product_status');?>: 
-            <?php if ($product->getStock() > 10): ?>
-                <span class="in-stock"><?php echo __('product_status_in_stock');?> (<?php echo $product->getStock(); ?> <?php echo __('product_available');?>)</span>
-            <?php elseif ($product->getStock() > 0): ?>
-                <span class="low-stock"><?php echo __('product_status_low_stock');?> (<?php echo $product->getStock(); ?> <?php echo __('product_available');?>)</span>
+            <?php if ($product->hasPromotion()): ?>
+                <div class="product-discount">
+                    <span class="discount-badge">-<?= $product->getDiscount() ?>%</span>
+                    <span class="original-price"><?= number_format($product->getPrice(), 2) ?> €</span>
+                    <span class="discounted-price"><?= number_format($product->getDiscountedPrice(), 2) ?> €</span>
+                </div>
+                <p class="promotion-info"><?= htmlspecialchars($product->getPromotionDescription()) ?></p>
             <?php else: ?>
-                <span class="out-of-stock"><?php echo __('product_status_out_of_stock');?></span>
+                <span class="price"><?= number_format($product->getPrice(), 2) ?> €</span>
             <?php endif; ?>
         </div>
-        
-        <div class="quantity-label"><?php echo __('product_quantity');?>:</div>
+
+        <div class="tax-info">
+            <?php echo __('tax-info'); ?>
+        </div>
+
+        <div class="stock-info">
+            <?php echo __('product_status'); ?>:
+            <?php if ($product->getStock() > 10): ?>
+                <span class="in-stock"><?php echo __('product_status_in_stock'); ?> (<?php echo $product->getStock(); ?> <?php echo __('product_available'); ?>)</span>
+            <?php elseif ($product->getStock() > 0): ?>
+                <span class="low-stock"><?php echo __('product_status_low_stock'); ?> (<?php echo $product->getStock(); ?> <?php echo __('product_available'); ?>)</span>
+            <?php else: ?>
+                <span class="out-of-stock"><?php echo __('product_status_out_of_stock'); ?></span>
+            <?php endif; ?>
+        </div>
+
+        <div class="quantity-label"><?php echo __('product_quantity'); ?>:</div>
         <div class="quantity-selector">
             <button class="quantity-decrease">−</button>
             <input type="text" value="1" min="1" id="product-quantity">
             <button class="quantity-increase">+</button>
         </div>
-        
+
         <button class="add-to-cart" data-product-id="<?php echo $product->getId(); ?>">
-        <?php echo __('product_add');?>
+            <?php echo __('product_add'); ?>
         </button>
-        
+
         <button class="shop-pay-button" data-product-id="<?php echo $product->getId(); ?>">
-        <?php echo __('product_buy_now');?>
+            <?php echo __('product_buy_now'); ?>
         </button>
-        
+
         <div class="more-payment-options">
-            <a href="#"><?php echo __('product_more_payment');?></a>
+            <a href="#"><?php echo __('product_more_payment'); ?></a>
         </div>
-        
+
         <div class="product-meta">
             <h2><?php echo $product->getName(); ?></h2>
-            
+
             <div class="meta-item">
-                <div class="meta-item-label"><?php echo __('product_category');?>:</div>
+                <div class="meta-item-label"><?php echo __('product_category'); ?>:</div>
                 <div class="meta-item-value"><?php echo $product->getCategory(); ?></div>
             </div>
         </div>
-        
+
         <section class="description">
             <p><?php echo $product->getDescription(); ?></p>
         </section>
@@ -83,7 +92,7 @@
 <div id="cartModal" class="cart-modal">
     <div class="cart-modal-content">
         <span class="close">×</span>
-        <h2><?php echo __('cart_title');?></h2>
+        <h2><?php echo __('cart_title'); ?></h2>
         <div id="cartItemsContainer" class="cart-items-container">
             <?php
             if (isset($_SESSION['carrito'])) {
@@ -106,7 +115,7 @@
                             } else {
                                 echo ' <span class="cart-item-price">' . number_format($item['product']->getPrice(), 2) . '€</span>';
                             }
-                            
+
                             echo '</div>';
                             echo '<form action="/Akihabara-Dreams/carrito/eliminar/' . $item['product']->getProductId() . '" method="post">
                             <button class="remove-item" type="submit">' . __('cart_remove') . '</button>
@@ -123,11 +132,9 @@
             ?>
         </div>
         <div class="cart-footer">
-            <a href="/Akihabara-Dreams/carrito/vaciar"><button class="cart-button"><?php echo __('cart_empty');?></button></a>
-            <a href="/Akihabara-Dreams/carrito/guardar"><button class="cart-button"><?php echo __('cart_save');?></button></a>
-            <a href="/Akihabara-Dreams/pedidos/realizar"><button class="cart-button"><?php echo __('order_realize');?></button></a>
+            <a href="/Akihabara-Dreams/carrito/vaciar"><button class="cart-button"><?php echo __('cart_empty'); ?></button></a>
+            <a href="/Akihabara-Dreams/carrito/guardar"><button class="cart-button"><?php echo __('cart_save'); ?></button></a>
+            <a href="/Akihabara-Dreams/pedidos/realizar"><button class="cart-button"><?php echo __('order_realize'); ?></button></a>
         </div>
     </div>
 </div>
-
-

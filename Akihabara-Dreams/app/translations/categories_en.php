@@ -3,7 +3,7 @@
  * Traducciones de categorías al inglés
  */
 return [
-    'figuras' => 'Figures',
-    'mangas' => 'Manga',
-    'merchandising' => 'Merchandise'
+    'figuras' => 'figuras',
+    'mangas' => 'mangas',
+    'merchandising' => 'merchandising'
 ];

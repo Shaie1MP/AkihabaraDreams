@@ -23,14 +23,33 @@ if (isset($_POST['card-information'])) {
     $cardNumber = $_POST['card-number'];
     $cardExpiration = $_POST['card-expiration'];
     $cardCvc = $_POST['card-cvc'];
-    
+
+    // Validar número de tarjeta (16 dígitos)
+    if (!preg_match('/^\d{16}$/', $cardNumber)) {
+        throw new Exception('El número de tarjeta no es válido. Debe contener 16 dígitos.');
+    }
+
+    // Validar fecha de expiración (formato MM/AA)
+    if (!preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $cardExpiration)) {
+        throw new Exception('La fecha de expiración no es válida. Debe estar en formato MM/AA.');
+    }
+
+    // Validar CVC (3 dígitos)
+    if (!preg_match('/^\d{3}$/', $cardCvc)) {
+        throw new Exception('El CVC no es válido. Debe contener 3 dígitos.');
+    }
+
+    // Encriptar los datos de la tarjeta si se van a guardar
     $encryptedCard = [
         'number' => encrypt($cardNumber),
         'date' => encrypt($cardExpiration),
         'cvc' => encrypt($cardCvc)
     ];
-    
-    setcookie('tarjeta', serialize($encryptedCard), time() + 3600 * 24 * 30, '/', '', false, true);
+
+    // Guardar la tarjeta en una cookie si el usuario lo solicita
+    if (isset($_POST['card-information'])) {
+        setcookie('tarjeta', serialize($encryptedCard), time() + 3600 * 24 * 30, '/', '', false, true);
+    }
 }
 
 // Obtener el carrito y el usuario

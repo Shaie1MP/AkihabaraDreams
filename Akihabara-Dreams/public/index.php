@@ -17,11 +17,13 @@ try {
     $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
     $uriSegments = explode('/', $uri);
 
-    //todas las rutas deben ser /boardbyte/...
-    //omitimos el $uriSegments['0'] por defecto ya que nos devolverá siempre boardbyte;
+    //todas las rutas deben ser /Akihabara-Dreams/...
+    //omitimos el $uriSegments['0'] por defecto ya que nos devolverá siempre Akihabara-Dreams;
     $resource = $uriSegments[1] ?? null; //si esto es nulo es index o inicio, de resto indica a donde quiere ir; default es error404.
     $action = $uriSegments[2] ?? null; //si lo anterior es una tabla de nuestra BD, miramos la acción que quiera hacer (CRUD+A);
     $idUrl = $uriSegments[3] ?? null; //para saber el ID del elemento que queremos modificar;
+    $idUrl2 = $uriSegments[4] ?? null; // Para casos donde necesitamos un segundo ID (como eliminar un producto de una promoción)
+    $idUrl3 = $uriSegments[5] ?? null; // Para el ID del producto cuando eliminamos de una promoción
 
 
     //este es el objeto usuario de la sesión, para tenerlo a mano y no estar llamando a la sesión todo el rato
@@ -31,8 +33,7 @@ try {
         include '../app/includes/comprobarTiempoSesion.php';
         $userSession = unserialize($_SESSION['usuario']);
     }
-
-    //esto es el carrito, por si acaso yo que sé
+    
     if (isset($_SESSION['carrito'])) {
         $cartSession = unserialize($_SESSION['carrito']);
         // foreach ($carritoSesion->getCarrito() as $key => $value) {
@@ -110,6 +111,17 @@ try {
 
         case 'pedidos':
             include './index-pedidos.php';
+            break;
+
+        case 'promociones':
+            
+            include './index-promociones.php';
+            break;
+
+        case 'ofertas':
+            $repositorio = new OthersRepository($connection);
+            $controller = new OtthersController($repositorio);
+            $controller->promotions();
             break;
 
         case 'login':

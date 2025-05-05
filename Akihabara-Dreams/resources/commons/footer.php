@@ -8,9 +8,9 @@
             <h3><?php echo __('footer_links')?></h3>
             <ul>
                 <li><a href="/Akihabara-Dreams/"><?php echo __('footer_links_index')?></a></li>
-                <li><a href="/Akihabara-Dreams/views/mangas.php"><?php echo __('footer_links_mangas')?></a></li>
-                <li><a href="/Akihabara-Dreams/views/figuras.php"><?php echo __('footer_links_figures')?></a></li>
-                <li><a href="/Akihabara-Dreams/views/merchandising.php"><?php echo __('footer_links_merch')?></a></li>
+                <li><a href="/Akihabara-Dreams/mangas"><?php echo __('footer_links_mangas')?></a></li>
+                <li><a href="/Akihabara-Dreams/figuras"><?php echo __('footer_links_figures')?></a></li>
+                <li><a href="/Akihabara-Dreams/merchandising"><?php echo __('footer_links_merch')?></a></li>
             </ul>
         </div>
         <div class="footer-section">

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Archivo de traducción para español
  */
@@ -19,7 +20,7 @@ return [
     'nav_logout' => 'Cerrar Sesión',
     'nav_menu' => 'MENÚ',
     'nav_no_account' => '¿Aún no tienes cuenta?',
-    
+
     // Home
     'home_welcome' => 'Bienvenido a Akihabara Dreams',
     'home_subtitle' => 'Tu tienda online de mangas, figuras y merchandising',
@@ -32,7 +33,7 @@ return [
     'home_about_title' => 'Sobre Nosotros',
     'home_about_p1' => 'Akihabara Dreams es tu tienda online de confianza para figuras, mangas y mucho más. Nos apasiona la cultura japonesa y trabajamos cada día para ofrecerte una selección única de productos inspirados en el anime, el manga y los videojuegos.',
     'home_about_p2' => 'Desde figuras coleccionables de tus personajes favoritos hasta los últimos lanzamientos de manga, en Akihabara Dreams cuidamos cada detalle para brindarte calidad, autenticidad y una experiencia de compra inolvidable. Con envíos rápidos a toda España y atención al cliente cercana y especializada, estamos aquí para ayudarte a vivir tu pasión al máximo.',
-    
+
     // Cart
     'cart_title' => 'Carrito de Compras',
     'cart_empty' => 'Tu carrito está vacío',
@@ -67,7 +68,7 @@ return [
     'order_email_sent' => 'Se ha enviado un correo de confirmación a tu dirección de correo electrónico.',
     'view_all_orders' => 'Ver Todos Mis Pedidos',
     'continue_shopping' => 'Seguir Comprando',
-    
+
     // Product
     'product_price' => 'Precio',
     'product_name' => 'Nombre del Producto',
@@ -100,7 +101,21 @@ return [
     'filter_price_high_low' => 'Precio: Alto a Bajo',
     'filter_recent' => 'Fecha: Más reciente a Más antiguo',
     'filter_old' => 'Fecha: Más antiguo a Más reciente',
-    
+
+    'filter_title' => 'Filtros',
+    'filter_category_figures' => 'Figuras',
+    'filter_category_manga' => 'Manga',
+    'filter_category_merch' => 'Merchandising',
+    'filter_price_range1' => '0€ - 20€',
+    'filter_price_range2' => '20€ - 50€',
+    'filter_price_range3' => '50€ - 100€',
+    'filter_price_range4' => 'Más de 100€',
+    'filter_availability' => 'Disponibilidad',
+    'filter_in_stock' => 'En stock',
+    'filter_out_of_stock' => 'Agotado',
+    'filter_apply' => 'Aplicar filtros',
+    'filter_clear' => 'Limpiar filtros',
+
     // Account
     'account_info' => 'Información de la Cuenta',
     'account_obligatory_info' => 'Información Obligatoria',
@@ -134,7 +149,7 @@ return [
     'account_note' => 'Nota: Los campos obligatorios vacíos generarán un error. Los valores predeterminados son los originales. Cualquier elemento introducido será reemplazado.',
     'delete_account' => 'Eliminar Cuenta',
     'account_wishlist' => 'Lista de Deseos',
-    
+
     // Login/Register
     'login_title' => 'Iniciar Sesión',
     'login_name' => 'Nombre',
@@ -149,7 +164,7 @@ return [
     'login_account' => '¿Tienes cuenta?',
     'login_register' => 'Regístrate aquí',
     'login_check' => 'Iniciar Sesión',
-    
+
     'register_title' => 'Crear Cuenta',
     'register_name' => 'Nombre',
     'register_email' => 'Correo Electrónico',
@@ -158,7 +173,7 @@ return [
     'register_submit' => 'Registrarse',
     'register_has_account' => '¿Ya tienes cuenta?',
     'register_login' => 'Inicia sesión aquí',
-    
+
     // Footer
     'footer_about' => 'Sobre Nosotros',
     'footer_about_desc' => 'Akihabara Dreams es tu tienda online de confianza para figuras, mangas y mucho más.',
@@ -174,7 +189,7 @@ return [
     'footer_privacy' => 'Privacidad',
     'footer_terms' => 'Términos y Condiciones',
     'footer_copyright' => '© 2023 Akihabara Dreams. Todos los derechos reservados.',
-    
+
     // Language
     'language' => 'Idioma',
     'lang_es' => 'Español',
