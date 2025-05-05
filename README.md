@@ -86,6 +86,6 @@ Puedes abrir un *issue* en este repositorio o escribirme directamente:
 
 ## 👨‍💻 Autor
 
-Desarrollado con por [Shaiel]  
+Desarrollado con por Shaiel  
 
 ---
