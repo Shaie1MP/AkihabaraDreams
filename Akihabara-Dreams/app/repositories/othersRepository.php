@@ -93,11 +93,11 @@ class OthersRepository {
     public function promotions(){
         // Obtener productos que están en promociones activas
         $statement = $this->connection->prepare('
-            SELECT p.*, pr.discount, pr.description as promotion_description
-            FROM Products p
-            JOIN Product_Promotions pp ON p.id_product = pp.id_product
-            JOIN Promotion pr ON pp.id_promotion = pr.id_promotion
-            WHERE pr.start_date <= CURRENT_DATE AND pr.end_date >= CURRENT_DATE
+            select p.*, pr.discount, pr.description as promotion_description
+            from Products p
+            join Product_Promotions pp on p.id_product = pp.id_product
+            join Promotion pr on pp.id_promotion = pr.id_promotion
+            where pr.start_date <= CURRENT_DATE and pr.end_date >= CURRENT_DATE
         ');
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);

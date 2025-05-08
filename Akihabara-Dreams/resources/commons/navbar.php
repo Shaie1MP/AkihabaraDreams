@@ -52,7 +52,7 @@ include_once __DIR__ . '/../../app/models/User.php';
                     </a>
                 </li>
                 <li>
-                    <a href="/Akihabara-Dreams/micuenta" class="navbar-link">
+                    <a href="/Akihabara-Dreams/myaccount" class="navbar-link">
                         <?php echo isset($_SESSION['usuario']) ? htmlspecialchars($userNav->getUserName()) : __('nav_account'); ?>
                     </a>
                 </li>
@@ -86,7 +86,7 @@ include_once __DIR__ . '/../../app/models/User.php';
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/micuenta" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/myaccount" class="sidebar-link">
                         <span class="sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user">
                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -100,7 +100,7 @@ include_once __DIR__ . '/../../app/models/User.php';
                 <div class="sidebar-category"><?php echo __('home_featured'); ?></div>
 
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/catalogo" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/catalog" class="sidebar-link">
                         <span class="sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-grid">
                                 <rect width="7" height="7" x="3" y="3" rx="1"></rect>
@@ -124,7 +124,7 @@ include_once __DIR__ . '/../../app/models/User.php';
                     </a>
                 </li>
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/figuras" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/figures" class="sidebar-link">
                         <span class="sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trophy">
                                 <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
@@ -152,7 +152,7 @@ include_once __DIR__ . '/../../app/models/User.php';
                 <div class="sidebar-category"><?php echo __('nav_cart'); ?></div>
 
                 <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/pedidos/realizar" class="sidebar-link">
+                    <a href="/Akihabara-Dreams/orders/realizar" class="sidebar-link">
                         <span class="sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart">
                                 <circle cx="8" cy="21" r="1"></circle>
@@ -163,18 +163,6 @@ include_once __DIR__ . '/../../app/models/User.php';
                         <span><?php echo __('nav_cart'); ?></span>
                     </a>
                 </li>
-                <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/promociones" class="sidebar-link">
-                        <span class="sidebar-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag">
-                                <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path>
-                                <path d="M7 7h.01"></path>
-                            </svg>
-                        </span>
-                        <span><?php echo __('nav_promotions'); ?></span>
-                    </a>
-                </li>
-
                 <div class="sidebar-category"><?php echo __('footer_contact'); ?></div>
 
                 <li class="sidebar-menu-item">

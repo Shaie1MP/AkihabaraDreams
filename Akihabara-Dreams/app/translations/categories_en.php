@@ -1,7 +1,7 @@
 <?php
-/**
- * Traducciones de categorías al inglés
- */
+
+// Traducciones de categorías al inglés
+
 return [
     'figuras' => 'figuras',
     'mangas' => 'mangas',

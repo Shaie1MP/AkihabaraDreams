@@ -23,7 +23,7 @@
     include '../resources/commons/navbar.php';
 
     if(isset($_SESSION['usuario'])){
-        include '../app/includes/generarCarrito.php';
+        include '../app/includes/generateCart.php';
     }else{
         echo '<div id="cartModal" class="cart-modal">
         <div class="cart-modal-content">
@@ -38,26 +38,26 @@
         <div class="hero-content">
             <h1><?php echo __('home_welcome'); ?></h1>
             <p><?php echo __('home_subtitle'); ?></p>
-            <a href="/Akihabara-Dreams/catalogo" class="cta-button"><?php echo __('home_explore'); ?></a>
+            <a href="/Akihabara-Dreams/catalog" class="cta-button"><?php echo __('home_explore'); ?></a>
         </div>
     </section>
     <div class="container">
         <section class="featured-games">
             <h2><?php echo __('home_featured'); ?></h2>
             <?php
-            include '../app/includes/generarJuegosDestacados.php';
+            include '../app/includes/generateFeaturedProducts.php';
             ?>
         </section>
 
         <!-- Sección de promociones -->
         <section class="product-section promociones-section">
             <div class="section-header">
-                <h2>DESCUENTOS</h2>
-                <a href="/Akihabara-Dreams/ofertas" class="section-link-button">Ver todos</a>
+                <h2><?php echo __('home_discounts')?></h2>
+                <a href="/Akihabara-Dreams/ofertas" class="section-link-button"><?php echo __('home_view_all'); ?></a>
             </div>
             <div class="product-grid">
                 <?php
-                include '../app/includes/generarPromocionesIndex.php';
+                include '../app/includes/generatePromotionsIndex.php';
                 ?>
             </div>
         </section>
@@ -71,7 +71,7 @@
 
             <div class="product-grid">
                 <?php
-                include '../app/includes/generarMangas.php';
+                include '../app/includes/generateMangas.php';
                 ?>
             </div>
         </section>
@@ -80,11 +80,11 @@
         <section class="product-section">
             <div class="section-header">
                 <h2><?php echo __('home_figures'); ?></h2>
-                <a href="/Akihabara-Dreams/figuras" class="section-link-button"><?php echo __('home_view_all'); ?></a>
+                <a href="/Akihabara-Dreams/figures" class="section-link-button"><?php echo __('home_view_all'); ?></a>
             </div>
             <div class="product-grid">
                 <?php
-                include '../app/includes/generarFiguras.php';
+                include '../app/includes/generateFigures.php';
                 ?>
             </div>
         </section>
@@ -97,7 +97,7 @@
             </div>
             <div class="product-grid">
                 <?php
-                include '../app/includes/generarMerchandising.php';
+                include '../app/includes/generateMerchandising.php';
                 ?>
             </div>
         </section>
@@ -117,6 +117,6 @@
 
     <?php include '../resources/commons/footer.php' ?>
 
-    <script src="/Akihabara-Dreams/resources/js/carrito.js"></script>
+    <script src="/Akihabara-Dreams/resources/js/cart.js"></script>
     <script src="/Akihabara-Dreams/resources/js/carousel.js"></script>
 </body>

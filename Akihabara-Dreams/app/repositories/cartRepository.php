@@ -7,9 +7,14 @@ class CartRepository {
         $this->connection = $connection;
     }
 
+    public function getConnection() {
+        return $this->connection;
+    }
+
     public function getProduct($id_product) {
         try {
-            $prepare = $this->connection->prepare('SELECT id_product, name, price, photo FROM Products WHERE id_product = :id_product LIMIT 1');
+            $prepare = $this->connection->prepare('select id_product, name, price, photo from Products 
+                                                    where id_product = :id_product limit 1');
             $prepare->execute(['id_product' => $id_product]);
             $result = $prepare->fetch(PDO::FETCH_ASSOC);
 

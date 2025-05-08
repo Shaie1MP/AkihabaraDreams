@@ -7,11 +7,11 @@ class MyAccountController {
     }
 
     public function index() {
-        include '../app/views/micuenta.php';
+        include '../app/views/myAccount.php';
     }
 
     public function updateMyData() {
-        include '../app/views/actualizarMisDatos.php';
+        include '../app/views/updateMyData.php';
     }
 
     public function update(User $user) {
@@ -115,10 +115,10 @@ class MyAccountController {
                                                         null, 
                                                         $user->getRole()));
 
-            header("Location: /Akihabara-Dreams/micuenta");
+            header("Location: /Akihabara-Dreams/myaccount");
             exit;
         } else {
-            include('../app/views/errores.php');
+            include('../app/views/errors.php');
         }
     }
 

@@ -30,7 +30,7 @@ try {
     //al hacer un update hay que realizar una transacción por si acaso.
     //Si todo es correcto se crea un nuevo usuario con todos los datos (el de parámetros) y se le asigna a la sesion
     if (isset($_SESSION['usuario'])) {
-        include '../app/includes/comprobarTiempoSesion.php';
+        include '../app/includes/checkTimeSession.php';
         $userSession = unserialize($_SESSION['usuario']);
     }
     
@@ -66,10 +66,10 @@ try {
                     }
                 }
             }
-            header('Location: /Akihabara-Dreams/micuenta');
+            header('Location: /Akihabara-Dreams/myaccount');
             exit;
 
-        case 'carrito':
+        case 'cart':
             if (isset($userSession)) {
                 if (!isset($cartSession)) {
                     $cartSession = new Cart($userSession->getId());
@@ -80,7 +80,7 @@ try {
                 switch ($action) {
                     case 'add':
                         $cartController->addElement($idUrl);
-                        header('Location: /Akihabara-Dreams/productos/info/' . $idUrl);
+                        header('Location: /Akihabara-Dreams/products/info/' . $idUrl);
                         exit;
                         break;
                     case 'eliminar':
@@ -94,28 +94,28 @@ try {
                         break;
                 }
             }
-            header('Location: /Akihabara-Dreams/catalogo');
+            header('Location: /Akihabara-Dreams/catalog');
             exit;
 
-        case 'productos':
-            include './index-productos.php';
+        case 'products':
+            include './index-products.php';
             break;
 
-        case 'usuarios':
-            include './index-usuarios.php';
+        case 'users':
+            include './index-users.php';
             break;
 
-        case 'micuenta':
-            include './index-micuenta.php';
+        case 'myaccount':
+            include './index-myaccount.php';
             break;
 
-        case 'pedidos':
-            include './index-pedidos.php';
+        case 'orders':
+            include './index-orders.php';
             break;
 
-        case 'promociones':
+        case 'promotions':
             
-            include './index-promociones.php';
+            include './index-promotions.php';
             break;
 
         case 'ofertas':
@@ -140,10 +140,10 @@ try {
 
             $cartController = new CartController(new CartRepository($connection), new Cart($id));
             $cartController->getCartDatabase();
-            header('Location: /Akihabara-Dreams/micuenta');
+            header('Location: /Akihabara-Dreams/myaccount');
             exit;
 
-        case 'catalogo':
+        case 'catalog':
             $repositorio = new OthersRepository($connection);
             $controller = new OtthersController($repositorio);
             $controller->catalog();
@@ -155,7 +155,7 @@ try {
             $controller->mangas();
             break;
 
-        case 'figuras':
+        case 'figures':
             $repositorio = new OthersRepository($connection);
             $controller = new OtthersController($repositorio);
             $controller->figures();
@@ -170,7 +170,7 @@ try {
         case 'contacto':
             break;
 
-        case 'registrar':
+        case 'register':
             $controller = new usersController(new UsersRepository($connection));
             $controller->register(new User(
                 0,
@@ -203,7 +203,7 @@ try {
     }
 } catch (Exception $e) {
     $errors[] = $e->getMessage();
-    include $view . 'errores.php';
+    include $view . 'errors.php';
 }
 ?>
 

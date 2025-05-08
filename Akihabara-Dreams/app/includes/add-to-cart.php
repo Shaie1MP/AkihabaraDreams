@@ -1,5 +1,5 @@
 <?php
-session_start(); // Asegurarse de que la sesión esté iniciada
+session_start(); 
 
 // Verificar si se recibió un ID de producto
 if (isset($_GET['id_product'])) {
@@ -16,7 +16,6 @@ if (isset($_GET['id_product'])) {
     $cartRepository = new CartRepository($db);
     $cartController = new CartController($cartRepository, $cart);
     
-    // Añadir el producto al carrito
     $cartController->addElement($id_product);
     
     // Guardar el carrito actualizado en la sesión

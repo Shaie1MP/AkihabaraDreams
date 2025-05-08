@@ -14,18 +14,18 @@ class OrdersController
     public function orders()
     {
         $orders = $this->ordersRepository->showOrders();
-        include '../app/views/pedidos.php';
+        include '../app/views/orders.php';
     }
 
     public function myOrders($id)
     {
         $orders = $this->ordersRepository->myOrders($id);
-        include '../app/views/mispedidos.php';
+        include '../app/views/myOrders.php';
     }
 
     public function newOrder()
     {
-        include '../app/views/finalizarCompra.php';
+        include '../app/views/finalizePurchase.php';
     }
 
     public function create(Order $order, Cart $cart)
@@ -45,7 +45,7 @@ class OrdersController
                 // Verificar si el carrito tiene productos
                 if (count($cart->getCart()) === 0) {
                     $errors[] = 'El carrito está vacío';
-                    include '../app/views/errores.php';
+                    include '../app/views/errors.php';
                     return;
                 }
 
@@ -55,9 +55,6 @@ class OrdersController
                 // Actualizar el ID del pedido si es necesario
                 if ($orderId) {
                     $order->setOrderId($orderId);
-
-                    // Depuración
-                    error_log("Pedido creado con ID: $orderId");
                 } else {
                     throw new Exception("No se pudo crear el pedido");
                 }
@@ -94,15 +91,15 @@ class OrdersController
                 }
 
                 // Redirigir a la página de confirmación
-                header('Location: /Akihabara-Dreams/pedidos/confirmacion?id=' . $order->getOrderId());
+                header('Location: /Akihabara-Dreams/orders/confirmation?id=' . $order->getOrderId());
                 exit;
             } catch (Exception $e) {
                 error_log("Error al crear pedido: " . $e->getMessage());
                 $errors[] = 'Error al procesar el pedido: ' . $e->getMessage();
-                include '../app/views/errores.php';
+                include '../app/views/errors.php';
             }
         } else {
-            include '../app/views/errores.php';
+            include '../app/views/errors.php';
         }
     }
 
@@ -124,7 +121,7 @@ class OrdersController
 
         // Verificar si el pedido existe y pertenece al usuario actual
         if (!$order || $order->getUserId() != unserialize($_SESSION['usuario'])->getId()) {
-            header('Location: /Akihabara-Dreams/pedidos/mispedidos');
+            header('Location: /Akihabara-Dreams/orders/mispedidos');
             exit;
         }
 
@@ -132,10 +129,10 @@ class OrdersController
         $ordersRepository = $this->ordersRepository;
 
         // Incluir comprobarDivisa.php para tener disponibles las variables de moneda
-        include_once '../app/includes/comprobarDivisa.php';
+        include_once '../app/includes/checkCurrency.php';
 
         // Mostrar la página de confirmación
-        include '../app/views/confirmacion-pedido.php';
+        include '../app/views/confirmation-order.php';
     }
 
     /**
@@ -153,7 +150,7 @@ class OrdersController
 
         // Verificar si el pedido existe y pertenece al usuario actual
         if (!$order || $order->getUserId() != unserialize($_SESSION['usuario'])->getId()) {
-            header('Location: /Akihabara-Dreams/pedidos/mispedidos');
+            header('Location: /Akihabara-Dreams/orders/mispedidos');
             exit;
         }
 

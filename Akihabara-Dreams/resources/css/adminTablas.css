@@ -256,7 +256,7 @@
   .admin-form-group input[type="tel"],
   .admin-form-group textarea,
   .admin-form-group select {
-    width: 100%;
+    width: 97%;
     padding: 0.75rem;
     border: 1px solid #e5e7eb;
     border-radius: 0.375rem;
@@ -278,7 +278,7 @@
   }
   
   .admin-form-group input[type="file"] {
-    width: 100%;
+    width: 97%;
     padding: 0.75rem;
     background-color: #f9fafb;
     border: 1px dashed #e5e7eb;

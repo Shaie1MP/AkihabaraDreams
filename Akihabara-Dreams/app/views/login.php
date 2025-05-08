@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['usuario'])) {
-    header('Location: /Akihabara-Dreams/micuenta');
+    header('Location: /Akihabara-Dreams/myaccount');
     die;
 }
 ?>
@@ -44,7 +44,7 @@ if (isset($_SESSION['usuario'])) {
                     <div class="card-decoration decoration-1"></div>
                     <div class="card-decoration decoration-2"></div>
                     <h2><?php echo __('login_check')?></h2>
-                    <form action="/Akihabara-Dreams/registrar" method="post">
+                    <form action="/Akihabara-Dreams/register" method="post">
                         <div class="form-group">
                             <label for="register-name"><?php echo __('login_name')?></label>
                             <input type="text" id="register-name" name="register-name" required>

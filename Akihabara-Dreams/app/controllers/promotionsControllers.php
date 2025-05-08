@@ -11,17 +11,17 @@ class PromotionsController {
 
     public function index() {
         $promotions = $this->promotionsRepository->getAllPromotions();
-        include '../app/views/mostrarPromociones.php';
+        include '../app/views/showPromotions.php';
     }
 
     public function showPromotionProducts($id) {
         $promotion = $this->promotionsRepository->getPromotionById($id);
         $products = $this->promotionsRepository->getProductsInPromotion($id);
-        include '../app/views/mostrarProductosPromocion.php';
+        include '../app/views/showProductsPromotion.php';
     }
 
     public function createForm() {
-        include '../app/views/crearPromocion.php';
+        include '../app/views/createPromotion.php';
     }
 
     public function create() {
@@ -69,16 +69,16 @@ class PromotionsController {
             );
 
             $this->promotionsRepository->createPromotion($promotion);
-            header('Location: /Akihabara-Dreams/promociones');
+            header('Location: /Akihabara-Dreams/promotions');
             exit;
         } else {
-            include '../app/views/errores.php';
+            include '../app/views/errors.php';
         }
     }
 
     public function editForm($id) {
         $promotion = $this->promotionsRepository->getPromotionById($id);
-        include '../app/views/editarPromocion.php';
+        include '../app/views/editPromotion.php';
     }
 
     public function update() {
@@ -131,16 +131,16 @@ class PromotionsController {
             );
 
             $this->promotionsRepository->updatePromotion($promotion);
-            header('Location: /Akihabara-Dreams/promociones');
+            header('Location: /Akihabara-Dreams/promotions');
             exit;
         } else {
-            include '../app/views/errores.php';
+            include '../app/views/errors.php';
         }
     }
 
     public function delete($id) {
         $this->promotionsRepository->deletePromotion($id);
-        header('Location: /Akihabara-Dreams/promociones');
+        header('Location: /Akihabara-Dreams/promotions');
         exit;
     }
 
@@ -172,7 +172,7 @@ class PromotionsController {
             // Asegurarnos de que $availableProducts sea un array indexado
             $availableProducts = array_values($availableProducts);
             
-            include '../app/views/agregarProductoPromocion.php';
+            include '../app/views/addProductPromotion.php';
         } catch (Exception $e) {
             throw new Exception('Error al mostrar el formulario de añadir producto: ' . $e->getMessage());
         }
@@ -182,9 +182,6 @@ class PromotionsController {
         try {
             $promotionId = isset($_POST['promotion_id']) ? intval($_POST['promotion_id']) : 0;
             $productId = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
-    
-            // Depuración
-            echo "<!-- Debug: promotion_id = $promotionId, product_id = $productId -->";
     
             if ($promotionId <= 0) {
                 throw new Exception('ID de promoción inválido o no proporcionado');
@@ -204,7 +201,7 @@ class PromotionsController {
             $result = $this->promotionsRepository->addProductToPromotion($productId, $promotionId);
             
             if ($result) {
-                header('Location: /Akihabara-Dreams/promociones/productos/' . $promotionId);
+                header('Location: /Akihabara-Dreams/promotions/productos/' . $promotionId);
                 exit;
             } else {
                 throw new Exception('No se pudo añadir el producto a la promoción');
@@ -216,12 +213,12 @@ class PromotionsController {
 
     public function removeProduct($promotionId, $productId) {
         $this->promotionsRepository->removeProductFromPromotion($productId, $promotionId);
-        header('Location: /Akihabara-Dreams/promociones/productos/' . $promotionId);
+        header('Location: /Akihabara-Dreams/promotions/productos/' . $promotionId);
         exit;
     }
 
     public function showPromotedProducts() {
         $products = $this->promotionsRepository->getProductsWithPromotions();
-        include '../app/views/promociones.php';
+        include '../app/views/promotions.php';
     }
 }

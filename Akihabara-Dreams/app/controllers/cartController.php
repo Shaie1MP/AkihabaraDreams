@@ -13,13 +13,20 @@ class CartController {
         try {
             $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;
             
+            // Obtener el producto con sus promociones
+            $productsRepository = new ProductsRepository($this->cartRepository->getConnection());
+            $fullProduct = $productsRepository->searchProduct($id_product);
+            
+            // Determinar el precio correcto (con descuento si aplica)
+            $price = $fullProduct->hasPromotion() ? $fullProduct->getDiscountedPrice() : $fullProduct->getPrice();
+            
             $result = $this->cartRepository->getProduct($id_product);
 
             if ($result) {
                 $product = new CartProduct(
                     $id_product,
                     $result['name'],
-                    $result['price'],
+                    $price, // Usar el precio con descuento si aplica
                     $result['photo']
                 );
                 $this->cart->addProduct($product, $quantity);
@@ -39,6 +46,7 @@ class CartController {
         }
     }
     
+    // Resto de métodos sin cambios
     public function deleteElement($id_product) {
         $this->cart->removeProduct($id_product);
         $this->saveCart();

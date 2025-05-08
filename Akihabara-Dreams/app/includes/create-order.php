@@ -1,7 +1,8 @@
 <?php
 session_start();
-include_once 'comprobarSesion.php';
-include_once 'comprobarDivisa.php';
+
+include_once 'checkSession.php';
+include_once 'checkCurrency.php';
 include_once '../models/Order.php';
 include_once '../models/OrderDetails.php';
 include_once '../repositories/OrdersRepository.php';
@@ -10,7 +11,7 @@ include_once 'email-helper.php';
 
 // Verificar si se recibieron los datos necesarios
 if (!isset($_POST['address']) || !isset($_POST['billing'])) {
-    header('Location: /Akihabara-Dreams/pedidos/realizar');
+    header('Location: /Akihabara-Dreams/orders/realizar');
     exit;
 }
 
@@ -24,17 +25,17 @@ if (isset($_POST['card-information'])) {
     $cardExpiration = $_POST['card-expiration'];
     $cardCvc = $_POST['card-cvc'];
 
-    // Validar número de tarjeta (16 dígitos)
+    // Validaciones
     if (!preg_match('/^\d{16}$/', $cardNumber)) {
         throw new Exception('El número de tarjeta no es válido. Debe contener 16 dígitos.');
     }
 
-    // Validar fecha de expiración (formato MM/AA)
+
     if (!preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $cardExpiration)) {
         throw new Exception('La fecha de expiración no es válida. Debe estar en formato MM/AA.');
     }
 
-    // Validar CVC (3 dígitos)
+
     if (!preg_match('/^\d{3}$/', $cardCvc)) {
         throw new Exception('El CVC no es válido. Debe contener 3 dígitos.');
     }
@@ -58,13 +59,13 @@ $user = unserialize($_SESSION['usuario']);
 
 // Crear el pedido
 $order = new Order(
-    0, // El ID se asignará en la base de datos
+    0, 
     $user->getId(),
-    null, // Fecha actual (se asigna en el constructor)
-    null, // Fecha de entrega estimada (se asigna en el constructor)
-    $billing, // Billing parameter
-    $address, // Address parameter
-    'Pendiente' // State parameter
+    null,
+    null, 
+    $billing, 
+    $address, 
+    'Pendiente' 
 );
 
 // Crear el controlador y repositorio

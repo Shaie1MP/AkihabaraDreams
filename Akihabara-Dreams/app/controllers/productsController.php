@@ -90,10 +90,10 @@ class ProductsController {
                 }
             }
 
-            header('Location: /Akihabara-Dreams/productos');
+            header('Location: /Akihabara-Dreams/products');
             exit;
         } else {
-            include '../app/views/errores.php';
+            include '../app/views/errors.php';
         }
 
     }
@@ -151,10 +151,10 @@ class ProductsController {
                 }
             }
 
-            header('Location: /Akihabara-Dreams/productos');
+            header('Location: /Akihabara-Dreams/products');
             exit;
         } else {
-            include '../app/views/errores.php';
+            include '../app/views/errors.php';
 
         }
     }
@@ -258,13 +258,13 @@ class ProductsController {
                         }
                     }
                 }
-                header('Location: /Akihabara-Dreams/productos');
+                header('Location: /Akihabara-Dreams/products');
                 exit;
             } else {
                 throw new Exception('No se ha podido actualizar el producto');
             }
         } else {
-            include '../app/views/errores.php';
+            include '../app/views/errors.php';
         }
     }
 
@@ -277,22 +277,22 @@ class ProductsController {
         }
         if (empty($errors)) {
             $product = $this->productsRepository->searchProduct($id);
-            include '../app/views/producto.php';
+            include '../app/views/product.php';
         } else {
-            include '../app/views/errores.php';
+            include '../app/views/errors.php';
         }
     }
 
     public function showProducts() {
         $products = $this->productsRepository->showProducts();
-        include '../app/views/mostrarProductos.php';
+        include '../app/views/showProducts.php';
     }
     public function createForm() {
-        include '../app/views/crearProducto.php';
+        include '../app/views/createProduct.php';
     }
 
     public function updateForm($id) {
         $product = $this->productsRepository->searchProduct($id);
-        include '../app/views/actualizarProducto.php';
+        include '../app/views/updateProduct.php';
     }
 }

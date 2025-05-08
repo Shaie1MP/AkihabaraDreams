@@ -113,10 +113,10 @@ class UsersController {
                 }
             }
     
-            header("Location: /Akihabara-Dreams/usuarios");
+            header("Location: /Akihabara-Dreams/users");
             exit;
         } else {
-            include('../app/views/errores.php');
+            include('../app/views/errors.php');
         }
     }
 
@@ -210,10 +210,10 @@ class UsersController {
                 }
             }
     
-            header("Location: /Akihabara-Dreams/usuarios");
+            header("Location: /Akihabara-Dreams/users");
             exit;
         } else {
-            include('../app/views/errores.php');
+            include('../app/views/errors.php');
         }
     }
 
@@ -240,11 +240,11 @@ class UsersController {
                     throw new Exception('No se ha podido eliminar la foto');
                 }
             }
-            header("Location: /Akihabara-Dreams/usuarios");
+            header("Location: /Akihabara-Dreams/users");
             exit;
 
         } else {
-            include('../app/views/errores.php');
+            include('../app/views/errors.php');
         }
 
     }
@@ -265,9 +265,9 @@ class UsersController {
         if (empty($errors)) {
             $user = $this->usersRepository->searchUser($id);
 
-            include('../app/views/cuenta.php');
+            include('../app/views/account.php');
         } else {
-            include('../app/views/errores.php');
+            include('../app/views/errors.php');
         }
 
     }
@@ -277,7 +277,7 @@ class UsersController {
         // Conexión
         $users = $this->usersRepository->showUsers();
 
-        include('../app/views/mostrarUsuarios.php');
+        include('../app/views/showUsers.php');
     }
 
     public function updateForm($id) {
@@ -297,15 +297,15 @@ class UsersController {
                 $userSession = unserialize($_SESSION['usuario']);
             }
             
-            include('../app/views/actualizarUsuario.php');
+            include('../app/views/updateUser.php');
         } catch (Exception $e) {
             $errors[] = $e->getMessage();
-            include('../app/views/errores.php');
+            include('../app/views/errors.php');
         }
     }
 
     public function createForm() {
-        include('../app/views/crearUsuario.php');
+        include('../app/views/createUser.php');
     }
 
     public function register(User $user) {
@@ -344,11 +344,11 @@ class UsersController {
 
             $_SESSION['carrito'] = serialize(new Cart($finalUser->getId()));
 
-            header('Location: /Akihabara-Dreams/micuenta');
+            header('Location: /Akihabara-Dreams/myaccount');
             exit;
 
         } else {
-            include('../app/views/errores.php');
+            include('../app/views/errors.php');
         }
 
     }

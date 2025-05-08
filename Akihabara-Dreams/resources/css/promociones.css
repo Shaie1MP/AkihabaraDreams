@@ -1,200 +1,68 @@
-/* Estilos para la sección de promociones */
-
-/* Banner de promociones */
-.promociones-banner {
-    background: linear-gradient(135deg, #ff4e50, #f9d423);
-    color: white;
-    text-align: center;
-    padding: 3rem 1rem;
-    margin-bottom: 2rem;
-}
-
-.promociones-banner h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.promociones-banner p {
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Badge de promoción */
+/* Estilos para promociones */
 .promocion-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #ff4e50;
+    top: 15px;
+    right: 15px;
+    background-color: #ff4757;
     color: white;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
+    padding: 5px 10px;
+    border-radius: 24px;
     font-weight: bold;
     font-size: 0.9rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 2;
-    transition: transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.promocion-badge:hover {
-    transform: scale(1.1);
-}
-
-/* Precios con descuento */
 .product-price {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
+    margin: 10px 0;
 }
 
 .precio-original {
     text-decoration: line-through;
-    color: #888;
-    margin-right: 0.5rem;
+    color: #777;
     font-size: 0.9rem;
 }
 
 .precio-descuento {
-    color: #ff4e50;
+    color: #ff4757;
     font-weight: bold;
     font-size: 1.1rem;
 }
 
 .promocion-descripcion {
-    display: flex;
-    justify-content: center;
+    font-size: 0.85rem;
+    color: #ff4757;
+    margin-top: 5px;
     text-align: center;
-    font-size: 0.9rem;
-    color: #ff4e50;
-    margin: 0.5rem 0;
-    font-style: italic;
 }
 
-/* Sección de promociones en la página principal */
-.promociones-section {
-    background-color: #ffffff;
-    padding: 2rem 0;
-    border-radius: 8px;
-    margin-bottom: 2rem;
+/* Estilos para la página de producto individual */
+.product-detail-price {
+    margin: 15px 0;
 }
 
-.promociones-section .section-header h2 {
-    color: #fa6e56;
-}
-
-/* Sección de información de promociones */
-.promociones-info {
-    background-color: #f8f9fa;
-    padding: 3rem 1rem;
-    margin-top: 3rem;
-}
-
-.promociones-info-container {
-    max-width: 1200px;
-    margin: 0 auto;
+.product-detail-price .price-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 2rem;
+    align-items: center;
+    gap: 10px;
 }
 
-.promociones-info-item {
-    flex: 1;
-    min-width: 250px;
-    max-width: 350px;
-    text-align: center;
-    padding: 1.5rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.promociones-info-item:hover {
-    transform: translateY(-5px);
-}
-
-.promociones-info-item svg {
-    color: #ff4e50;
-    margin-bottom: 1rem;
-    width: 40px;
-    height: 40px;
-}
-
-.promociones-info-item h3 {
-    margin-bottom: 0.8rem;
-    color: #333;
-}
-
-.promociones-info-item p {
-    color: #666;
-    line-height: 1.5;
-}
-
-/* Estilos para la vista de administración */
-.admin-badge {
+.product-detail-price .promocion-badge {
+    position: relative;
+    top: auto;
+    right: auto;
     display: inline-block;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
 }
 
-.admin-badge-success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.admin-badge-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-/* Estilos específicos para productos en promoción */
+/* Asegurarse de que el contenedor de imagen tenga posición relativa */
 .product-image-container {
     position: relative;
+    overflow: hidden;
 }
 
-.product .promocion-badge {
-    top: 5px;
-    right: 5px;
-    font-size: 0.8rem;
-    padding: 0.2rem 0.5rem;
-}
-
-.product .precio-original {
-    display: block;
-    margin-bottom: 0.2rem;
-}
-
-.product .precio-descuento {
-    display: block;
-}
-
-.product .promocion-descripcion {
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
-}
-
-/* Estilos para la sección de promociones en el admin */
-.admin-stat-icon.promotions {
-    background-color: rgba(255, 78, 80, 0.1);
-    color: #ff4e50;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .promociones-banner h1 {
-        font-size: 2rem;
-    }
-    
-    .promociones-banner p {
-        font-size: 1rem;
-    }
-    
-    .promociones-info-item {
-        min-width: 100%;
-    }
+.product:hover .promocion-badge {
+    animation: pulse 1s infinite;
 }

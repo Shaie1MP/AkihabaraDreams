@@ -19,9 +19,9 @@ class OrdersRepository {
                 $item['id_user'],
                 $item['order_date'],
                 $item['arrival_date'],
-                $item['billing'],  // Billing parameter
-                $item['address'],  // Address parameter
-                $item['state']     // State parameter
+                $item['billing'],  
+                $item['address'],  
+                $item['state']   
             );
 
             $statement = $this->connection->prepare('select * from View_Order_Details where id_order = :id_order');
@@ -64,9 +64,6 @@ class OrdersRepository {
                     'quantity' => $item['quantity'],
                     'subtotal' => $subtotal
                 ]);
-                
-                // Registrar en el log para depuración
-                error_log("Añadido producto al pedido: ID={$item['id']}, Cantidad={$item['quantity']}, Subtotal={$subtotal}");
             }
 
             $statement = $this->connection->prepare('delete from Cart where id_user = :id_user');
@@ -94,9 +91,9 @@ class OrdersRepository {
                 $item['id_user'],
                 $item['order_date'],
                 $item['arrival_date'],
-                $item['billing'],  // Billing parameter
-                $item['address'],  // Address parameter
-                $item['state']     // State parameter
+                $item['billing'], 
+                $item['address'],
+                $item['state']
             );
             
             $statement = $this->connection->prepare('select * from View_Order_Details where id_order = :id_order');
@@ -133,17 +130,17 @@ class OrdersRepository {
                     $result['id_user'],
                     $result['order_date'],
                     $result['arrival_date'],
-                    $result['billing'],  // Billing parameter
-                    $result['address'],  // Address parameter
-                    $result['state']     // State parameter
+                    $result['billing'], 
+                    $result['address'], 
+                    $result['state'] 
                 );
                 
                 // Modificar esta consulta para obtener los detalles del pedido correctamente
                 $statement = $this->connection->prepare('
-                    SELECT od.*, p.name as product_name 
-                    FROM Order_details od 
-                    JOIN Products p ON od.id_product = p.id_product 
-                    WHERE od.id_order = :id_order
+                    select od.*, p.name as product_name 
+                    from Order_details od 
+                    join Products p on od.id_product = p.id_product 
+                    where od.id_order = :id_order
                 ');
                 $statement->execute(['id_order' => $orderId]);
                 $details = $statement->fetchAll(PDO::FETCH_ASSOC);

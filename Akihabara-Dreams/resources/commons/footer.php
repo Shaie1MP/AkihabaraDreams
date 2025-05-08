@@ -9,7 +9,7 @@
             <ul>
                 <li><a href="/Akihabara-Dreams/"><?php echo __('footer_links_index')?></a></li>
                 <li><a href="/Akihabara-Dreams/mangas"><?php echo __('footer_links_mangas')?></a></li>
-                <li><a href="/Akihabara-Dreams/figuras"><?php echo __('footer_links_figures')?></a></li>
+                <li><a href="/Akihabara-Dreams/figures"><?php echo __('footer_links_figures')?></a></li>
                 <li><a href="/Akihabara-Dreams/merchandising"><?php echo __('footer_links_merch')?></a></li>
             </ul>
         </div>

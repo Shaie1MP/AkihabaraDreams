@@ -1,6 +1,6 @@
 <?php
-include '../app/includes/comprobarSesion.php';
-include '../app/includes/comprobarRol.php';
+include '../app/includes/checkSession.php';
+include '../app/includes/checkRole.php';
 ?>
 
 <head>
@@ -23,7 +23,7 @@ include '../app/includes/comprobarRol.php';
         <!-- Sidebar de administración -->
         <div class="admin-sidebar">
             <div class="admin-sidebar-header">
-                <h2>Panel de Control</h2>
+                <h2><?php echo __('admin_dashboard')?></h2>
             </div>
             <ul class="admin-sidebar-menu">
                 <li class="admin-sidebar-item">
@@ -36,11 +36,11 @@ include '../app/includes/comprobarRol.php';
                                 <rect width="7" height="5" x="3" y="16" rx="1"></rect>
                             </svg>
                         </span>
-                        Dashboard
+                        <?php echo __('admin_dashboard')?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
-                    <a href="/Akihabara-Dreams/productos" class="admin-sidebar-link">
+                    <a href="/Akihabara-Dreams/products" class="admin-sidebar-link">
                         <span class="admin-sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package">
                                 <path d="m7.5 4.27 9 5.15"></path>
@@ -49,11 +49,11 @@ include '../app/includes/comprobarRol.php';
                                 <path d="M12 22V12"></path>
                             </svg>
                         </span>
-                        Productos
+                        <?php echo __('admin_products')?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
-                    <a href="/Akihabara-Dreams/usuarios" class="admin-sidebar-link">
+                    <a href="/Akihabara-Dreams/users" class="admin-sidebar-link">
                         <span class="admin-sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
@@ -62,22 +62,22 @@ include '../app/includes/comprobarRol.php';
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
                         </span>
-                        Usuarios
+                        <?php echo __('admin_users')?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
-                    <a href="/Akihabara-Dreams/promociones" class="admin-sidebar-link">
+                    <a href="/Akihabara-Dreams/promotions" class="admin-sidebar-link">
                         <span class="admin-sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag">
                                 <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path>
                                 <path d="M7 7h.01"></path>
                             </svg>
                         </span>
-                        Promociones
+                        <?php echo __('admin_promotions')?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
-                    <a href="/Akihabara-Dreams/pedidos" class="admin-sidebar-link">
+                    <a href="/Akihabara-Dreams/orders" class="admin-sidebar-link">
                         <span class="admin-sidebar-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag">
                                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
@@ -85,7 +85,7 @@ include '../app/includes/comprobarRol.php';
                                 <path d="M16 10a4 4 0 0 1-8 0"></path>
                             </svg>
                         </span>
-                        Pedidos
+                        <?php echo __('admin_orders')?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
@@ -99,7 +99,7 @@ include '../app/includes/comprobarRol.php';
                                 <path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"></path>
                             </svg>
                         </span>
-                        Ir a la Tienda
+                        <?php echo __('admin_go_shop')?>
                     </a>
                 </li>
             </ul>
@@ -108,15 +108,15 @@ include '../app/includes/comprobarRol.php';
         <!-- Contenido principal -->
         <div class="admin-content">
             <div class="admin-header">
-                <h1>Panel de Administración</h1>
-                <p>Bienvenido al panel de control de Akihabara Dreams</p>
+                <h1><?php echo __('admin_panel')?></h1>
+                <p><?php echo __('admin_welcome')?></p>
             </div>
 
             <!-- Tarjetas de estadísticas -->
             <div class="admin-stats">
                 <div class="admin-stat-card">
                     <div class="admin-stat-header">
-                        <span class="admin-stat-title">Productos</span>
+                        <span class="admin-stat-title"><?php echo __('admin_products')?></span>
                         <div class="admin-stat-icon products">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package">
                                 <path d="m7.5 4.27 9 5.15"></path>
@@ -132,12 +132,12 @@ include '../app/includes/comprobarRol.php';
                         echo "120";
                         ?>
                     </h3>
-                    <p class="admin-stat-description">Total de productos</p>
+                    <p class="admin-stat-description"><?php echo __('admin_total_products')?></p>
                 </div>
 
                 <div class="admin-stat-card">
                     <div class="admin-stat-header">
-                        <span class="admin-stat-title">Usuarios</span>
+                        <span class="admin-stat-title"><?php echo __('admin_users')?></span>
                         <div class="admin-stat-icon users">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
@@ -153,12 +153,12 @@ include '../app/includes/comprobarRol.php';
                         echo "45";
                         ?>
                     </h3>
-                    <p class="admin-stat-description">Usuarios registrados</p>
+                    <p class="admin-stat-description"><?php echo __('admin_registered_users')?></p>
                 </div>
 
                 <div class="admin-stat-card">
                     <div class="admin-stat-header">
-                        <span class="admin-stat-title">Pedidos</span>
+                        <span class="admin-stat-title"><?php echo __('admin_orders')?></span>
                         <div class="admin-stat-icon orders">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag">
                                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
@@ -173,12 +173,12 @@ include '../app/includes/comprobarRol.php';
                         echo "78";
                         ?>
                     </h3>
-                    <p class="admin-stat-description">Pedidos realizados</p>
+                    <p class="admin-stat-description"><?php echo __('admin_realized_orders')?></p>
                 </div>
 
                 <div class="admin-stat-card">
                     <div class="admin-stat-header">
-                        <span class="admin-stat-title">Promociones</span>
+                        <span class="admin-stat-title"><?php echo __('admin_promotions')?></span>
                         <div class="admin-stat-icon promotions">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag">
                                 <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path>
@@ -192,15 +192,15 @@ include '../app/includes/comprobarRol.php';
                         echo "15";
                         ?>
                     </h3>
-                    <p class="admin-stat-description">Promociones activas</p>
+                    <p class="admin-stat-description"><?php echo __('admin_active_promotions')?></p>
                 </div>
             </div>
 
             <!-- Acciones rápidas -->
             <div class="admin-quick-actions">
-                <h2>Acciones Rápidas</h2>
+                <h2><?php echo __('admin_quick_actions')?></h2>
                 <div class="admin-actions-grid">
-                    <a href="/Akihabara-Dreams/productos/crear" class="admin-action-card">
+                    <a href="/Akihabara-Dreams/products/crear" class="admin-action-card">
                         <div class="admin-action-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -208,18 +208,18 @@ include '../app/includes/comprobarRol.php';
                                 <path d="M12 8v8"></path>
                             </svg>
                         </div>
-                        <h3 class="admin-action-title">Añadir Producto</h3>
+                        <h3 class="admin-action-title"><?php echo __('admin_add_product')?></h3>
                     </a>
-                    <a href="/Akihabara-Dreams/promociones/crear" class="admin-action-card">
+                    <a href="/Akihabara-Dreams/promotions/crear" class="admin-action-card">
                         <div class="admin-action-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag">
                                 <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path>
                                 <path d="M7 7h.01"></path>
                             </svg>
                         </div>
-                        <h3 class="admin-action-title">Crear Promoción</h3>
+                        <h3 class="admin-action-title"><?php echo __('admin_add_promotion')?></h3>
                     </a>
-                    <a href="/Akihabara-Dreams/usuarios/crear" class="admin-action-card">
+                    <a href="/Akihabara-Dreams/users/crear" class="admin-action-card">
                         <div class="admin-action-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
@@ -228,9 +228,9 @@ include '../app/includes/comprobarRol.php';
                                 <line x1="22" x2="16" y1="11" y2="11"></line>
                             </svg>
                         </div>
-                        <h3 class="admin-action-title">Añadir Usuario</h3>
+                        <h3 class="admin-action-title"><?php echo __('admin_add_user')?></h3>
                     </a>
-                    <a href="/Akihabara-Dreams/pedidos" class="admin-action-card">
+                    <a href="/Akihabara-Dreams/orders" class="admin-action-card">
                         <div class="admin-action-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-list">
                                 <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
@@ -241,14 +241,14 @@ include '../app/includes/comprobarRol.php';
                                 <path d="M8 16h.01"></path>
                             </svg>
                         </div>
-                        <h3 class="admin-action-title">Ver Pedidos</h3>
+                        <h3 class="admin-action-title"><?php echo __('admin_show_orders')?></h3>
                     </a>
                 </div>
             </div>
 
             <!-- Actividad reciente -->
             <div class="admin-recent-activity">
-                <h2>Actividad Reciente</h2>
+                <h2><?php echo __('admin_recent_activitie')?></h2>
                 <ul class="admin-activity-list">
                     <li class="admin-activity-item">
                         <div class="admin-activity-icon">
@@ -258,8 +258,8 @@ include '../app/includes/comprobarRol.php';
                             </svg>
                         </div>
                         <div class="admin-activity-content">
-                            <h4 class="admin-activity-title">Nueva promoción creada: Descuento de Verano</h4>
-                            <p class="admin-activity-time">Hace 1 hora</p>
+                            <h4 class="admin-activity-title"><?php echo __('admin_new_promotion_created')?></h4>
+                            <p class="admin-activity-time"><?php echo __('admin_an_hour_ago')?></p>
                         </div>
                     </li>
                     <li class="admin-activity-item">
@@ -271,8 +271,8 @@ include '../app/includes/comprobarRol.php';
                             </svg>
                         </div>
                         <div class="admin-activity-content">
-                            <h4 class="admin-activity-title">Nuevo pedido #1234 realizado</h4>
-                            <p class="admin-activity-time">Hace 2 horas</p>
+                            <h4 class="admin-activity-title"><?php echo __('admin_new_order_placed')?></h4>
+                            <p class="admin-activity-time"><?php echo __('admin_two_hours_ago')?></p>
                         </div>
                     </li>
                     <li class="admin-activity-item">
@@ -283,8 +283,8 @@ include '../app/includes/comprobarRol.php';
                             </svg>
                         </div>
                         <div class="admin-activity-content">
-                            <h4 class="admin-activity-title">Nuevo usuario registrado</h4>
-                            <p class="admin-activity-time">Hace 5 horas</p>
+                            <h4 class="admin-activity-title"><?php echo __('admin_new_user_registered')?></h4>
+                            <p class="admin-activity-time"><?php echo __('admin_five_hours_ago')?></p>
                         </div>
                     </li>
                     <li class="admin-activity-item">
@@ -297,8 +297,8 @@ include '../app/includes/comprobarRol.php';
                             </svg>
                         </div>
                         <div class="admin-activity-content">
-                            <h4 class="admin-activity-title">Producto actualizado: Figura Naruto</h4>
-                            <p class="admin-activity-time">Hace 1 día</p>
+                            <h4 class="admin-activity-title"><?php echo __('admin_new_product_added')?></h4>
+                            <p class="admin-activity-time"><?php echo __('admin_one_day_ago')?></p>
                         </div>
                     </li>
                 </ul>

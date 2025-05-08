@@ -8,7 +8,7 @@ class PromotionsRepository {
     }
 
     public function getAllPromotions() {
-        $statement = $this->connection->prepare('SELECT * FROM Promotion ORDER BY end_date DESC');
+        $statement = $this->connection->prepare('select * from Promotion order by end_date desc');
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -29,7 +29,9 @@ class PromotionsRepository {
 
     public function getActivePromotions() {
         $today = date('Y-m-d');
-        $statement = $this->connection->prepare('SELECT * FROM Promotion WHERE start_date <= :today AND end_date >= :today ORDER BY discount DESC');
+        $statement = $this->connection->prepare('select * from Promotion 
+                                                 where start_date <= :today and end_date >= :today 
+                                                 order by discount desc');
         $statement->execute(['today' => $today]);
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -50,9 +52,7 @@ class PromotionsRepository {
 
     public function getPromotionById($id) {
         try {
-            // Depuración: Mostrar la consulta SQL
-            $sql = 'SELECT * FROM Promotion WHERE id_promotion = :id';
-            echo "<!-- Debug SQL: " . $sql . " with id = " . htmlspecialchars($id) . " -->";
+            $sql = 'select * from Promotion where id_promotion = :id';
             
             $statement = $this->connection->prepare($sql);
             $statement->execute(['id' => $id]);
@@ -77,9 +77,9 @@ class PromotionsRepository {
 
     public function getProductsInPromotion($promotionId) {
         $statement = $this->connection->prepare('
-            SELECT p.* FROM Products p
-            INNER JOIN Product_promotions pp ON p.id_product = pp.id_product
-            WHERE pp.id_promotion = :id_promotion
+            select p.* from Products p
+            inner join Product_promotions pp on p.id_product = pp.id_product
+            where pp.id_promotion = :id_promotion
         ');
         $statement->execute(['id_promotion' => $promotionId]);
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -97,7 +97,7 @@ class PromotionsRepository {
             );
 
             // Obtener fotos adicionales
-            $photoStatement = $this->connection->prepare('SELECT * FROM Product_photos WHERE id_product = :id_product');
+            $photoStatement = $this->connection->prepare('select * from Product_photos where id_product = :id_product');
             $photoStatement->execute(['id_product' => $item['id_product']]);
             $photos = $photoStatement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -113,14 +113,14 @@ class PromotionsRepository {
 
     public function getProductsWithPromotions() {
         $statement = $this->connection->prepare('
-            SELECT p.*, pr.discount, pr.id_promotion, pr.code, pr.description as promo_description, 
+            select p.*, pr.discount, pr.id_promotion, pr.code, pr.description as promo_description, 
                    pr.start_date, pr.end_date,
-                   ROUND(p.price * (1 - (pr.discount / 100)), 2) AS discounted_price
-            FROM Products p
-            INNER JOIN Product_promotions pp ON p.id_product = pp.id_product
-            INNER JOIN Promotion pr ON pp.id_promotion = pr.id_promotion
-            WHERE pr.start_date <= CURRENT_DATE AND pr.end_date >= CURRENT_DATE
-            ORDER BY pr.discount DESC, p.id_product
+                   round(p.price * (1 - (pr.discount / 100)), 2) as discounted_price
+            from Products p
+            inner join Product_promotions pp on p.id_product = pp.id_product
+            inner join Promotion pr on pp.id_promotion = pr.id_promotion
+            where pr.start_date <= CURRENT_DATE and pr.end_date >= CURRENT_DATE
+            order by pr.discount desc, p.id_product
         ');
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -149,7 +149,7 @@ class PromotionsRepository {
             ];
 
             // Obtener fotos adicionales
-            $photoStatement = $this->connection->prepare('SELECT * FROM Product_photos WHERE id_product = :id_product');
+            $photoStatement = $this->connection->prepare('select * from Product_photos where id_product = :id_product');
             $photoStatement->execute(['id_product' => $item['id_product']]);
             $photos = $photoStatement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -167,8 +167,8 @@ class PromotionsRepository {
         $this->connection->beginTransaction();
         try {
             $statement = $this->connection->prepare('
-                INSERT INTO Promotion (code, discount, description, start_date, end_date) 
-                VALUES (:code, :discount, :description, :start_date, :end_date)
+                insert into Promotion (code, discount, description, start_date, end_date) 
+                values (:code, :discount, :description, :start_date, :end_date)
             ');
             $statement->execute([
                 'code' => $promotion->getCode(),
@@ -191,10 +191,9 @@ class PromotionsRepository {
         $this->connection->beginTransaction();
         try {
             $statement = $this->connection->prepare('
-                UPDATE Promotion 
-                SET code = :code, discount = :discount, description = :description, 
-                    start_date = :start_date, end_date = :end_date
-                WHERE id_promotion = :id_promotion
+                update Promotion set code = :code, discount = :discount, description = :description, 
+                                     start_date = :start_date, end_date = :end_date
+                where id_promotion = :id_promotion
             ');
             $statement->execute([
                 'id_promotion' => $promotion->getId(),
@@ -217,11 +216,11 @@ class PromotionsRepository {
         $this->connection->beginTransaction();
         try {
             // Primero eliminamos las relaciones en la tabla de productos_promociones
-            $statement = $this->connection->prepare('DELETE FROM Product_promotions WHERE id_promotion = :id');
+            $statement = $this->connection->prepare('delete from Product_promotions where id_promotion = :id');
             $statement->execute(['id' => $id]);
             
             // Luego eliminamos la promoción
-            $statement = $this->connection->prepare('DELETE FROM Promotion WHERE id_promotion = :id');
+            $statement = $this->connection->prepare('delete from Promotion where id_promotion = :id');
             $statement->execute(['id' => $id]);
             
             $this->connection->commit();
@@ -237,8 +236,8 @@ class PromotionsRepository {
         try {
             // Primero verificamos si ya existe esta relación
             $checkStatement = $this->connection->prepare('
-                SELECT COUNT(*) FROM Product_promotions 
-                WHERE id_product = :id_product AND id_promotion = :id_promotion
+                select count(*) from Product_promotions 
+                where id_product = :id_product and id_promotion = :id_promotion
             ');
             $checkStatement->execute([
                 'id_product' => $productId,
@@ -247,13 +246,14 @@ class PromotionsRepository {
             
             if ($checkStatement->fetchColumn() > 0) {
                 $this->connection->rollBack();
-                return false; // Ya existe esta relación
+                return false; 
             }
 
             $statement = $this->connection->prepare('
-                INSERT INTO Product_promotions (id_product, id_promotion) 
-                VALUES (:id_product, :id_promotion)
+                insert into Product_promotions (id_product, id_promotion) 
+                values (:id_product, :id_promotion)
             ');
+
             $statement->execute([
                 'id_product' => $productId,
                 'id_promotion' => $promotionId
@@ -271,9 +271,10 @@ class PromotionsRepository {
         $this->connection->beginTransaction();
         try {
             $statement = $this->connection->prepare('
-                DELETE FROM Product_promotions 
-                WHERE id_product = :id_product AND id_promotion = :id_promotion
+                delete from Product_promotions 
+                where id_product = :id_product and id_promotion = :id_promotion
             ');
+
             $statement->execute([
                 'id_product' => $productId,
                 'id_promotion' => $promotionId
@@ -288,27 +289,34 @@ class PromotionsRepository {
     }
 
     public function getPromotionsForProduct($productId) {
-        $statement = $this->connection->prepare('
-            SELECT pr.* FROM Promotion pr
-            INNER JOIN Product_promotions pp ON pr.id_promotion = pp.id_promotion
-            WHERE pp.id_product = :id_product AND pr.start_date <= CURRENT_DATE AND pr.end_date >= CURRENT_DATE
-            ORDER BY pr.discount DESC
-        ');
-        $statement->execute(['id_product' => $productId]);
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $promotions = [];
-        foreach ($result as $item) {
-            $promotions[] = new Promotion(
-                $item['id_promotion'],
-                $item['code'],
-                $item['discount'],
-                $item['description'],
-                $item['start_date'],
-                $item['end_date']
-            );
+        try {
+            $statement = $this->connection->prepare('
+                SELECT pr.* FROM Promotion pr
+                INNER JOIN Product_promotions pp ON pr.id_promotion = pp.id_promotion
+                WHERE pp.id_product = :id_product 
+                AND pr.start_date <= CURRENT_DATE 
+                AND pr.end_date >= CURRENT_DATE
+                ORDER BY pr.discount DESC
+            ');
+            $statement->execute(['id_product' => $productId]);
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+            $promotions = [];
+            foreach ($result as $item) {
+                $promotions[] = new Promotion(
+                    $item['id_promotion'],
+                    $item['code'],
+                    $item['discount'],
+                    $item['description'],
+                    $item['start_date'],
+                    $item['end_date']
+                );
+            }
+    
+            return $promotions;
+        } catch (Exception $e) {
+            error_log('Error al obtener promociones para el producto: ' . $e->getMessage());
+            return [];
         }
-
-        return $promotions;
     }
 }

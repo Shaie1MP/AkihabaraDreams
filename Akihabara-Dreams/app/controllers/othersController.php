@@ -15,27 +15,27 @@ class OtthersController {
 
     public function catalog(){
         $products = $this->othersRepository->catalog();
-        include '../app/views/catalogo.php';
+        include '../app/views/catalog.php';
     }
 
     public function mangas(){
         $products = $this->othersRepository->mangas();
-        include '../app/views/catalogo.php';
+        include '../app/views/catalog.php';
     }
 
     public function figures(){
         $products = $this->othersRepository->figures();
-        include '../app/views/catalogo.php';
+        include '../app/views/catalog.php';
     }
 
     public function merchandising(){
         $products = $this->othersRepository->merchandising();
-        include '../app/views/catalogo.php';
+        include '../app/views/catalog.php';
     }
 
     public function promotions(){
         $products = $this->othersRepository->promotions();
-        include '../app/views/catalogo.php';
+        include '../app/views/catalog.php';
     }
 
     public function index(){
