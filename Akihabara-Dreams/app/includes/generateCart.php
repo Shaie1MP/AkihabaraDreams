@@ -15,15 +15,16 @@
                         $itemPrice = $item['product']->getPrice();
                         $itemTotal = $itemPrice * $item['quantity'];
                         $total += $itemTotal;
+                        $productId = $item['product']->getProductId();
                         
-                        echo '<div class="cart-item">';
+                        echo '<div class="cart-item" data-id="' . $productId . '">';
                         echo '<img src="/Akihabara-Dreams/resources/images/productos/portadas/' . htmlspecialchars($item['product']->getMainPhoto()) . '" alt="Imagen del producto">';
                         echo '<div class="cart-item-details">';
                         echo '<span>' . htmlspecialchars($item['product']->getProductName()) . ' x' . $item['quantity'] . '</span> ';
 
                         // Verificar si hay un precio con descuento
                         $productsRepository = new ProductsRepository($GLOBALS['connection']);
-                        $fullProduct = $productsRepository->searchProduct($item['product']->getProductId());
+                        $fullProduct = $productsRepository->searchProduct($productId);
                         
                         if ($fullProduct->hasPromotion()) {
                             if (isset($symbol)) {
@@ -60,9 +61,8 @@
                         }
                         
                         echo '</div>';
-                        echo '<form action="/Akihabara-Dreams/cart/eliminar/' . $item['product']->getProductId() . '" method="post">
-                        <button class="remove-item" type="submit">Eliminar</button>
-                        </form>';
+                        // Modificar el botón para usar JavaScript en lugar de un formulario
+                        echo '<button class="remove-item" data-id="' . $productId . '">Eliminar</button>';
                         echo '</div>';
                     }
                 }
@@ -90,7 +90,7 @@
         <div class="cart-footer">
             <a href="/Akihabara-Dreams/cart/vaciar"><button class="cart-button">Vaciar Carrito</button></a>
             <a href="/Akihabara-Dreams/cart/guardar"><button class="cart-button">Guardar Carrito</button></a>
-            <a href="/Akihabara-Dreams/cart/realizar"><button class="cart-button">Realizar Pedido</button></a>
+            <a href="/Akihabara-Dreams/orders/realizar"><button class="cart-button">Realizar Pedido</button></a>
         </div>
     </div>
 </div>

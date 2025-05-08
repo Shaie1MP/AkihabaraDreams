@@ -9,7 +9,6 @@ class ProductsRepository {
         $this->connection = $connection;
     }
 
-
     private function getPromotionsRepository() {
         if ($this->promotionsRepository === null) {
             $this->promotionsRepository = new PromotionsRepository($this->connection);
@@ -44,73 +43,6 @@ class ProductsRepository {
         }
         
         return $product;
-    }
-
-    public function getProductsOrdered($sortCriteria = 'recent') {
-        try {
-            $query = 'SELECT * FROM Products';
-            
-            // Aplicar ordenamiento según el criterio
-            switch ($sortCriteria) {
-                case 'old':
-                    $query .= ' ORDER BY id_product ASC';
-                    break;
-                    
-                case 'recent':
-                    $query .= ' ORDER BY id_product DESC';
-                    break;
-                    
-                case 'price-low':
-                    $query .= ' ORDER BY price ASC';
-                    break;
-                    
-                case 'price-high':
-                    $query .= ' ORDER BY price DESC';
-                    break;
-                    
-                case 'discount':
-                    // Para ordenar por descuento, necesitamos una consulta más compleja
-                    $query = 'SELECT p.*, IFNULL(pr.discount, 0) as discount 
-                              FROM Products p 
-                              LEFT JOIN Product_promotions pp ON p.id_product = pp.id_product 
-                              LEFT JOIN Promotion pr ON pp.id_promotion = pr.id_promotion 
-                                                    AND pr.start_date <= CURRENT_DATE 
-                                                    AND pr.end_date >= CURRENT_DATE
-                              ORDER BY discount DESC, p.id_product DESC';
-                    break;
-                    
-                default:
-                    $query .= ' ORDER BY id_product DESC';
-                    break;
-            }
-            
-            $statement = $this->connection->prepare($query);
-            $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            
-            $products = [];
-            foreach ($result as $item) {
-                $product = new Product(
-                    $item['id_product'],
-                    $item['name'],
-                    $item['description'],
-                    $item['price'],
-                    $item['stock'],
-                    $item['photo'],
-                    $item['category']
-                );
-                
-                // Cargar promociones para este producto
-                $this->loadProductPromotions($product);
-                
-                $products[] = $product;
-            }
-            
-            return $products;
-        } catch (Exception $e) {
-            error_log('Error al obtener productos ordenados: ' . $e->getMessage());
-            return [];
-        }
     }
 
     public function searchProduct($id): Product {
@@ -248,6 +180,53 @@ class ProductsRepository {
         } catch (Exception $e) {
             $this->connection->rollBack();
             throw new Exception($e->getMessage());
+        }
+    }
+
+    public function getAllProducts() {
+        $statement = $this->connection->prepare('select * from Products');
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    /**
+     * Actualiza el stock de un producto después de una compra
+     * 
+     * @param int $productId ID del producto
+     * @param int $quantity Cantidad comprada
+     * @return bool True si la actualización fue exitosa, False en caso contrario
+     */
+    public function updateStock($productId, $quantity) {
+        try {
+            $this->connection->beginTransaction();
+            
+            // Primero verificamos el stock actual
+            $statement = $this->connection->prepare('SELECT stock FROM Products WHERE id_product = :id_product FOR UPDATE');
+            $statement->execute(['id_product' => $productId]);
+            $currentStock = $statement->fetchColumn();
+            
+            // Verificar si hay suficiente stock
+            if ($currentStock < $quantity) {
+                $this->connection->rollBack();
+                throw new Exception("No hay suficiente stock disponible para el producto ID: $productId");
+            }
+            
+            // Actualizar el stock
+            $newStock = $currentStock - $quantity;
+            $statement = $this->connection->prepare('UPDATE Products SET stock = :stock WHERE id_product = :id_product');
+            $statement->execute([
+                'stock' => $newStock,
+                'id_product' => $productId
+            ]);
+            
+            $this->connection->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->connection->rollBack();
+            throw new Exception("Error al actualizar stock: " . $e->getMessage());
+            return false;
         }
     }
 }

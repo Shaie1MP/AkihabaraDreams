@@ -130,7 +130,8 @@ include '../app/includes/checkRole.php';
                         <input type="text" id="description" name="description" required placeholder="Ej: Descuento de verano">
                     </div>
                     
-                    <div class="admin-form-group"><?php echo __('admin_promotion_start_date_form')?>:</label>
+                    <div class="admin-form-group">
+                        <label for="start_date"><?php echo __('admin_promotion_start_date_form')?>:</label>
                         <input type="date" id="start_date" name="start_date" required>
                     </div>
                     

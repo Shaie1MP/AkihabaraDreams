@@ -22,6 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const increaseBtn = document.querySelector(".quantity-increase")
   const quantityInput = document.querySelector("#product-quantity")
 
+  // Obtener el stock disponible
+  let maxStock = 1
+  const stockInfo = document.querySelector(".stock-info")
+
+  if (stockInfo) {
+    const stockText = stockInfo.textContent
+    const stockMatch = stockText.match(/\((\d+)/)
+    if (stockMatch && stockMatch[1]) {
+      maxStock = Number.parseInt(stockMatch[1])
+    }
+  }
+
   if (decreaseBtn && increaseBtn && quantityInput) {
     decreaseBtn.addEventListener("click", () => {
       const currentValue = Number.parseInt(quantityInput.value)
@@ -32,7 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     increaseBtn.addEventListener("click", () => {
       const currentValue = Number.parseInt(quantityInput.value)
-      quantityInput.value = currentValue + 1
+      // Verificar que no exceda el stock disponible
+      if (currentValue < maxStock) {
+        quantityInput.value = currentValue + 1
+      } else {
+        alert(`Solo hay ${maxStock} unidades disponibles.`)
+      }
     })
 
     // Validar que solo se ingresen números en el input de cantidad
@@ -40,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
       this.value = this.value.replace(/[^0-9]/g, "")
       if (this.value === "" || Number.parseInt(this.value) < 1) {
         this.value = 1
+      } else if (Number.parseInt(this.value) > maxStock) {
+        this.value = maxStock
+        alert(`Solo hay ${maxStock} unidades disponibles.`)
       }
     })
   }
@@ -51,7 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (addToCartBtn) {
     addToCartBtn.addEventListener("click", function () {
       const productId = this.getAttribute("data-product-id")
-      const quantity = quantityInput ? parseInt(quantityInput.value) : 1
+      const quantity = quantityInput ? Number.parseInt(quantityInput.value) : 1
+
+      // Verificar que la cantidad no exceda el stock
+      if (quantity > maxStock) {
+        alert(`Solo hay ${maxStock} unidades disponibles.`)
+        return
+      }
 
       // Redireccionar a la URL de agregar al carrito
       window.location.href = `/Akihabara-Dreams/cart/add/${productId}?quantity=${quantity}`
@@ -62,32 +88,46 @@ document.addEventListener("DOMContentLoaded", () => {
     shopPayBtn.addEventListener("click", function (e) {
       // Prevenir el comportamiento predeterminado del onclick
       e.preventDefault()
-      
+
       const productId = this.getAttribute("data-product-id")
-      const quantity = quantityInput ? parseInt(quantityInput.value) : 1
+      const quantity = quantityInput ? Number.parseInt(quantityInput.value) : 1
+
+      // Verificar que la cantidad no exceda el stock
+      if (quantity > maxStock) {
+        alert(`Solo hay ${maxStock} unidades disponibles.`)
+        return
+      }
 
       // Usar XMLHttpRequest en lugar de fetch para asegurar que la solicitud se complete
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', `/Akihabara-Dreams/cart/add/${productId}?quantity=${quantity}&redirect=false`, true);
-      
-      xhr.onload = function() {
+      const xhr = new XMLHttpRequest()
+      xhr.open("GET", `/Akihabara-Dreams/cart/add/${productId}?quantity=${quantity}&redirect=false`, true)
+      xhr.responseType = "json"
+
+      xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
-          // Después de agregar al carrito, redirigir a la página de realizar pedido
-          window.location.href = '/Akihabara-Dreams/orders/realizar';
+          const response = xhr.response
+
+          if (response && response.success === false) {
+            // Mostrar error si no hay suficiente stock
+            alert(response.error || "Error al añadir al carrito")
+          } else {
+            // Después de agregar al carrito, redirigir a la página de realizar pedido
+            window.location.href = "/Akihabara-Dreams/orders/realizar"
+          }
         } else {
-          console.error('Error:', xhr.statusText);
+          console.error("Error:", xhr.statusText)
           // En caso de error, redirigir de todos modos
-          window.location.href = '/Akihabara-Dreams/orders/realizar';
+          window.location.href = "/Akihabara-Dreams/orders/realizar"
         }
-      };
-      
-      xhr.onerror = function() {
-        console.error('Network Error');
+      }
+
+      xhr.onerror = () => {
+        console.error("Network Error")
         // En caso de error, redirigir de todos modos
-        window.location.href = '/Akihabara-Dreams/orders/realizar';
-      };
-      
-      xhr.send();
+        window.location.href = "/Akihabara-Dreams/orders/realizar"
+      }
+
+      xhr.send()
     })
   }
 

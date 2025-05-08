@@ -1,38 +1,43 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 
-// Verificar si se recibió el ID del producto
-if (!isset($_GET['id_product'])) {
-    header('Location: /Akihabara-Dreams/');
+// Verificar si hay un usuario logueado y un carrito en la sesión
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['carrito'])) {
+    echo json_encode(['success' => false, 'message' => 'No hay sesión de usuario o carrito']);
     exit;
 }
 
-$productId = $_GET['id_product'];
+// Obtener el ID del producto a eliminar
+$productId = isset($_GET['id_product']) ? intval($_GET['id_product']) : 0;
 
-// Verificar si el carrito existe en la sesión
-if (!isset($_SESSION['carrito'])) {
-    header('Location: /Akihabara-Dreams/');
+if ($productId <= 0) {
+    echo json_encode(['success' => false, 'message' => 'ID de producto inválido']);
     exit;
 }
 
-$cart = unserialize($_SESSION['carrito']);
-
-// Eliminar el producto del carrito
-if (method_exists($cart, 'removeProduct')) {
+try {
+    // Cargar las clases necesarias
+    include_once '../../config/database.php';
+    include_once '../../config/loader.php';
+    
+    // Obtener el carrito de la sesión
+    $cart = unserialize($_SESSION['carrito']);
+    
+    // Eliminar el producto del carrito
     $cart->removeProduct($productId);
+    
+    // Guardar el carrito actualizado en la sesión
     $_SESSION['carrito'] = serialize($cart);
-}
-
-// Determinar a dónde redirigir
-$redirect = isset($_GET['redirect']) && $_GET['redirect'] === 'true';
-$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/Akihabara-Dreams/';
-
-if ($redirect) {
-    // Redirigir a la página anterior
-    header('Location: ' . $referer);
-    exit;
-} else {
-    // Devolver JSON para peticiones AJAX
-    header('Content-Type: application/json');
+    
+    // Si el usuario está logueado, actualizar también en la base de datos
+    if (isset($_SESSION['usuario'])) {
+        $user = unserialize($_SESSION['usuario']);
+        $cartRepository = new CartRepository($connection);
+        $cartRepository->saveCartDatabase($cart);
+    }
+    
     echo json_encode(['success' => true]);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }

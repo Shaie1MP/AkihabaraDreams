@@ -4,7 +4,7 @@
     <title>Akihabara Dreams - <?php echo __('home_subtitle'); ?></title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
-    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/cart.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/carrito.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/footer.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/index.css">

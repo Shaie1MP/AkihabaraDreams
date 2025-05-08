@@ -142,6 +142,22 @@ INNER JOIN
 ON 
     dp.id_product = p.id_product;
 
+CREATE VIEW View_Product_Stock AS
+SELECT 
+    p.id_product,
+    p.name,
+    p.stock,
+    p.category,
+CASE 
+    WHEN p.stock > 10 THEN 'Disponible'
+    WHEN p.stock > 0 THEN 'Bajo stock'
+ELSE 'Agotado'
+    END AS stock_status
+FROM 
+    Products p
+ORDER BY 
+     p.stock DESC;
+
 DELIMITER $$
 CREATE PROCEDURE SaveCart(IN userId INT, IN products JSON)
 BEGIN

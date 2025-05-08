@@ -165,4 +165,11 @@ class OrdersRepository {
             return null;
         }
     }
+
+    public function getAllOrders(): array {
+        $statement = $this->connection->prepare('select * from Orders');
+        $statement->execute();
+        $orders = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $orders;
+    }
 }

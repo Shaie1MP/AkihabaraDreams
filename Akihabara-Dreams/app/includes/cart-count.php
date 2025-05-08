@@ -2,24 +2,23 @@
 session_start();
 header('Content-Type: application/json');
 
-// Verificar si el carrito existe en la sesión
-if (isset($_SESSION['carrito'])) {
-    $cart = unserialize($_SESSION['carrito']);
-    
-    // Verificar si el carrito tiene un método getCount o similar
-    if (method_exists($cart, 'getCount')) {
-        $count = $cart->getCount();
-    } elseif (method_exists($cart, 'getCart')) {
-        // Si no tiene getCount pero tiene getCart, contar los elementos
-        $cartItems = $cart->getCart();
-        $count = count($cartItems);
-    } else {
-        // Si no podemos determinar el conteo, devolver 0
-        $count = 0;
-    }
-} else {
-    $count = 0;
+// Verificar si hay un carrito en la sesión
+if (!isset($_SESSION['carrito'])) {
+    echo json_encode(['count' => 0]);
+    exit;
 }
 
-// Devolver el conteo en formato JSON
-echo json_encode(['count' => $count]);
+try {
+    // Obtener el carrito de la sesión
+    $cart = unserialize($_SESSION['carrito']);
+    
+    // Contar los productos en el carrito
+    $count = 0;
+    foreach ($cart->getCart() as $item) {
+        $count += $item['quantity'];
+    }
+    
+    echo json_encode(['count' => $count]);
+} catch (Exception $e) {
+    echo json_encode(['count' => 0, 'error' => $e->getMessage()]);
+}

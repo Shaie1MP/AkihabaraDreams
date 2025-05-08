@@ -178,4 +178,9 @@ class OrdersController
         $pdfGenerator->generateAndDownloadOrderPDF($order, $user, $currency, $conversionRate);
         exit;
     }
+
+    public function getAllOrders()
+    {
+        return $this->ordersRepository->getAllOrders();
+    }
 }

@@ -283,6 +283,10 @@ class ProductsController {
         }
     }
 
+    public function getAllProducts() {
+        return $this->productsRepository->getAllProducts();
+    }
+
     public function showProducts() {
         $products = $this->productsRepository->showProducts();
         include '../app/views/showProducts.php';

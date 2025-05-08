@@ -352,4 +352,8 @@ class UsersController {
         }
 
     }
+
+    public function getAllUsers() {
+        return $this->usersRepository->getAllUsers();
+    }
 }

@@ -33,7 +33,7 @@ try {
         include '../app/includes/checkTimeSession.php';
         $userSession = unserialize($_SESSION['usuario']);
     }
-    
+
     if (isset($_SESSION['carrito'])) {
         $cartSession = unserialize($_SESSION['carrito']);
         // foreach ($carritoSesion->getCarrito() as $key => $value) {
@@ -79,7 +79,19 @@ try {
                 $cartController = new CartController(new CartRepository($connection), $cartSession);
                 switch ($action) {
                     case 'add':
-                        $cartController->addElement($idUrl);
+                        // Modificar para manejar peticiones AJAX
+                        $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;
+                        $cartController->addElement($idUrl, $quantity);
+                        
+                        // Si es una petición AJAX, devolver JSON
+                        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                            header('Content-Type: application/json');
+                            echo json_encode(['success' => true]);
+                            exit;
+                        }
+                        
+                        // Si no es AJAX, redirigir
                         header('Location: /Akihabara-Dreams/products/info/' . $idUrl);
                         exit;
                         break;
@@ -91,6 +103,9 @@ try {
                         break;
                     case 'vaciar':
                         $cartController->emptyCart();
+                        break;
+                    case 'realizar':
+                        $cartController->realizarPedido();
                         break;
                 }
             }
@@ -114,7 +129,7 @@ try {
             break;
 
         case 'promotions':
-            
+
             include './index-promotions.php';
             break;
 

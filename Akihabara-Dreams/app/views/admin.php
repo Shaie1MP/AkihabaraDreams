@@ -1,8 +1,14 @@
 <?php
-include '../app/includes/checkSession.php';
-include '../app/includes/checkRole.php';
+// Verificar sesión y rol
+include_once '../app/includes/checkSession.php';
+include_once '../app/includes/checkRole.php';
+
+include '../config/database.php'; 
+include_once '../config/loader.php';
 ?>
 
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,12 +24,12 @@ include '../app/includes/checkRole.php';
     <?php
     include '../resources/commons/navbar.php';
     ?>
-    
+
     <div class="admin-container">
         <!-- Sidebar de administración -->
         <div class="admin-sidebar">
             <div class="admin-sidebar-header">
-                <h2><?php echo __('admin_dashboard')?></h2>
+                <h2><?php echo __('admin_dashboard') ?></h2>
             </div>
             <ul class="admin-sidebar-menu">
                 <li class="admin-sidebar-item">
@@ -36,7 +42,7 @@ include '../app/includes/checkRole.php';
                                 <rect width="7" height="5" x="3" y="16" rx="1"></rect>
                             </svg>
                         </span>
-                        <?php echo __('admin_dashboard')?>
+                        <?php echo __('admin_dashboard') ?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
@@ -49,7 +55,7 @@ include '../app/includes/checkRole.php';
                                 <path d="M12 22V12"></path>
                             </svg>
                         </span>
-                        <?php echo __('admin_products')?>
+                        <?php echo __('admin_products') ?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
@@ -62,7 +68,7 @@ include '../app/includes/checkRole.php';
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
                         </span>
-                        <?php echo __('admin_users')?>
+                        <?php echo __('admin_users') ?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
@@ -73,7 +79,7 @@ include '../app/includes/checkRole.php';
                                 <path d="M7 7h.01"></path>
                             </svg>
                         </span>
-                        <?php echo __('admin_promotions')?>
+                        <?php echo __('admin_promotions') ?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
@@ -85,7 +91,7 @@ include '../app/includes/checkRole.php';
                                 <path d="M16 10a4 4 0 0 1-8 0"></path>
                             </svg>
                         </span>
-                        <?php echo __('admin_orders')?>
+                        <?php echo __('admin_orders') ?>
                     </a>
                 </li>
                 <li class="admin-sidebar-item">
@@ -99,7 +105,7 @@ include '../app/includes/checkRole.php';
                                 <path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"></path>
                             </svg>
                         </span>
-                        <?php echo __('admin_go_shop')?>
+                        <?php echo __('admin_go_shop') ?>
                     </a>
                 </li>
             </ul>
@@ -108,15 +114,15 @@ include '../app/includes/checkRole.php';
         <!-- Contenido principal -->
         <div class="admin-content">
             <div class="admin-header">
-                <h1><?php echo __('admin_panel')?></h1>
-                <p><?php echo __('admin_welcome')?></p>
+                <h1><?php echo __('admin_panel') ?></h1>
+                <p><?php echo __('admin_welcome') ?></p>
             </div>
 
             <!-- Tarjetas de estadísticas -->
             <div class="admin-stats">
                 <div class="admin-stat-card">
                     <div class="admin-stat-header">
-                        <span class="admin-stat-title"><?php echo __('admin_products')?></span>
+                        <span class="admin-stat-title"><?php echo __('admin_products') ?></span>
                         <div class="admin-stat-icon products">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package">
                                 <path d="m7.5 4.27 9 5.15"></path>
@@ -128,16 +134,23 @@ include '../app/includes/checkRole.php';
                     </div>
                     <h3 class="admin-stat-value">
                         <?php
-                        // incluir código para contar productos
-                        echo "120";
+                        try {
+                            // Contador de productos
+                            $productsRepository = new ProductsRepository($connection);
+                            $productsController = new ProductsController($productsRepository);
+                            $products = $productsController->getAllProducts();
+                            echo is_array($products) ? count($products) : '0';
+                        } catch (Exception $e) {
+                            throw new Exception("Error al contar productos: " . $e->getMessage());
+                        }
                         ?>
                     </h3>
-                    <p class="admin-stat-description"><?php echo __('admin_total_products')?></p>
+                    <p class="admin-stat-description"><?php echo __('admin_total_products') ?></p>
                 </div>
 
                 <div class="admin-stat-card">
                     <div class="admin-stat-header">
-                        <span class="admin-stat-title"><?php echo __('admin_users')?></span>
+                        <span class="admin-stat-title"><?php echo __('admin_users') ?></span>
                         <div class="admin-stat-icon users">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
@@ -149,16 +162,23 @@ include '../app/includes/checkRole.php';
                     </div>
                     <h3 class="admin-stat-value">
                         <?php
-                        // incluir código para contar usuarios
-                        echo "45";
+                        try {
+                            // Contador de usuarios
+                            $usersRepository = new UsersRepository($connection);
+                            $usersController = new UsersController($usersRepository);
+                            $users = $usersController->getAllUsers();
+                            echo is_array($users) ? count($users) : '0';
+                        } catch (Exception $e) {
+                            throw new Exception("Error al contar usuarios: " . $e->getMessage());
+                        }
                         ?>
                     </h3>
-                    <p class="admin-stat-description"><?php echo __('admin_registered_users')?></p>
+                    <p class="admin-stat-description"><?php echo __('admin_registered_users') ?></p>
                 </div>
 
                 <div class="admin-stat-card">
                     <div class="admin-stat-header">
-                        <span class="admin-stat-title"><?php echo __('admin_orders')?></span>
+                        <span class="admin-stat-title"><?php echo __('admin_orders') ?></span>
                         <div class="admin-stat-icon orders">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag">
                                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
@@ -169,16 +189,23 @@ include '../app/includes/checkRole.php';
                     </div>
                     <h3 class="admin-stat-value">
                         <?php
-                        // incluir código para contar pedidos
-                        echo "78";
+                        try {
+                            // Contador de pedidos
+                            $ordersRepository = new OrdersRepository($connection);
+                            $ordersController = new OrdersController($ordersRepository);
+                            $orders = $ordersController->getAllOrders();
+                            echo is_array($orders) ? count($orders) : '0';
+                        } catch (Exception $e) {
+                            throw new Exception("Error al contar pedidos: " . $e->getMessage());
+                        }
                         ?>
                     </h3>
-                    <p class="admin-stat-description"><?php echo __('admin_realized_orders')?></p>
+                    <p class="admin-stat-description"><?php echo __('admin_realized_orders') ?></p>
                 </div>
 
                 <div class="admin-stat-card">
                     <div class="admin-stat-header">
-                        <span class="admin-stat-title"><?php echo __('admin_promotions')?></span>
+                        <span class="admin-stat-title"><?php echo __('admin_promotions') ?></span>
                         <div class="admin-stat-icon promotions">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag">
                                 <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path>
@@ -188,17 +215,23 @@ include '../app/includes/checkRole.php';
                     </div>
                     <h3 class="admin-stat-value">
                         <?php
-                        // incluir código para contar promociones activas
-                        echo "15";
+                        try {
+                            // Contador de promociones activas
+                            $promotionsRepository = new PromotionsRepository($connection);
+                            $promotions = $promotionsRepository->getActivePromotions();
+                            echo is_array($promotions) ? count($promotions) : '0';
+                        } catch (Exception $e) {
+                            throw new Exception("Error al contar promociones: " . $e->getMessage());
+                        }
                         ?>
                     </h3>
-                    <p class="admin-stat-description"><?php echo __('admin_active_promotions')?></p>
+                    <p class="admin-stat-description"><?php echo __('admin_active_promotions') ?></p>
                 </div>
             </div>
 
             <!-- Acciones rápidas -->
             <div class="admin-quick-actions">
-                <h2><?php echo __('admin_quick_actions')?></h2>
+                <h2><?php echo __('admin_quick_actions') ?></h2>
                 <div class="admin-actions-grid">
                     <a href="/Akihabara-Dreams/products/crear" class="admin-action-card">
                         <div class="admin-action-icon">
@@ -208,7 +241,7 @@ include '../app/includes/checkRole.php';
                                 <path d="M12 8v8"></path>
                             </svg>
                         </div>
-                        <h3 class="admin-action-title"><?php echo __('admin_add_product')?></h3>
+                        <h3 class="admin-action-title"><?php echo __('admin_add_product') ?></h3>
                     </a>
                     <a href="/Akihabara-Dreams/promotions/crear" class="admin-action-card">
                         <div class="admin-action-icon">
@@ -217,7 +250,7 @@ include '../app/includes/checkRole.php';
                                 <path d="M7 7h.01"></path>
                             </svg>
                         </div>
-                        <h3 class="admin-action-title"><?php echo __('admin_add_promotion')?></h3>
+                        <h3 class="admin-action-title"><?php echo __('admin_add_promotion') ?></h3>
                     </a>
                     <a href="/Akihabara-Dreams/users/crear" class="admin-action-card">
                         <div class="admin-action-icon">
@@ -228,7 +261,7 @@ include '../app/includes/checkRole.php';
                                 <line x1="22" x2="16" y1="11" y2="11"></line>
                             </svg>
                         </div>
-                        <h3 class="admin-action-title"><?php echo __('admin_add_user')?></h3>
+                        <h3 class="admin-action-title"><?php echo __('admin_add_user') ?></h3>
                     </a>
                     <a href="/Akihabara-Dreams/orders" class="admin-action-card">
                         <div class="admin-action-icon">
@@ -241,14 +274,14 @@ include '../app/includes/checkRole.php';
                                 <path d="M8 16h.01"></path>
                             </svg>
                         </div>
-                        <h3 class="admin-action-title"><?php echo __('admin_show_orders')?></h3>
+                        <h3 class="admin-action-title"><?php echo __('admin_show_orders') ?></h3>
                     </a>
                 </div>
             </div>
 
             <!-- Actividad reciente -->
             <div class="admin-recent-activity">
-                <h2><?php echo __('admin_recent_activitie')?></h2>
+                <h2><?php echo __('admin_recent_activitie') ?></h2>
                 <ul class="admin-activity-list">
                     <li class="admin-activity-item">
                         <div class="admin-activity-icon">
@@ -258,8 +291,8 @@ include '../app/includes/checkRole.php';
                             </svg>
                         </div>
                         <div class="admin-activity-content">
-                            <h4 class="admin-activity-title"><?php echo __('admin_new_promotion_created')?></h4>
-                            <p class="admin-activity-time"><?php echo __('admin_an_hour_ago')?></p>
+                            <h4 class="admin-activity-title"><?php echo __('admin_new_promotion_created') ?></h4>
+                            <p class="admin-activity-time"><?php echo __('admin_an_hour_ago') ?></p>
                         </div>
                     </li>
                     <li class="admin-activity-item">
@@ -271,8 +304,8 @@ include '../app/includes/checkRole.php';
                             </svg>
                         </div>
                         <div class="admin-activity-content">
-                            <h4 class="admin-activity-title"><?php echo __('admin_new_order_placed')?></h4>
-                            <p class="admin-activity-time"><?php echo __('admin_two_hours_ago')?></p>
+                            <h4 class="admin-activity-title"><?php echo __('admin_new_order_placed') ?></h4>
+                            <p class="admin-activity-time"><?php echo __('admin_two_hours_ago') ?></p>
                         </div>
                     </li>
                     <li class="admin-activity-item">
@@ -283,8 +316,8 @@ include '../app/includes/checkRole.php';
                             </svg>
                         </div>
                         <div class="admin-activity-content">
-                            <h4 class="admin-activity-title"><?php echo __('admin_new_user_registered')?></h4>
-                            <p class="admin-activity-time"><?php echo __('admin_five_hours_ago')?></p>
+                            <h4 class="admin-activity-title"><?php echo __('admin_new_user_registered') ?></h4>
+                            <p class="admin-activity-time"><?php echo __('admin_five_hours_ago') ?></p>
                         </div>
                     </li>
                     <li class="admin-activity-item">
@@ -297,8 +330,8 @@ include '../app/includes/checkRole.php';
                             </svg>
                         </div>
                         <div class="admin-activity-content">
-                            <h4 class="admin-activity-title"><?php echo __('admin_new_product_added')?></h4>
-                            <p class="admin-activity-time"><?php echo __('admin_one_day_ago')?></p>
+                            <h4 class="admin-activity-title"><?php echo __('admin_new_product_added') ?></h4>
+                            <p class="admin-activity-time"><?php echo __('admin_one_day_ago') ?></p>
                         </div>
                     </li>
                 </ul>
@@ -308,4 +341,3 @@ include '../app/includes/checkRole.php';
 </body>
 
 </html>
-

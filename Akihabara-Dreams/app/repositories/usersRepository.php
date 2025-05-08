@@ -159,4 +159,12 @@ class UsersRepository {
             throw new Exception('No se ha podido insertar el usuario');
         }
     }
+
+    public function getAllUsers() {
+        $statement = $this->connection->prepare('select * from Users');
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }

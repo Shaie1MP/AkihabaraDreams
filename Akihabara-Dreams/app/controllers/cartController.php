@@ -9,13 +9,30 @@ class CartController {
         $this->cart = $cart;
     }
 
-    public function addElement($id_product) {
+    // Modificar el método addElement para aceptar la cantidad como parámetro
+    public function addElement($id_product, $quantity = 1) {
         try {
-            $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;
-            
             // Obtener el producto con sus promociones
             $productsRepository = new ProductsRepository($this->cartRepository->getConnection());
             $fullProduct = $productsRepository->searchProduct($id_product);
+            
+            // Verificar si hay suficiente stock
+            if ($fullProduct->getStock() < $quantity) {
+                // No hay suficiente stock
+                $_SESSION['error'] = "No hay suficiente stock disponible. Stock actual: " . $fullProduct->getStock();
+                
+                // Si es una petición AJAX, devolver JSON
+                if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => $_SESSION['error']]);
+                    exit;
+                }
+                
+                // Si no es AJAX, redirigir
+                header('Location: /Akihabara-Dreams/products/info/' . $id_product);
+                exit;
+            }
             
             // Determinar el precio correcto (con descuento si aplica)
             $price = $fullProduct->hasPromotion() ? $fullProduct->getDiscountedPrice() : $fullProduct->getPrice();
@@ -31,25 +48,74 @@ class CartController {
                 );
                 $this->cart->addProduct($product, $quantity);
                 $this->saveCart();
+                
+                // Si es una petición AJAX, devolver JSON
+                if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => true]);
+                    exit;
+                }
+                
+                // Si no es AJAX, redirigir
+                header('Location: /Akihabara-Dreams/products/info/' . $id_product);
+                exit;
             } else {
                 throw new Exception('Producto no encontrado');
             }
+        } catch (Exception $e) {
+            error_log('Error adding product to cart: ' . $e->getMessage());
             
-            if (isset($_GET['redirect']) && $_GET['redirect'] === 'false') {
+            // Si es una petición AJAX, devolver JSON
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+                exit;
+            }
+            
+            // Si no es AJAX, redirigir con mensaje de error
+            $_SESSION['error'] = "Error al añadir al carrito: " . $e->getMessage();
+            header('Location: /Akihabara-Dreams/products/info/' . $id_product);
+            exit;
+        }
+    }
+    
+    // Método para eliminar un elemento del carrito
+    public function deleteElement($id_product) {
+        try {
+            $this->cart->removeProduct($id_product);
+            $this->saveCart();
+            
+            // Si es una solicitud AJAX, devolver JSON
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => true]);
                 exit;
             }
             
+            // Redirigir a la página anterior o al catálogo
+            $referer = $_SERVER['HTTP_REFERER'] ?? '/Akihabara-Dreams/catalog';
+            header('Location: ' . $referer);
+            exit;
         } catch (Exception $e) {
-            error_log('Error adding product to cart: ' . $e->getMessage());
+            error_log('Error removing product from cart: ' . $e->getMessage());
+            
+            // Si es una solicitud AJAX, devolver JSON con error
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+                exit;
+            }
+            
+            // Redirigir con mensaje de error
+            $_SESSION['error'] = "Error al eliminar del carrito: " . $e->getMessage();
+            $referer = $_SERVER['HTTP_REFERER'] ?? '/Akihabara-Dreams/catalog';
+            header('Location: ' . $referer);
+            exit;
         }
-    }
-    
-    // Resto de métodos sin cambios
-    public function deleteElement($id_product) {
-        $this->cart->removeProduct($id_product);
-        $this->saveCart();
     }
 
     public function saveCart() {
@@ -57,41 +123,84 @@ class CartController {
     }
 
     public function saveCartDatabase() {
-        $this->cartRepository->saveCartDatabase($this->cart);
+        try {
+            $this->cartRepository->saveCartDatabase($this->cart);
+            $_SESSION['success'] = "Carrito guardado correctamente";
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Error al guardar el carrito: " . $e->getMessage();
+        }
+        
+        // Redirigir a la página anterior o al catálogo
+        $referer = $_SERVER['HTTP_REFERER'] ?? '/Akihabara-Dreams/catalog';
+        header('Location: ' . $referer);
+        exit;
     }
 
     public function getCartDatabase() {
-        $result = $this->cartRepository->getCartDatabase($this->cart); 
-        $newCart = [];
+        try {
+            $result = $this->cartRepository->getCartDatabase($this->cart); 
+            $newCart = [];
 
-        if (is_array($result)) {
-            if (!empty($result)) {
-                foreach ($result as $item) {
-                    $cartProduct = new CartProduct(
-                        $item['id_product'],
-                        $item['productName'],
-                        $item['price'],
-                        $item['photo']
-                    );
+            if (is_array($result)) {
+                if (!empty($result)) {
+                    foreach ($result as $item) {
+                        $cartProduct = new CartProduct(
+                            $item['id_product'],
+                            $item['productName'],
+                            $item['price'],
+                            $item['photo']
+                        );
 
-                    $newCart[] = [
-                        'id' => $cartProduct->getProductId(),
-                        'quantity' => $item['quantity'],
-                        'product' => $cartProduct
-                    ];
+                        $newCart[] = [
+                            'id' => $cartProduct->getProductId(),
+                            'quantity' => $item['quantity'],
+                            'product' => $cartProduct
+                        ];
+                    }
                 }
+                $_SESSION['carrito'] = serialize(new Cart($this->cart->getId(), $newCart));
+            } else {
+                throw new Exception('Error al obtener el carrito');
             }
-            $_SESSION['carrito'] = serialize(new Cart($this->cart->getId(), $newCart));
-        } else {
-            throw new Exception('Error al obtener el carrito');
+        } catch (Exception $e) {
+            error_log('Error getting cart from database: ' . $e->getMessage());
+            $_SESSION['error'] = "Error al obtener el carrito: " . $e->getMessage();
         }
     }
 
     public function emptyCart() {
-        $_SESSION['carrito'] = serialize(new Cart($this->cart->getId()));
+        try {
+            $_SESSION['carrito'] = serialize(new Cart($this->cart->getId()));
+            $_SESSION['success'] = "Carrito vaciado correctamente";
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Error al vaciar el carrito: " . $e->getMessage();
+        }
+        
+        // Redirigir a la página anterior o al catálogo
+        $referer = $_SERVER['HTTP_REFERER'] ?? '/Akihabara-Dreams/catalog';
+        header('Location: ' . $referer);
+        exit;
     }
 
     public function deleteCart() {
-        $this->cartRepository->deleteCart($this->cart->getId());
+        try {
+            $this->cartRepository->deleteCart($this->cart->getId());
+            $_SESSION['carrito'] = serialize(new Cart($this->cart->getId()));
+            $_SESSION['success'] = "Carrito eliminado correctamente";
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Error al eliminar el carrito: " . $e->getMessage();
+        }
+        
+        // Redirigir a la página anterior o al catálogo
+        $referer = $_SERVER['HTTP_REFERER'] ?? '/Akihabara-Dreams/catalog';
+        header('Location: ' . $referer);
+        exit;
+    }
+    
+    // Método para realizar un pedido
+    public function realizarPedido() {
+        // Redirigir a la página de realizar pedido
+        header('Location: /Akihabara-Dreams/orders/realizar');
+        exit;
     }
 }

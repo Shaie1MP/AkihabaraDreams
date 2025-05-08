@@ -1,37 +1,70 @@
 <?php
-session_start(); 
+session_start();
+header('Content-Type: application/json');
 
-// Verificar si se recibió un ID de producto
-if (isset($_GET['id_product'])) {
-    $id_product = $_GET['id_product'];
-    $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;
+// Verificar si hay un usuario logueado
+if (!isset($_SESSION['usuario'])) {
+    echo json_encode(['success' => false, 'message' => 'No hay sesión de usuario']);
+    exit;
+}
+
+// Obtener los parámetros
+$productId = isset($_GET['id_product']) ? intval($_GET['id_product']) : 0;
+$quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;
+$redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'true';
+
+if ($productId <= 0) {
+    echo json_encode(['success' => false, 'message' => 'ID de producto inválido']);
+    exit;
+}
+
+try {
+    // Cargar las clases necesarias
+    include_once '../../config/database.php';
+    include_once '../../config/loader.php';
     
-    // Inicializar el carrito si no existe
+    // Obtener el usuario de la sesión
+    $user = unserialize($_SESSION['usuario']);
+    
+    // Crear o obtener el carrito
     if (!isset($_SESSION['carrito'])) {
-        $userId = isset($_SESSION['usuario']) ? unserialize($_SESSION['usuario'])->getId() : session_id();
-        $_SESSION['carrito'] = serialize(new Cart($userId));
+        $cart = new Cart($user->getId());
+    } else {
+        $cart = unserialize($_SESSION['carrito']);
     }
     
-    $cart = unserialize($_SESSION['carrito']);
-    $cartRepository = new CartRepository($db);
-    $cartController = new CartController($cartRepository, $cart);
+    // Obtener el producto
+    $productsRepository = new ProductsRepository($connection);
+    $product = $productsRepository->searchProduct($productId);
     
-    $cartController->addElement($id_product);
-    
-    // Guardar el carrito actualizado en la sesión
-    $_SESSION['carrito'] = serialize($cart);
-    
-    // Si se solicita una redirección, redirigir
-    if (!isset($_GET['redirect']) || $_GET['redirect'] !== 'false') {
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    // Verificar stock
+    if ($product->getStock() < $quantity) {
+        echo json_encode([
+            'success' => false, 
+            'message' => 'No hay suficiente stock disponible. Stock actual: ' . $product->getStock()
+        ]);
         exit;
     }
     
-    // Si no se solicita redirección, devolver JSON
-    header('Content-Type: application/json');
+    // Crear el producto para el carrito
+    $cartProduct = new CartProduct(
+        $productId,
+        $product->getName(),
+        $product->hasPromotion() ? $product->getDiscountedPrice() : $product->getPrice(),
+        $product->getPhoto()
+    );
+    
+    // Añadir al carrito
+    $cart->addProduct($cartProduct, $quantity);
+    
+    // Guardar el carrito en la sesión
+    $_SESSION['carrito'] = serialize($cart);
+    
+    // Guardar en la base de datos si el usuario está logueado
+    $cartRepository = new CartRepository($connection);
+    $cartRepository->saveCartDatabase($cart);
+    
     echo json_encode(['success' => true]);
-} else {
-    // Si no se recibió un ID de producto, devolver error
-    header('Content-Type: application/json');
-    echo json_encode(['success' => false, 'error' => 'No se especificó un ID de producto']);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
