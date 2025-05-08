@@ -61,6 +61,8 @@
 
 ---
 
+```
+
 ## 🧪 Desarrollo del chat (plan futuro)
 
 Se planea implementar un sistema de **chat en vivo** que permita a los usuarios contactar con el soporte técnico en tiempo real. Las tecnologías consideradas incluyen:
@@ -84,6 +86,6 @@ Puedes abrir un *issue* en este repositorio o escribirme directamente:
 
 ## 👨‍💻 Autor
 
-Desarrollado con por [Shaiel]  
+Desarrollado con por Shaiel  
 
 ---
