@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/producto.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/footer.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/promociones.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/wishlist.css">
 </head>
 
 <body>
@@ -24,6 +25,7 @@
     </div>
 
     <script src="/Akihabara-Dreams/resources/js/product.js"></script>
+    <script src="/Akihabara-Dreams/resources/js/wishlist.js"></script>
 </body>
 
 </html>

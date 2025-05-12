@@ -224,6 +224,13 @@ return [
     'tax-info' => 'Impuestos incluidos. Los gastos de envío se calculan al finalizar la compra.',
     'product_not_available' => 'Ahora mismo no hay productos disponibles.',
 
+    // Wishlist
+    'wishlist_title' => 'Lista de Deseos',
+    'wishlist_empty' => 'Tu lista de deseos está vacía.',
+    'wishlist_add' => 'Añadir a la Lista de Deseos',
+    'wishlist_remove' => 'Eliminar',
+    'wishlist_no_items' => 'No tienes productos en tu lista de deseos.',
+
     // Filters
     'filter' => 'Filtros',
     'filter_price' => 'Precio',

@@ -212,6 +212,13 @@ return [
     'tax-info' => 'Taxes included. Shipping costs are calculated at checkout.',
     'product_not_available' => 'Now there are no products available',
 
+    // Wishlist
+    'wishlist_title' => 'Wishlist',
+    'wishlist_empty' => 'Your wishlist is empty',
+    'wishlist_add' => 'Add to Wishlist',
+    'wishlist_remove' => 'Remove',
+    'wishlist_no_items' => 'You have no items in your wishlist.',
+
     // Filters
     'filter' => 'Filters',
     'filter_price' => 'Price',

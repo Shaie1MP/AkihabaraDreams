@@ -38,6 +38,7 @@ include '../app/models/product.php';
 include '../app/models/promotion.php';
 include '../app/models/user.php';
 include '../app/models/authUser.php';
+include '../app/models/wishlist.php';
 
 
 include '../app/controllers/cookieController.php';
@@ -49,6 +50,7 @@ include '../app/controllers/usersController.php';
 include '../app/controllers/othersController.php'; 
 include '../app/controllers/authUserController.php'; 
 include '../app/controllers/myAccountController.php'; 
+include '../app/controllers/wishlistController.php';
 
 
 include '../app/repositories/ordersRepository.php';
@@ -58,3 +60,4 @@ include '../app/repositories/promotionsRepository.php';
 include '../app/repositories/usersRepository.php';
 include '../app/repositories/othersRepository.php';
 include '../app/repositories/authRepository.php';
+include '../app/repositories/wishlistRepository.php';

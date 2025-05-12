@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/product-grid.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/language-switcher.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/promociones.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/wishlist.css">
 </head>
 
 <body>

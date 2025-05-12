@@ -5,7 +5,7 @@ ob_start();
 <!DOCTYPE html>
 <html lang="es">
 <?php
-$view = '../app/views/'; //esto es para ir llamando a las vistas, debemos cambiarlo a controller según sea necesario
+$view = '../app/views/'; 
 try {
 
     // public/index.php
@@ -25,27 +25,13 @@ try {
     $idUrl2 = $uriSegments[4] ?? null; // Para casos donde necesitamos un segundo ID (como eliminar un producto de una promoción)
     $idUrl3 = $uriSegments[5] ?? null; // Para el ID del producto cuando eliminamos de una promoción
 
-
-    //este es el objeto usuario de la sesión, para tenerlo a mano y no estar llamando a la sesión todo el rato
-    //al hacer un update hay que realizar una transacción por si acaso.
-    //Si todo es correcto se crea un nuevo usuario con todos los datos (el de parámetros) y se le asigna a la sesion
     if (isset($_SESSION['usuario'])) {
         include '../app/includes/checkTimeSession.php';
         $userSession = unserialize($_SESSION['usuario']);
     }
-
+    
     if (isset($_SESSION['carrito'])) {
         $cartSession = unserialize($_SESSION['carrito']);
-        // foreach ($carritoSesion->getCarrito() as $key => $value) {
-        //     echo '<br>ID '.$value['id'];
-        //     echo '<br>cantidad '.$value['cantidad'];
-        //     $producto=$value['producto'];
-        //     echo '<br> Nombre: '. $producto->getNombreProducto();
-        //     echo '<br> ID: '. $producto->getIdProducto();
-        //     echo '<br> PRECIO: '. $producto->getPrecio();
-        //     echo '<br> FOTO: '. $producto->getFotoPortada();
-        //     echo '<br><br>';
-        // }   
     }
 
     switch ($resource) {
@@ -79,21 +65,7 @@ try {
                 $cartController = new CartController(new CartRepository($connection), $cartSession);
                 switch ($action) {
                     case 'add':
-                        // Modificar para manejar peticiones AJAX
-                        $quantity = isset($_GET['quantity']) ? intval($_GET['quantity']) : 1;
-                        $cartController->addElement($idUrl, $quantity);
-                        
-                        // Si es una petición AJAX, devolver JSON
-                        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
-                            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-                            header('Content-Type: application/json');
-                            echo json_encode(['success' => true]);
-                            exit;
-                        }
-                        
-                        // Si no es AJAX, redirigir
-                        header('Location: /Akihabara-Dreams/products/info/' . $idUrl);
-                        exit;
+                        $cartController->addElement($idUrl);
                         break;
                     case 'eliminar':
                         $cartController->deleteElement($idUrl);
@@ -108,9 +80,16 @@ try {
                         $cartController->realizarPedido();
                         break;
                 }
+            } else {
+                // Si no hay sesión, redirigir al login
+                header('Location: /Akihabara-Dreams/login');
+                exit;
             }
-            header('Location: /Akihabara-Dreams/catalog');
-            exit;
+            break;
+            
+        case 'wishlist':
+            include './index-wishlist.php';
+            break;
 
         case 'products':
             include './index-products.php';
@@ -129,7 +108,6 @@ try {
             break;
 
         case 'promotions':
-
             include './index-promotions.php';
             break;
 

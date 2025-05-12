@@ -70,6 +70,8 @@
             <?php echo __('product_buy_now'); ?>
         </button>
 
+        <?php include '../app/includes/wishlist-button.php'; ?>
+
         <div class="more-payment-options">
             <a href="#"><?php echo __('product_more_payment'); ?></a>
         </div>

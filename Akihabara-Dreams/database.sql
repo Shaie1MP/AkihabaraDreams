@@ -32,6 +32,16 @@ CREATE TABLE Product_photos (
     FOREIGN KEY (id_product) REFERENCES Products(id_product) ON DELETE CASCADE
 );
 
+CREATE TABLE Wishlist (
+    id_wishlist INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    id_product INT NOT NULL,
+    date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES Users(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_product) REFERENCES Products(id_product) ON DELETE CASCADE,
+    UNIQUE KEY unique_wishlist_item (id_user, id_product)
+);
+
 CREATE TABLE Promotion (
     id_promotion INT AUTO_INCREMENT PRIMARY KEY,
     code VARCHAR(15) unique not null,
@@ -157,6 +167,23 @@ FROM
     Products p
 ORDER BY 
      p.stock DESC;
+
+CREATE VIEW View_Wishlist AS
+SELECT 
+    w.id_wishlist,
+    w.id_user,
+    w.id_product,
+    w.date_added,
+    p.name AS product_name,
+    p.price,
+    p.photo,
+    p.description,
+    p.stock,
+    p.category
+FROM 
+    Wishlist w
+JOIN 
+    Products p ON w.id_product = p.id_product;
 
 DELIMITER $$
 CREATE PROCEDURE SaveCart(IN userId INT, IN products JSON)
