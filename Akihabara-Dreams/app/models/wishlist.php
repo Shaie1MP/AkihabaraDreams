@@ -50,7 +50,7 @@ class Wishlist {
         }
     }
 
-    public function hasProduct(int $productId): bool {
+    public function hasProduct($productId) {
         foreach ($this->items as $item) {
             if ($item['id_product'] == $productId) {
                 return true;
@@ -59,11 +59,11 @@ class Wishlist {
         return false;
     }
 
-    public function isEmpty(): bool {
+    public function isEmpty() {
         return empty($this->items);
     }
 
-    public function count(): int {
+    public function count() {
         return count($this->items);
     }
 }

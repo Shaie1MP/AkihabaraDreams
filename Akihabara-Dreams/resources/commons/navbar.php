@@ -3,22 +3,20 @@
 $isLoggedIn = isset($_SESSION['usuario']);
 $userNav = null;
 
-// Obtener el usuario de la sesión si existe
 if ($isLoggedIn) {
     $userNav = unserialize($_SESSION['usuario']);
 }
 
-// Incluir el sistema de idiomas si no está incluido
 if (!function_exists('__')) {
     include_once __DIR__ . '/../../app/includes/language.php';
 }
 
-// Incluir la clase User antes de deserializar
 include_once __DIR__ . '/../../app/models/User.php';
 ?>
 <nav class="navbar">
     <div class="navbar-container">
-        <div>
+        <!-- Sección izquierda: Botón de menú y logo -->
+        <div class="navbar-left">
             <button id="menu-toggle" class="menu-button" aria-label="Abrir menú">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" style="color: white;">
                     <line x1="4" x2="20" y1="12" y2="12"></line>
@@ -26,49 +24,113 @@ include_once __DIR__ . '/../../app/models/User.php';
                     <line x1="4" x2="20" y1="18" y2="18"></line>
                 </svg>
             </button>
+            
         </div>
+
         <div class="navbar-logo-div">
-            <a href="/Akihabara-Dreams/"><img src="/Akihabara-Dreams/resources/images/commons/logo-AD-3.png" alt="logo" class="img-logo"></a>
+                <a href="/Akihabara-Dreams/"><img src="/Akihabara-Dreams/resources/images/commons/logo-AD-3.png" alt="logo" class="img-logo"></a>
         </div>
-        <div>
-            <ul class="navbar-menu">
-                <?php if (isset($_SESSION['usuario'])) {
-                    // Usar $userNav en lugar de crear una nueva variable $user
-                    if ($userNav->getRole() == 'admin') {
-                        echo "<li><a href='/Akihabara-Dreams/admin' class='navbar-link'>" . __('nav_admin') . "</a></li>";
-                    }
-                }
-                ?>
-                <li class="nav-item">
-                    <a href="/Akihabara-Dreams/wishlist" class="nav-link wishlist-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+
+        <!-- Sección derecha: Iconos y menú de usuario -->
+        <div class="navbar-right">
+            <!-- Iconos de acción -->
+            <div class="navbar-icons">
+                <?php if (isset($_SESSION['usuario']) && $userNav->getRole() == 'admin'): ?>
+                    <a href="/Akihabara-Dreams/admin" class="navbar-icon-link" title="<?php echo __('nav_admin'); ?>">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings">
+                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
                         </svg>
-                        <span class="wishlist-counter" id="wishlist-counter" style="display: none;"></span>
                     </a>
-                </li>
-                <li>
-                    <a class="navbar-link" id="carrito">
-                        <div class="cart-icon-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart" style="color: white;">
-                                <circle cx="8" cy="21" r="1"></circle>
-                                <circle cx="19" cy="21" r="1"></circle>
-                                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
-                            </svg>
-                            <span id="cart-counter" class="cart-counter"></span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="/Akihabara-Dreams/myaccount" class="navbar-link">
-                        <?php echo isset($_SESSION['usuario']) ? htmlspecialchars($userNav->getUserName()) : __('nav_account'); ?>
-                    </a>
-                </li>
-                <!-- Añadir selector de idioma -->
-                <li>
+                <?php endif; ?>
+                
+                <a href="/Akihabara-Dreams/wishlist" class="navbar-icon-link" title="<?php echo __('nav_wishlist'); ?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <span class="wishlist-counter" id="wishlist-counter" style="display: none;"></span>
+                </a>
+                
+                <a class="navbar-icon-link" id="carrito" title="<?php echo __('nav_cart'); ?>">
+                    <div class="cart-icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart" style="color: white;">
+                            <circle cx="8" cy="21" r="1"></circle>
+                            <circle cx="19" cy="21" r="1"></circle>
+                            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+                        </svg>
+                        <span id="cart-counter" class="cart-counter" style="display: none;"></span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Menú de usuario y selector de idioma -->
+            <div class="navbar-user-menu">
+                <div class="dropdown">
+                    <button class="dropdown-toggle">
+                        <?php if ($isLoggedIn): ?>
+                            <span class="user-name"><?php echo htmlspecialchars($userNav->getUserName()); ?></span>
+                        <?php else: ?>
+                            <span class="user-name"><?php echo __('nav_account'); ?></span>
+                        <?php endif; ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-arrow">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <?php if ($isLoggedIn): ?>
+                            <a href="/Akihabara-Dreams/myaccount" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <?php echo __('nav_account'); ?>
+                            </a>
+                            <a href="/Akihabara-Dreams/orders/mispedidos" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <path d="M14 2v6h6"></path>
+                                    <path d="M16 13H8"></path>
+                                    <path d="M16 17H8"></path>
+                                    <path d="M10 9H8"></path>
+                                </svg>
+                                <?php echo __('nav_orders'); ?>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/Akihabara-Dreams/logout" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                                <?php echo __('nav_logout'); ?>
+                            </a>
+                        <?php else: ?>
+                            <a href="/Akihabara-Dreams/login" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                                    <polyline points="10 17 15 12 10 7"></polyline>
+                                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                                </svg>
+                                <?php echo __('nav_login'); ?>
+                            </a>
+                            <a href="/Akihabara-Dreams/register" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <line x1="19" y1="8" x2="19" y2="14"></line>
+                                    <line x1="22" y1="11" x2="16" y2="11"></line>
+                                </svg>
+                                <?php echo __('nav_register'); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Selector de idioma -->
+                <div class="language-selector">
                     <?php include __DIR__ . '/language-switcher.php'; ?>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

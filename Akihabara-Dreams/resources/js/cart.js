@@ -1,8 +1,7 @@
 // Funcionalidad para el contador del carrito
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Inicializando funcionalidad del carrito")
-  
-    // Actualizar el contador del carrito al cargar la página
+
     updateCartCounter()
   
     const cartModal = document.getElementById("cartModal")
@@ -11,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Verificar que los elementos existen antes de añadir event listeners
     if (cartIcon) {
-      console.log("Elemento del carrito encontrado, añadiendo event listener")
       cartIcon.addEventListener("click", () => {
         if (cartModal) {
           cartModal.style.display = "flex"
@@ -37,8 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cartModal.style.display = "none"
       }
     }
-  
-    // Configurar event listeners para los botones de eliminar
+
     setupRemoveButtons()
   })
   
@@ -87,13 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok) {
           throw new Error(`Error HTTP: ${response.status}`)
         }
-        // Intentar parsear como JSON, pero manejar el caso en que no sea JSON
         return response.text().then((text) => {
           try {
             return JSON.parse(text)
           } catch (e) {
-            // Si no es JSON, simplemente devolver un objeto con éxito
-            console.log("Respuesta no es JSON, pero la operación parece exitosa")
             return { success: true }
           }
         })
@@ -112,8 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
             notification.classList.remove("show")
           }, 3000)
         }
-  
-        // Actualizar el contador del carrito
+
         updateCartCounter()
       })
       .catch((error) => {
@@ -164,13 +157,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok) {
           throw new Error(`Error HTTP: ${response.status}`)
         }
-        // Intentar parsear como JSON, pero manejar el caso en que no sea JSON
+
         return response.text().then((text) => {
           try {
             return JSON.parse(text)
           } catch (e) {
-            // Si no es JSON, simplemente devolver un objeto con éxito
-            console.log("Respuesta no es JSON, pero la operación parece exitosa")
             return { success: true }
           }
         })
@@ -184,8 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
           cartItem.remove()
           console.log(`Elemento del carrito con ID ${productId} eliminado del DOM`)
         }
-  
-        // Actualizar el contador
+
         updateCartCounter()
   
         // Mostrar notificación
@@ -209,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
   }
   
-  // Exponer las funciones para que puedan ser llamadas desde otras partes
+  // Funciones para que puedan ser llamadas desde otras partes
   window.updateCartCounter = updateCartCounter
   window.addToCart = addToCart
   window.removeFromCart = removeFromCart

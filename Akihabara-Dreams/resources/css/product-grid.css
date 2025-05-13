@@ -1,34 +1,38 @@
-.product-section {
-  margin: 50px 0;
-  position: relative;
-}
-
-.product-section h2 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 30px;
-  margin-top: 0;
-  text-align: center;
-}
-
-.product-section .section-header {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.product-section .section-link-button {
-  position: absolute;
-  top: 10px;
-  right: 0;
-  z-index: 1;
-}
-
+/* Modificar la cuadrícula de productos para que sea responsive */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 30px;
   margin: 0 auto;
   max-width: 1200px;
+}
+
+/* Pantallas grandes (desktop): mostrar 5 productos por fila */
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Pantallas medianas (tablets): mostrar 3-4 productos por fila */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Pantallas pequeñas (tablets pequeñas): mostrar 2-3 productos por fila */
+@media (min-width: 576px) and (max-width: 767px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Pantallas muy pequeñas (móviles): mostrar 1 producto por fila */
+@media (max-width: 575px) {
+  .product-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .product-item {
@@ -111,11 +115,6 @@
 }
 
 @media (max-width: 768px) {
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-  }
-
   .product-section h2 {
     font-size: 2rem;
     margin-bottom: 30px;
@@ -127,4 +126,32 @@
     width: fit-content;
     margin: -20px auto 20px;
   }
+}
+
+/* Botón "Ver más" para mostrar todos los productos */
+.view-more-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.view-more-button {
+  background-color: #fa6e56;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-button:hover {
+  background-color: #ff6347;
+}
+
+/* Animación para expandir la cuadrícula */
+.product-grid.expanded {
+  max-height: none;
+  transition: max-height 0.5s ease;
 }

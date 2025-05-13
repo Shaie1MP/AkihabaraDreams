@@ -12,13 +12,17 @@ try {
     // Obtener el carrito de la sesión
     $cart = unserialize($_SESSION['carrito']);
     
-    // Contar los productos en el carrito
-    $count = 0;
-    foreach ($cart->getCart() as $item) {
-        $count += $item['quantity'];
+    // Verificar que el carrito es un objeto válido con el método getTotalItems
+    if (!is_object($cart) || !method_exists($cart, 'getTotalItems')) {
+        echo json_encode(['count' => 0, 'error' => 'Carrito inválido']);
+        exit;
     }
+    
+    // Obtener el número de productos en el carrito
+    $count = $cart->getTotalItems();
     
     echo json_encode(['count' => $count]);
 } catch (Exception $e) {
+    error_log('Error en cart-count.php: ' . $e->getMessage());
     echo json_encode(['count' => 0, 'error' => $e->getMessage()]);
 }

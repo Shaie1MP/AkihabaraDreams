@@ -67,7 +67,6 @@ class WishlistRepository {
 
             return $result;
         } catch (PDOException $e) {
-            error_log('Error al añadir a wishlist: ' . $e->getMessage());
             throw new Exception('Error al añadir el producto a la lista de deseos');
         }
     }
@@ -92,7 +91,6 @@ class WishlistRepository {
 
             return $result;
         } catch (PDOException $e) {
-            error_log('Error al eliminar de wishlist: ' . $e->getMessage());
             throw new Exception('Error al eliminar el producto de la lista de deseos');
         }
     }

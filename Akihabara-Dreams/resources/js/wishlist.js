@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Inicializando funcionalidad de wishlist")
 
-  // Configurar los botones de eliminar de la wishlist
+  // Configurar los botones de eliminar de la wishlist, añadir a la wishlist y actualizar el contador
   setupWishlistRemoveButtons()
-
-  // Configurar los botones de añadir a la wishlist en las páginas de producto
   setupWishlistAddButtons()
-
-  // Actualizar el contador de la wishlist
   updateWishlistCounter()
 })
 
@@ -21,7 +17,6 @@ function setupWishlistRemoveButtons() {
       event.preventDefault()
       console.log("Botón de eliminar clickeado")
 
-      // Obtener el ID del producto directamente del atributo data-id del botón
       const productId = this.getAttribute("data-id")
       console.log("ID del producto a eliminar:", productId)
 
@@ -53,7 +48,7 @@ function setupWishlistAddButtons() {
   })
 }
 
-// Función mejorada para eliminar productos de la wishlist
+// Función para eliminar productos de la wishlist
 function removeFromWishlist(productId, button) {
   console.log("Eliminando producto de wishlist:", productId)
 
@@ -76,10 +71,8 @@ function removeFromWishlist(productId, button) {
   ajaxField.value = "1"
   form.appendChild(ajaxField)
 
-  // Añadir el formulario al documento y enviarlo
   document.body.appendChild(form)
 
-  // Usar fetch para enviar el formulario como AJAX
   fetch(form.action, {
     method: "POST",
     body: new FormData(form),
@@ -88,7 +81,6 @@ function removeFromWishlist(productId, button) {
     },
   })
     .then((response) => {
-      // Eliminar el formulario
       document.body.removeChild(form)
 
       // Verificar si la respuesta es exitosa
@@ -98,8 +90,6 @@ function removeFromWishlist(productId, button) {
           try {
             return JSON.parse(text)
           } catch (e) {
-            console.log("Respuesta no es JSON:", text)
-            // Si no es JSON pero la respuesta es exitosa, asumimos que funcionó
             return { success: true, message: "Producto eliminado de tu lista de deseos" }
           }
         })
@@ -117,10 +107,8 @@ function removeFromWishlist(productId, button) {
         console.log("Elemento eliminado del DOM")
       }
 
-      // Mostrar mensaje
       showNotification(data.message || "Producto eliminado de tu lista de deseos")
 
-      // Actualizar el contador
       updateWishlistCounter()
 
       // Si no quedan elementos, mostrar mensaje de lista vacía
@@ -135,7 +123,7 @@ function removeFromWishlist(productId, button) {
           <a href="/Akihabara-Dreams/catalog" class="btn-primary">Explorar Productos</a>
         `
 
-          // Limpiar el contenedor y añadir el mensaje
+          // Vaciar el contenedor y añadir el mensaje
           wishlistContainer.innerHTML = ""
           wishlistContainer.appendChild(emptyMessage)
 
@@ -144,13 +132,10 @@ function removeFromWishlist(productId, button) {
           if (clearButton) {
             clearButton.style.display = "none"
           }
-
-          console.log("No quedan elementos, mostrando mensaje de lista vacía")
         }
       }
     })
     .catch((error) => {
-      console.error("Error al eliminar de la wishlist:", error)
       showNotification("Error al eliminar el producto", "error")
 
       // Restaurar el botón
@@ -161,14 +146,10 @@ function removeFromWishlist(productId, button) {
     })
 }
 
-// Función para añadir/quitar un producto de la wishlist
+// Función para añadir y quitar un producto de la wishlist
 function toggleWishlist(productId, button) {
   const isActive = button.classList.contains("active")
-  const url = isActive
-    ? `/Akihabara-Dreams/wishlist/remove/${productId}`
-    : `/Akihabara-Dreams/wishlist/add/${productId}`
-
-  console.log("Enviando solicitud a:", url)
+  const url = isActive ? `/Akihabara-Dreams/wishlist/remove/${productId}` : `/Akihabara-Dreams/wishlist/add/${productId}`
 
   fetch(url, {
     method: "POST",
@@ -187,8 +168,6 @@ function toggleWishlist(productId, button) {
         try {
           return JSON.parse(text)
         } catch (e) {
-          console.log("Respuesta no es JSON:", text)
-          // Si no es JSON pero la respuesta es exitosa, asumimos que funcionó
           return {
             success: true,
             message: isActive ? "Producto eliminado de tu lista de deseos" : "Producto añadido a tu lista de deseos",
@@ -218,10 +197,8 @@ function toggleWishlist(productId, button) {
         `
       }
 
-      // Mostrar mensaje
       showNotification(data.message || "Lista de deseos actualizada")
 
-      // Actualizar el contador
       updateWishlistCounter()
     })
     .catch((error) => {
@@ -232,8 +209,8 @@ function toggleWishlist(productId, button) {
 
 // Función para actualizar el contador de la wishlist
 function updateWishlistCounter() {
-  // Usar una petición simple para obtener el contador
   const xhr = new XMLHttpRequest()
+
   xhr.open("GET", "/Akihabara-Dreams/app/includes/wishlist-count.php", true)
   xhr.onload = () => {
     if (xhr.status >= 200 && xhr.status < 300) {
@@ -270,7 +247,6 @@ function showNotification(message, type = "success") {
   let notification = document.getElementById("notification")
 
   if (!notification) {
-    // Crear el elemento de notificación
     notification = document.createElement("div")
     notification.id = "notification"
     document.body.appendChild(notification)
@@ -287,7 +263,7 @@ function showNotification(message, type = "success") {
   }, 3000)
 }
 
-// Exponer las funciones para que puedan ser llamadas desde otras partes
+// Funciones para que puedan ser llamadas desde otras partes
 window.removeFromWishlist = removeFromWishlist
 window.toggleWishlist = toggleWishlist
 window.updateWishlistCounter = updateWishlistCounter

@@ -129,7 +129,7 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
     // Cargar configuración de correo
     $config = include __DIR__ . '/../config/mail.php';
     
-    // Guardar el correo en un archivo (útil para desarrollo)
+    // Guardar el correo en un archivo 
     if ($config['development']['save_to_file']) {
         $emailFile = $config['development']['log_directory'] . 'order_' . $order->getOrderId() . '_' . time() . '.html';
         
@@ -142,8 +142,7 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
         file_put_contents($emailFile, $message);
         error_log("Correo guardado en archivo: " . $emailFile);
     }
-    
-    // Intentar usar PHPMailer
+
     try {
         $mail = new PHPMailer(true);
         
@@ -195,7 +194,7 @@ function sendOrderConfirmationEmail($user, $order, $currency = 'eur', $conversio
 }
 
 /**
- * Función para encriptar datos (importada de CookieController)
+ * Función para encriptar datos
  * 
  * @param string $data Datos a encriptar
  * @return string Datos encriptados en base64
@@ -208,7 +207,7 @@ function encrypt($data) {
 }
 
 /**
- * Función para desencriptar datos (complemento a la función encrypt)
+ * Función para desencriptar datos
  * 
  * @param string $data Datos encriptados en base64
  * @return string Datos desencriptados

@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
   
-    // Cerrar sidebar cuando se hace clic en un enlace (opcional)
+    // Cerrar sidebar cuando se hace clic en un enlace 
     const sidebarLinks = document.querySelectorAll(".sidebar-link")
     sidebarLinks.forEach((link) => {
       link.addEventListener("click", () => {

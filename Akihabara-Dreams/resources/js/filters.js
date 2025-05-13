@@ -1,15 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Manejar el ordenamiento de productos
-  const sortSelect = document.getElementById("sortSelect")
-  if (sortSelect) {
-    sortSelect.addEventListener("change", function () {
-      const sortValue = this.value
-      window.location.href = `/Akihabara-Dreams/productos/catalogo?sort=${sortValue}`
-    })
-  }
-
   // Hacer que toda la tarjeta sea clickeable
   const products = document.querySelectorAll(".product")
+
   products.forEach((product) => {
     product.addEventListener("click", function () {
       const url = this.getAttribute("onclick").split("'")[1]
@@ -19,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Manejar el botón de filtro
   const filterButton = document.querySelector(".filter-button")
+
   if (filterButton) {
     filterButton.addEventListener("click", () => {
       // Mostrar/ocultar el panel de filtros
@@ -33,12 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Función para crear el panel de filtros
   function crearPanelFiltros() {
-    // Verificar que el objeto translations existe
-    if (typeof translations === 'undefined') {
-      console.error('El objeto translations no está definido. Asegúrate de incluir translations-js.php antes de filters.js');
-      return;
-    }
-    
     // Crear el panel de filtros
     const filterPanel = document.createElement("div")
     filterPanel.id = "filterPanel"
@@ -82,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `
 
-    // Añadir el panel al DOM
     document.getElementById("catalog-container").appendChild(filterPanel)
 
     // Manejar el cierre del panel
@@ -130,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Manejar la limpieza de filtros
     const clearButton = filterPanel.querySelector(".clear-filters")
     clearButton.addEventListener("click", () => {
-      // Desmarcar todos los checkboxes
       filterPanel.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         checkbox.checked = false
       })

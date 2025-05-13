@@ -141,6 +141,7 @@ return [
     // Navbar
     'nav_home' => 'Home',
     'nav_account' => 'My Account',
+    'nav_orders' => 'My Orders',
     'nav_catalog' => 'Catalog',
     'nav_mangas' => 'Manga',
     'nav_figures' => 'Figures',

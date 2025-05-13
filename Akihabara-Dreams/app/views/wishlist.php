@@ -129,7 +129,6 @@ include_once '../app/includes/checkCurrency.php';
         </div>
     </div>
 
-    <!-- Elemento para notificaciones -->
     <div id="notification" style="display: none;"></div>
 
     <?php include '../resources/commons/footer.php' ?>

@@ -1,5 +1,4 @@
 <?php
-// Verificar si el usuario está logueado
 $isLoggedIn = isset($_SESSION['usuario']);
 
 // Verificar si el producto está en la wishlist

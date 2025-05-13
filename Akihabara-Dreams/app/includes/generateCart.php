@@ -45,7 +45,7 @@
                                 echo '<div class="cart-item-price">';
                                 echo '<span class="precio-original">' . number_format($fullProduct->getPrice(), 2) . '€</span>';
                                 echo '<span class="precio-descuento">' . number_format($itemPrice, 2) . '€</span>';
-                                echo '<span class="promocion-badge">' . $fullProduct->getDiscount() . '% OFF</span>';
+                                echo '<span class="promocion-badge">-' . $fullProduct->getDiscount() . '%</span>';
                                 echo '</div>';
                             }
                         } else {
@@ -61,7 +61,6 @@
                         }
                         
                         echo '</div>';
-                        // Modificar el botón para usar JavaScript en lugar de un formulario
                         echo '<button class="remove-item" data-id="' . $productId . '">Eliminar</button>';
                         echo '</div>';
                     }

@@ -9,9 +9,7 @@ class WishlistController {
         $this->productsRepository = $productsRepository;
     }
 
-    /**
-     * Muestra la página de la wishlist
-     */
+    // Muestra la página de la wishlist
     public function showWishlist() {
         // Verificar si hay un usuario logueado
         if (!isset($_SESSION['usuario'])) {
@@ -24,10 +22,8 @@ class WishlistController {
         $userId = $user->getId();
 
         try {
-            // Obtener los productos de la wishlist
             $wishlistItems = $this->wishlistRepository->getWishlist($userId);
-            
-            // Cargar la vista
+
             include '../app/views/wishlist.php';
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
@@ -58,10 +54,7 @@ class WishlistController {
         $userId = $user->getId();
 
         try {
-            // Verificar que el producto existe
             $product = $this->productsRepository->searchProduct($productId);
-            
-            // Añadir a la wishlist
             $result = $this->wishlistRepository->addToWishlist($userId, $productId);
             
             // Si es una solicitud AJAX, devolver JSON
@@ -72,8 +65,7 @@ class WishlistController {
                 ]);
                 exit;
             }
-            
-            // Si no es AJAX, redirigir con mensaje
+
             if ($result) {
                 $_SESSION['success'] = "Producto añadido a tu lista de deseos";
             } else {
@@ -120,14 +112,8 @@ class WishlistController {
         $userId = $user->getId();
 
         try {
-            // Registrar información de depuración
-            error_log("Intentando eliminar producto ID: $productId para usuario ID: $userId");
-            
-            // Eliminar de la wishlist
             $result = $this->wishlistRepository->removeFromWishlist($userId, $productId);
-            
-            error_log("Resultado de eliminar: " . ($result ? "Éxito" : "Fallo"));
-            
+
             // Si es una solicitud AJAX, devolver JSON
             if ($this->isAjaxRequest()) {
                 $this->sendJsonResponse([
@@ -136,15 +122,13 @@ class WishlistController {
                 ]);
                 exit;
             }
-            
-            // Si no es AJAX, redirigir con mensaje
+
             if ($result) {
                 $_SESSION['success'] = "Producto eliminado de tu lista de deseos";
             } else {
                 $_SESSION['error'] = "Error al eliminar el producto de tu lista de deseos";
             }
-            
-            // Redirigir a la wishlist
+
             header('Location: /Akihabara-Dreams/wishlist');
             exit;
             
@@ -178,7 +162,6 @@ class WishlistController {
         $userId = $user->getId();
 
         try {
-            // Vaciar la wishlist
             $result = $this->wishlistRepository->clearWishlist($userId);
             
             if ($result) {
@@ -186,8 +169,7 @@ class WishlistController {
             } else {
                 $_SESSION['error'] = "Error al vaciar tu lista de deseos";
             }
-            
-            // Redirigir a la wishlist
+
             header('Location: /Akihabara-Dreams/wishlist');
             exit;
             
@@ -212,7 +194,6 @@ class WishlistController {
         }
 
         try {
-            // Verificar que el producto existe y tiene stock
             $product = $this->productsRepository->searchProduct($productId);
             
             if ($product->getStock() <= 0) {
@@ -240,7 +221,7 @@ class WishlistController {
             $cart->addProduct($cartProduct, 1);
             $_SESSION['carrito'] = serialize($cart);
             
-            // Guardar en la base de datos si es necesario
+            // Guardar en la base de datos
             $cartRepository = new CartRepository($this->wishlistRepository->getConnection());
             $cartRepository->saveCartDatabase($cart);
             

@@ -1,6 +1,4 @@
-// Script para mejorar la visualización de promociones
 document.addEventListener("DOMContentLoaded", () => {
-    // Añadir efectos visuales a los productos con promoción
     const promotionProducts = document.querySelectorAll(".product.has-promotion")
     console.log("Productos con promoción encontrados:", promotionProducts.length)
 
@@ -28,48 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             updateCountdown()
-            setInterval(updateCountdown, 60000) // Actualizar cada minuto
+
+            // Actualizar cada minuto
+            setInterval(updateCountdown, 60000)
         })
     }
 
-    // Iniciar contadores si existen elementos con data-expiry
     initCountdowns()
-
-    // Filtrado de productos en promoción (si implementas filtros)
-    const filterButtons = document.querySelectorAll(".promociones-filter-btn")
-    if (filterButtons.length > 0) {
-        filterButtons.forEach((button) => {
-            button.addEventListener("click", function () {
-                const filter = this.dataset.filter
-
-                // Remover clase activa de todos los botones
-                filterButtons.forEach((btn) => btn.classList.remove("active"))
-
-                // Añadir clase activa al botón clickeado
-                this.classList.add("active")
-
-                // Filtrar productos
-                const products = document.querySelectorAll(".catalogo-item")
-                products.forEach((product) => {
-                    if (filter === "all") {
-                        product.style.display = "block"
-                    } else {
-                        const discount = Number.parseInt(product.dataset.discount)
-
-                        if (filter === "high" && discount >= 30) {
-                            product.style.display = "block"
-                        } else if (filter === "medium" && discount >= 15 && discount < 30) {
-                            product.style.display = "block"
-                        } else if (filter === "low" && discount < 15) {
-                            product.style.display = "block"
-                        } else {
-                            product.style.display = "none"
-                        }
-                    }
-                })
-            })
-        })
-    }
-
-
 })

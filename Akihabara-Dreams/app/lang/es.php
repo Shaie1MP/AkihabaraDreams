@@ -139,6 +139,7 @@ return [
     // Navbar
     'nav_home' => 'Inicio',
     'nav_account' => 'Mi Cuenta',
+    'nav_orders' => 'Mis Pedidos',
     'nav_catalog' => 'Catálogo',
     'nav_mangas' => 'Mangas',
     'nav_figures' => 'Figuras',

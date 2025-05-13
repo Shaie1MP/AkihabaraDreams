@@ -1,4 +1,3 @@
-// Variables globales
 window.productos = [];
 window.productosFiltrados = [];
 window.productosPorPagina = 15;
@@ -16,7 +15,7 @@ window.mostrarProductos = function(pagina) {
     contenedor.appendChild(producto.cloneNode(true));
   });
 
-  // Volver a añadir los event listeners a los productos
+  // Volver a añadir los eventos a los productos
   const productosActualizados = document.querySelectorAll(".product");
   productosActualizados.forEach((product) => {
     product.addEventListener("click", function () {
@@ -34,8 +33,10 @@ window.crearPaginacion = function() {
   // Añadir botón "Anterior"
   if (totalPaginas > 1) {
     const botonAnterior = document.createElement("button");
+
     botonAnterior.innerText = "«";
     botonAnterior.classList.add("pag-btn");
+
     botonAnterior.addEventListener("click", () => {
       if (window.paginaActual > 1) {
         window.paginaActual--;
@@ -43,6 +44,7 @@ window.crearPaginacion = function() {
         actualizarEstadoBotones();
       }
     });
+
     paginacion.appendChild(botonAnterior);
   }
 
@@ -51,14 +53,17 @@ window.crearPaginacion = function() {
     const boton = document.createElement("button");
     boton.innerText = i;
     boton.classList.add("pag-btn");
+
     if (i === window.paginaActual) {
       boton.classList.add("active");
     }
+
     boton.addEventListener("click", () => {
       window.paginaActual = i;
       window.mostrarProductos(window.paginaActual);
       actualizarEstadoBotones();
     });
+
     paginacion.appendChild(boton);
   }
 
@@ -67,6 +72,7 @@ window.crearPaginacion = function() {
     const botonSiguiente = document.createElement("button");
     botonSiguiente.innerText = "»";
     botonSiguiente.classList.add("pag-btn");
+
     botonSiguiente.addEventListener("click", () => {
       if (window.paginaActual < totalPaginas) {
         window.paginaActual++;
@@ -74,14 +80,17 @@ window.crearPaginacion = function() {
         actualizarEstadoBotones();
       }
     });
+
     paginacion.appendChild(botonSiguiente);
   }
 };
 
 function actualizarEstadoBotones() {
   const botones = document.querySelectorAll(".pag-btn");
+
   botones.forEach((boton) => {
     boton.classList.remove("active");
+
     if (boton.innerText === window.paginaActual.toString()) {
       boton.classList.add("active");
     }
@@ -97,7 +106,6 @@ window.filtrarProductos = function(filtros) {
     Object.entries(filtros).forEach(([tipo, valor]) => {
       if (valor) {
         window.productosFiltrados = window.productosFiltrados.filter((producto) => {
-          // Obtener el valor del atributo data correspondiente
           const atributo = producto.getAttribute(`data-${tipo}`);
           if (Array.isArray(valor)) {
             // Si el valor es un array, verificar si alguno coincide
@@ -111,12 +119,13 @@ window.filtrarProductos = function(filtros) {
     });
   }
 
-  window.paginaActual = 1; // Volver a la primera página
+  window.paginaActual = 1;
   window.crearPaginacion();
   window.mostrarProductos(window.paginaActual);
 
   // Actualizar contador de productos
   const contador = document.querySelector(".products-count");
+
   if (contador) {
     contador.textContent = `${window.productosFiltrados.length} productos`;
   }
@@ -124,11 +133,9 @@ window.filtrarProductos = function(filtros) {
 
 // Inicializar cuando el DOM esté cargado
 document.addEventListener("DOMContentLoaded", () => {
-  // Inicializar productos
   window.productos = Array.from(document.querySelectorAll(".products-grid .product"));
   window.productosFiltrados = [...window.productos];
 
-  // Inicializar paginación si hay productos
   if (window.productos.length > 0) {
     window.crearPaginacion();
     window.mostrarProductos(window.paginaActual);

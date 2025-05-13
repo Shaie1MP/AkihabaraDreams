@@ -70,7 +70,7 @@ function validateCVC(input) {
     return true;
 }
 
-// Funciones auxiliares para mostrar/ocultar errores
+// Funciones auxiliares para mostrar y ocultar errores
 function showError(input, errorElement, message) {
     input.classList.add('error');
     errorElement.textContent = message;
@@ -83,7 +83,7 @@ function cleanError(input, errorElement) {
     errorElement.style.display = 'none';
 }
 
-// Formatear número de tarjeta mientras se escribe (agregar espacios)
+// Formatear número de tarjeta para que mientras se escribe se agreguen espacios 
 function formatCardNumber(input) {
     let value = input.value.replace(/\D/g, '');
     let formated = '';
@@ -98,7 +98,7 @@ function formatCardNumber(input) {
     input.value = formated;
 }
 
-// Formatear fecha de expiración mientras se escribe (agregar /)
+// Formatear fecha de expiración para que mientras se escribe se agregue /
 function formatExpirationDate(input) {
     let value = input.value.replace(/\D/g, '');
     
@@ -124,13 +124,11 @@ function validatePayForm() {
 
 // Configurar eventos cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener referencias a los elementos
     const cardNumber = document.getElementById('card-number');
     const expirationDate = document.getElementById('card-expiration');
     const cvc = document.getElementById('card-cvc');
     const form = document.getElementById('order-form');
-    
-    // Agregar elementos para mostrar errores
+
     if (cardNumber) {
         const numberError = document.createElement('div');
         numberError.id = 'card-number-error';

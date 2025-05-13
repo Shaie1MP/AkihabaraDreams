@@ -2,14 +2,12 @@
 session_start();
 header('Content-Type: application/json');
 
-// Verificar si hay un usuario logueado
 if (!isset($_SESSION['usuario'])) {
     echo json_encode(['count' => 0]);
     exit;
 }
 
 try {
-    // Cargar las clases necesarias
     include_once '../../config/database.php';
     include_once '../../config/loader.php';
     
