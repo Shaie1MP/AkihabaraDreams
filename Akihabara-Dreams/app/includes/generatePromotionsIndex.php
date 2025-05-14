@@ -8,7 +8,7 @@ $productsWithPromotions = array_slice($productsWithPromotions, 0, 5);
 if (count($productsWithPromotions) > 0) {
     foreach ($productsWithPromotions as $product) {
         $outOfStock = $product->getStock() <= 0;
-        ?>
+?>
         <a href="/Akihabara-Dreams/products/info/<?php echo $product->getId(); ?>" class="product-link">
             <div class="manga-item">
                 <div class="product-image-container">
@@ -23,16 +23,29 @@ if (count($productsWithPromotions) > 0) {
                 <h3><?php echo $product->getName(); ?></h3>
                 <?php if ($product->hasPromotion()): ?>
                     <div class="product-price">
-                        <span class="precio-original"><?php echo number_format($product->getPrice(), 2); ?>€</span>
-                        <span class="precio-descuento"><?php echo number_format($product->getDiscountedPrice(), 2); ?>€</span>
+                        <?php
+                        if ($symbol !== '€') {
+                            echo '<span class="precio-original">' . $symbol . number_format($product->getPrice() * $convertion, 2) . '</span>';
+                            echo '<span class="precio-descuento">' . $symbol . number_format($product->getDiscountedPrice() * $convertion, 2) . '</span>';
+                        } else {
+                            echo '<span class="precio-original">' . number_format($product->getPrice(), 2) . '€</span>';
+                            echo '<span class="precio-descuento">' . number_format($product->getDiscountedPrice(), 2) . '€</span>';
+                        }
+                        ?>
                     </div>
                     <p class="promocion-descripcion"><?php echo htmlspecialchars($product->getPromotionDescription()); ?></p>
                 <?php else: ?>
-                    <p class="price"><?php echo number_format($product->getPrice(), 2); ?>€</p>
+                    <?php
+                    if ($symbol !== '€') {
+                        echo '<p class="price">' . $symbol . number_format($product->getPrice() * $convertion, 2) . '</p>';
+                    } else {
+                        echo '<p class="price">' . number_format($product->getPrice(), 2) . '€</p>';
+                    }
+                    ?>
                 <?php endif; ?>
             </div>
         </a>
-        <?php
+<?php
     }
 } else {
     echo '<p class="no-products">No hay productos en promoción en este momento.</p>';

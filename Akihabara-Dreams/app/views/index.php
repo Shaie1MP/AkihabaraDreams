@@ -19,12 +19,12 @@
     if (!function_exists('__')) {
         include_once '../app/includes/language.php';
     }
-    
+
     include '../resources/commons/navbar.php';
 
-    if(isset($_SESSION['usuario'])){
+    if (isset($_SESSION['usuario'])) {
         include '../app/includes/generateCart.php';
-    }else{
+    } else {
         echo '<div id="cartModal" class="cart-modal">
         <div class="cart-modal-content">
             <span class="close">×</span>
@@ -42,6 +42,7 @@
         </div>
     </section>
     <div class="container">
+        <?php include '../app/includes/checkCurrency.php'; ?>
         <section class="featured-products">
             <h2><?php echo __('home_featured'); ?></h2>
             <?php
@@ -52,7 +53,7 @@
         <!-- Sección de promociones -->
         <section class="product-section promociones-section">
             <div class="section-header">
-                <h2><?php echo __('home_discounts')?></h2>
+                <h2><?php echo __('home_discounts') ?></h2>
                 <a href="/Akihabara-Dreams/ofertas" class="section-link-button"><?php echo __('home_view_all'); ?></a>
             </div>
             <div class="product-grid">

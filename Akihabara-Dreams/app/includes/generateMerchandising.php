@@ -22,7 +22,13 @@ if (count($merchanProducts) > 0) {
                     <span class="status-tag">Agotado</span>
                 <?php endif; ?>
                 <h3><?php echo $merchan->getName(); ?></h3>
-                <p class="price"><?php echo number_format($merchan->getPrice(), 2); ?>€</p>
+                <?php
+                if ($symbol !== '€') {
+                    echo '<p class="price">' . $symbol . number_format($merchan->getPrice() * $convertion, 2) . '</p>';
+                } else {
+                    echo '<p class="price">' . number_format($merchan->getPrice(), 2) . '€</p>';
+                }
+                ?>
             </div>
         </a>
         <?php

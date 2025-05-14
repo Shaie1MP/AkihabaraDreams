@@ -22,7 +22,13 @@ if (count($mangaProducts) > 0) {
                     <span class="status-tag">Agotado</span>
                 <?php endif; ?>
                 <h3><?php echo $manga->getName(); ?></h3>
-                <p class="price"><?php echo number_format($manga->getPrice(), 2); ?>€</p>
+                <?php
+                if ($symbol !== '€') {
+                    echo '<p class="price">' . $symbol . number_format($manga->getPrice() * $convertion, 2) . '</p>';
+                } else {
+                    echo '<p class="price">' . number_format($manga->getPrice(), 2) . '€</p>';
+                }
+                ?>
             </div>
         </a>
         <?php

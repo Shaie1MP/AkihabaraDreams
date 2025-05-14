@@ -80,7 +80,7 @@
   
   .flip-card-back {
     transform: rotateY(180deg);
-    height: 155%;
+    height: 172%;
   }
   
   h2 {

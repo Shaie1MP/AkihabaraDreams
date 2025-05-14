@@ -7,28 +7,39 @@ class AuthUserController{
     }
     
     public function loginUser(AuthUser $authUser) {
+        // Validaciones
         if (!$authUser->getUsername()) {
-            throw new Exception('El usuario no tiene nombre');
+            $_SESSION['login_error'] = 'El usuario no puede estar vacío';
+            $_SESSION['login_username'] = $authUser->getUsername();
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
 
         if (!$authUser->getPassword()) {
-            throw new Exception('El usuario no tiene contraseña');
+            $_SESSION['login_error'] = 'La contraseña no puede estar vacía';
+            $_SESSION['login_username'] = $authUser->getUsername();
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
 
-        $user = $this->authRepository->searchUser($authUser->getUsername());
-
-        if (!$user) {
-            throw new Exception('No se ha encontrado al usuario');
+        try {
+            $user = $this->authRepository->searchUser($authUser->getUsername());
+            
+            if (!password_verify($authUser->getPassword(), $user->getPassword())) {
+                $_SESSION['login_error'] = 'Las credenciales no son válidas';
+                $_SESSION['login_username'] = $authUser->getUsername();
+                header('Location: /Akihabara-Dreams/login');
+                exit;
+            } else {
+                $_SESSION['usuario'] = serialize($user);
+                return $user->getId();
+            }
+        } catch (Exception $e) {
+            $_SESSION['login_error'] = 'Las credenciales no son válidas';
+            $_SESSION['login_username'] = $authUser->getUsername();
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
-
-        if (!password_verify($authUser->getPassword(), $user->getPassword())) {
-            throw new Exception('Las contraseñas no coinciden');
-        }
-
-        $_SESSION['usuario'] = serialize($user);
-
-        return $user->getId();
-
     }
     
     public function logoutUser() {

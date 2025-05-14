@@ -56,3 +56,26 @@
 .error-button:hover {
     background-color: var(--button-hover);
 }
+
+.error-message {
+    color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 3px solid #e74c3c;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    border-radius: 3px;
+}
+
+.error-message ul {
+    margin: 5px 0 0 0;
+    padding-left: 20px;
+}
+
+.error-message li {
+    margin-bottom: 3px;
+}
+
+input.error {
+    border-color: #e74c3c !important;
+}

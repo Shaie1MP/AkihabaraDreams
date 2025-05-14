@@ -20,6 +20,7 @@
 
     <div class="container">
         <?php
+        include '../app/includes/checkCurrency.php';
         include '../app/includes/generateUniqueProduct.php';
         ?>
     </div>

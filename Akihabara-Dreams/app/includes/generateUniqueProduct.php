@@ -29,13 +29,27 @@
         <div class="product-detail-price">
             <?php if (method_exists($product, 'hasPromotion') && $product->hasPromotion()): ?>
                 <div class="price-container">
-                    <span class="precio-original"><?= number_format($product->getPrice(), 2) ?>€</span>
-                    <span class="precio-descuento"><?= number_format($product->getDiscountedPrice(), 2) ?>€</span>
-                    <span class="promocion-badge">-<?= $product->getDiscount() ?>%</span>
+                    <?php
+                    if ($symbol !== '€') {
+                        echo '<span class="precio-original">' . $symbol . number_format($product->getPrice() * $convertion, 2) . '</span>';
+                        echo '<span class="precio-descuento">' . $symbol . number_format($product->getDiscountedPrice() * $convertion, 2) . '</span>';
+                        echo '<span class="promocion-badge">-' . $product->getDiscount() . '%</span>';
+                    } else {
+                        echo '<span class="precio-original">' . number_format($product->getPrice(), 2) . '€</span>';
+                        echo '<span class="precio-descuento">' . number_format($product->getDiscountedPrice(), 2) . '€</span>';
+                        echo '<span class="promocion-badge">-' . $product->getDiscount() . '%</span>';
+                    }
+                    ?>
                 </div>
             <?php else: ?>
                 <div class="price-container">
-                    <span class="product-price"><?= number_format($product->getPrice(), 2) ?>€</span>
+                    <?php
+                        if ($symbol !== '€') {
+                            echo '<span class="product-price">' . $symbol . number_format($product->getPrice() * $convertion, 2) . '</span>';
+                        } else {
+                            echo '<span class="product-price">' . number_format($product->getPrice(), 2) . '€</span>';
+                        }
+                    ?>
                 </div>
             <?php endif; ?>
         </div>

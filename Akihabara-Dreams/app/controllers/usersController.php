@@ -309,50 +309,71 @@ class UsersController {
     }
 
     public function register(User $user) {
-        $errors = [];
+        $_SESSION['register_name'] = $user->getName();
+        $_SESSION['register_username'] = $user->getUserName();
+        $_SESSION['register_email'] = $user->getEmail();
 
         // Validaciones
         if (!$user->getName()) {
-            $errors[] = 'No has introducido el nombre';
+            $_SESSION['register_error'] = 'No has introducido el nombre';
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
 
         if (strlen($user->getName()) < 3) {
-            $errors[] = 'El nombre debe tener como mínimo 3 caracteres';
+            $_SESSION['register_error'] = 'El nombre debe tener como mínimo 3 caracteres';
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
 
         if (!$user->getUserName()) {
-            $errors[] = 'No has introducido el nombre de usuario';
+            $_SESSION['register_error'] = 'No has introducido el nombre de usuario';
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
 
         if (!$user->getEmail()) {
-            $errors[] = 'No has introducido el correo electrónico';
+            $_SESSION['register_error'] = 'No has introducido el correo electrónico';
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         } else if (!filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
-            $errors[] = 'El formato del correo no es válido';
+            $_SESSION['register_error'] = 'El formato del correo no es válido';
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
 
         if (!$user->getPassword()) {
-            $errors[] = 'No has introducido la contraseña';
+            $_SESSION['register_error'] = 'No has introducido la contraseña';
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
 
         if (strlen($user->getPassword()) < 8) {
-            $errors[] = 'La contraseña debe tener como mínimo 8 caracteres';
+            $_SESSION['register_error'] = 'La contraseña debe tener como mínimo 8 caracteres';
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
 
-        if (empty($errors)) {
+        // Verificar que las contraseñas coinciden
+        if ($_POST['register-confirm-password'] !== $_POST['register-password']) {
+            $_SESSION['register_error'] = 'Las contraseñas no coinciden';
+            header('Location: /Akihabara-Dreams/login');
+            exit;
+        }
+
+        try {
             $finalUser = $this->usersRepository->registerUser($user);
             $_SESSION['usuario'] = serialize($finalUser);
-
             $_SESSION['carrito'] = serialize(new Cart($finalUser->getId()));
-
+            
             header('Location: /Akihabara-Dreams/myaccount');
             exit;
-
-        } else {
-            include('../app/views/errors.php');
+        } catch (Exception $e) {
+            throw new Exception('Error al registrar el usuario: ' . $e->getMessage());
+            header('Location: /Akihabara-Dreams/login');
+            exit;
         }
-
     }
-
     public function getAllUsers() {
         return $this->usersRepository->getAllUsers();
     }
