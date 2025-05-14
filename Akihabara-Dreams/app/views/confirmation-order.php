@@ -159,7 +159,7 @@ $pdfPath = $pdfGenerator->generateOrderPDF($order, unserialize($_SESSION['usuari
             <p><?php echo __('order_email_sent'); ?></p>
             <div class="action-buttons">
                 <a href="/Akihabara-Dreams/orders/pdf?id=<?php echo $order->getOrderId(); ?>" class="btn-secondary">
-                    <i class="fas fa-file-pdf"></i> Descargar Recibo PDF
+                    <i class="fas fa-file-pdf"></i> <?php echo __('download_pdf_file'); ?>
                 </a>
                 <a href="/Akihabara-Dreams/orders/mispedidos" class="btn-secondary">
                     <i class="fas fa-list"></i> <?php echo __('view_all_orders'); ?>

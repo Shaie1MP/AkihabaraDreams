@@ -32,20 +32,17 @@
                                     echo '<div class="cart-item-price">';
                                     echo '<span class="precio-original">' . number_format($fullProduct->getPrice(), 2) . '€</span>';
                                     echo '<span class="precio-descuento">' . number_format($itemPrice, 2) . '€</span>';
-                                    echo '<span class="promocion-badge">' . $fullProduct->getDiscount() . '% OFF</span>';
                                     echo '</div>';
                                 } else {
                                     echo '<div class="cart-item-price">';
                                     echo '<span class="precio-original">' . $symbol . number_format($fullProduct->getPrice() * $convertion, 2) . '</span>';
                                     echo '<span class="precio-descuento">' . $symbol . number_format($itemPrice * $convertion, 2) . '</span>';
-                                    echo '<span class="promocion-badge">' . $fullProduct->getDiscount() . '% OFF</span>';
                                     echo '</div>';
                                 }
                             } else {
                                 echo '<div class="cart-item-price">';
                                 echo '<span class="precio-original">' . number_format($fullProduct->getPrice(), 2) . '€</span>';
                                 echo '<span class="precio-descuento">' . number_format($itemPrice, 2) . '€</span>';
-                                echo '<span class="promocion-badge">-' . $fullProduct->getDiscount() . '%</span>';
                                 echo '</div>';
                             }
                         } else {

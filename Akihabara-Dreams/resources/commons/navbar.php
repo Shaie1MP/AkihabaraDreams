@@ -24,12 +24,12 @@ include_once __DIR__ . '/../../app/models/User.php';
                     <line x1="4" x2="20" y1="18" y2="18"></line>
                 </svg>
             </button>
-            
+            <div class="navbar-logo-div">
+                <a href="/Akihabara-Dreams/"><img src="/Akihabara-Dreams/resources/images/commons/logo-AD-3.png" alt="logo" class="img-logo"></a>
+            </div>
         </div>
 
-        <div class="navbar-logo-div">
-                <a href="/Akihabara-Dreams/"><img src="/Akihabara-Dreams/resources/images/commons/logo-AD-3.png" alt="logo" class="img-logo"></a>
-        </div>
+
 
         <!-- Sección derecha: Iconos y menú de usuario -->
         <div class="navbar-right">
@@ -43,14 +43,14 @@ include_once __DIR__ . '/../../app/models/User.php';
                         </svg>
                     </a>
                 <?php endif; ?>
-                
+
                 <a href="/Akihabara-Dreams/wishlist" class="navbar-icon-link" title="<?php echo __('nav_wishlist'); ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                     </svg>
                     <span class="wishlist-counter" id="wishlist-counter" style="display: none;"></span>
                 </a>
-                
+
                 <a class="navbar-icon-link" id="carrito" title="<?php echo __('nav_cart'); ?>">
                     <div class="cart-icon-container">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart" style="color: white;">
@@ -73,7 +73,7 @@ include_once __DIR__ . '/../../app/models/User.php';
                             <span class="user-name"><?php echo __('nav_account'); ?></span>
                         <?php endif; ?>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-arrow">
-                            <path d="m6 9 6 6 6-6"/>
+                            <path d="m6 9 6 6 6-6" />
                         </svg>
                     </button>
                     <div class="dropdown-menu">
@@ -231,19 +231,6 @@ include_once __DIR__ . '/../../app/models/User.php';
                             </svg>
                         </span>
                         <span><?php echo __('nav_cart'); ?></span>
-                    </a>
-                </li>
-                <div class="sidebar-category"><?php echo __('footer_contact'); ?></div>
-
-                <li class="sidebar-menu-item">
-                    <a href="/Akihabara-Dreams/contacto" class="sidebar-link">
-                        <span class="sidebar-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail">
-                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                            </svg>
-                        </span>
-                        <span><?php echo __('nav_contact'); ?></span>
                     </a>
                 </li>
             </ul>

@@ -278,9 +278,137 @@
     border-color: #333;
   }
   
-  @media (max-width: 768px) {
+   @media (max-width: 1400px) {
     .products-grid {
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-template-columns: repeat(5, minmax(160px, 1fr));
+      gap: 15px;
+    }
+  
+    .product-image-container {
+      height: 180px;
+    }
+  
+    .product-name {
+      font-size: 0.8rem;
+      min-height: 50px;
+    }
+  
+    .catalog-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  
+    .sort-dropdown {
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    .filter-panel {
+      width: 100%;
+      top: 120px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .products-grid {
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 15px;
+    }
+  
+    .product-image-container {
+      height: 180px;
+    }
+  
+    .product-name {
+      font-size: 0.8rem;
+      min-height: 50px;
+    }
+  
+    .catalog-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  
+    .sort-dropdown {
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    .filter-panel {
+      width: 100%;
+      top: 120px;
+    }
+  }
+
+  @media (max-width: 798px) {
+    .products-grid {
+      grid-template-columns: repeat(3, minmax(160px, 1fr));
+      gap: 15px;
+    }
+  
+    .product-image-container {
+      height: 180px;
+    }
+  
+    .product-name {
+      font-size: 0.8rem;
+      min-height: 50px;
+    }
+  
+    .catalog-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  
+    .sort-dropdown {
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    .filter-panel {
+      width: 100%;
+      top: 120px;
+    }
+  }
+
+   @media (max-width: 543px) {
+    .products-grid {
+      grid-template-columns: repeat(2, minmax(160px, 1fr));
+      gap: 15px;
+    }
+  
+    .product-image-container {
+      height: 180px;
+    }
+  
+    .product-name {
+      font-size: 0.8rem;
+      min-height: 50px;
+    }
+  
+    .catalog-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  
+    .sort-dropdown {
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    .filter-panel {
+      width: 100%;
+      top: 120px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .products-grid {
+      grid-template-columns: repeat(1, minmax(160px, 1fr));
       gap: 15px;
     }
   

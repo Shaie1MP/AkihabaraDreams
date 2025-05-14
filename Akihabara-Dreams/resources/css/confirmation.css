@@ -179,23 +179,29 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .confirmation-container {
+    width: 85%;
+    padding: 15px;
+  }
+
   .order-info,
   .address-info {
     flex-direction: column;
   }
 
   .info-group {
-    width: 100%;
+    width: 95%;
   }
 
   .action-buttons {
+    width: 95%;
     flex-direction: column;
   }
 
   .btn-primary,
   .btn-secondary,
   .btn-pdf {
-    width: 100%;
+    width: 95%;
     justify-content: center;
     margin-bottom: 10px;
   }

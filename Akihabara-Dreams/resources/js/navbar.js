@@ -1,11 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Inicializar el sidebar
+  // Inicializar el sidebar, los dropdowns y actualizar los contadores
   initSidebar()
-
-  // Inicializar los dropdowns
   initDropdowns()
-
-  // Actualizar contadores
   updateCounters()
 })
 
@@ -51,7 +47,7 @@ function initSidebar() {
     })
   })
 
-  // Marcar el enlace activo basado en la URL actual
+  // Marcar el enlace activo
   const currentPath = window.location.pathname
   sidebarLinks.forEach((link) => {
     const linkPath = link.getAttribute("href")
@@ -59,6 +55,16 @@ function initSidebar() {
       link.classList.add("active")
     }
   })
+
+  // Ajustar altura del sidebar en dispositivos móviles
+  function adjustSidebarHeight() {
+    const windowHeight = window.innerHeight
+    sidebarModal.style.height = `${windowHeight}px`
+  }
+
+  // Ajustar altura al cargar y al cambiar el tamaño de la ventana
+  adjustSidebarHeight()
+  window.addEventListener("resize", adjustSidebarHeight)
 }
 
 function initDropdowns() {
@@ -74,10 +80,8 @@ function initDropdowns() {
 }
 
 function updateCounters() {
-  // Actualizar contador de wishlist
+  // Actualizar contadores de wishlist y carrito
   updateWishlistCounter()
-
-  // Actualizar contador de carrito
   updateCartCounter()
 }
 
@@ -85,7 +89,7 @@ function updateWishlistCounter() {
   const wishlistCounter = document.getElementById("wishlist-counter")
   if (!wishlistCounter) return
 
-  // Usar una petición simple para obtener el contador
+  // Usar una petición para obtener el contador
   fetch("/Akihabara-Dreams/app/includes/wishlist-count.php")
     .then((response) => {
       if (!response.ok) {
@@ -98,10 +102,9 @@ function updateWishlistCounter() {
         wishlistCounter.textContent = data.count
         wishlistCounter.style.display = "flex"
 
-        // Añadir un atributo data-count para CSS específico basado en el número de dígitos
         wishlistCounter.setAttribute("data-count", data.count)
 
-        // Ajustar el tamaño si hay más de un dígito
+        // Ajustar el tamaño 
         if (data.count > 9) {
           wishlistCounter.style.minWidth = "20px"
           wishlistCounter.style.height = "20px"
@@ -138,10 +141,9 @@ function updateCartCounter() {
         cartCounter.textContent = data.count
         cartCounter.style.display = "flex"
 
-        // Añadir un atributo data-count para CSS específico basado en el número de dígitos
         cartCounter.setAttribute("data-count", data.count)
 
-        // Ajustar el tamaño si hay más de un dígito
+        // Ajustar el tamaño 
         if (data.count > 9) {
           cartCounter.style.minWidth = "20px"
           cartCounter.style.height = "20px"

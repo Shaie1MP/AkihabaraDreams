@@ -4,7 +4,7 @@
     <title>Akihabara Dreams - <?php echo __('home_subtitle'); ?></title>
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/normalize.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/body.css">
-    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/carrito.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/cart.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/footer.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/index.css">
@@ -16,7 +16,6 @@
 
 <body>
     <?php
-    // Incluir el sistema de idiomas si no está incluido
     if (!function_exists('__')) {
         include_once '../app/includes/language.php';
     }
@@ -35,15 +34,15 @@
     }
     ?>
 
-    <section class="hero">
-        <div class="hero-content">
+    <section class="header">
+        <div class="header-content">
             <h1><?php echo __('home_welcome'); ?></h1>
             <p><?php echo __('home_subtitle'); ?></p>
             <a href="/Akihabara-Dreams/catalog" class="cta-button"><?php echo __('home_explore'); ?></a>
         </div>
     </section>
     <div class="container">
-        <section class="featured-games">
+        <section class="featured-products">
             <h2><?php echo __('home_featured'); ?></h2>
             <?php
             include '../app/includes/generateFeaturedProducts.php';

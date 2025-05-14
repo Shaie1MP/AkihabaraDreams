@@ -199,6 +199,7 @@ return [
     'order_billing_address' => 'Dirección de Facturación',
     'order_items' => 'Artículos del Pedido',
     'order_total' => 'Total del Pedido',
+    'download_pdf_file' => 'Descargar archivo PDF',
     'order_email_sent' => 'Se ha enviado un correo de confirmación a tu dirección de correo electrónico.',
     'view_all_orders' => 'Ver Todos Mis Pedidos',
     'continue_shopping' => 'Seguir Comprando',

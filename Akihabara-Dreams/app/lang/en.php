@@ -184,6 +184,19 @@ return [
     'order_realize' => 'Realize Order',
 
     // Orders
+    'order_confirmation_title' => 'Order Confirmation',
+    'order_confirmation_message' => 'Thank you for your order! Your order number is',
+    'order_details_title' => 'Order Details',
+    'order_date' => 'Order Date',
+    'order_delivery_date' => 'Delivery Date',
+    'order_shipping_address' => 'Shipping Address',
+    'order_billing_address' => 'Billing Address',
+    'order_email_sent' => 'An email with the order details has been sent to your email address.',
+    'view_all_orders' => 'View all orders',
+    'order_items' => 'Items',
+    'download_pdf_file' => 'Download PDF file',
+    'continue_shopping' => 'Continue Shopping',
+    'order_total' => 'Total',
     'order_title' => 'My Orders',
     'order' => 'Order',
     'order_address' => 'Address',
@@ -193,6 +206,7 @@ return [
     'order_no_orders' => 'You have no orders yet.',
 
     // Product
+    'product_name' => 'Name',
     'product_price' => 'Price',
     'product_category' => 'Category',
     'product_add' => 'Add to Cart',
