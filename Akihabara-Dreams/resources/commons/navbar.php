@@ -246,6 +246,7 @@ include_once __DIR__ . '/../../app/models/User.php';
         </div>
     </div>
 </div>
+<script src="/Akihabara-Dreams/resources/js/navbar.js"></script>
 
 <!-- Overlay para oscurecer el fondo cuando el modal está abierto -->
 <div id="overlay" class="overlay"></div>

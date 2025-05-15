@@ -17,11 +17,11 @@ class OrdersRepository {
             $order = new Order(
                 $item['id_order'],
                 $item['id_user'],
-                $item['order_date'],
-                $item['arrival_date'],
                 $item['billing'],  
                 $item['address'],  
-                $item['state']   
+                $item['state'],   
+                $item['order_date'],
+                $item['arrival_date']
             );
 
             $statement = $this->connection->prepare('select * from View_Order_Details where id_order = :id_order');
@@ -128,11 +128,11 @@ class OrdersRepository {
                 $order = new Order(
                     $result['id_order'],
                     $result['id_user'],
-                    $result['order_date'],
-                    $result['arrival_date'],
                     $result['billing'], 
                     $result['address'], 
-                    $result['state'] 
+                    $result['state'], 
+                    $result['order_date'],
+                    $result['arrival_date'],
                 );
                 
                 // Modificar esta consulta para obtener los detalles del pedido correctamente

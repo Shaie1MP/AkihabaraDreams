@@ -160,5 +160,7 @@ include_once '../app/includes/checkCurrency.php';
     </div>
     
     <?php include '../resources/commons/footer.php'; ?>
+        
+
 </body>
 </html>

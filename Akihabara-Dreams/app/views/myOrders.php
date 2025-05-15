@@ -13,11 +13,16 @@ include '../app/includes/checkCurrency.php';
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/navbar.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/footer.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/pedidos.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/cart.css">
 </head>
 
 <body>
 <?php
 include '../resources/commons/navbar.php';
+    // Incluir el carrito
+    if(isset($_SESSION['usuario'])){
+        include '../app/includes/generateCart.php';
+    }
 ?>
 
     <div class="container">
@@ -28,6 +33,10 @@ include '../resources/commons/navbar.php';
             ?>
         </div>
     </div>
+
+    <script src="/Akihabara-Dreams/resources/js/cart.js"></script>
+    
+
 </body>
 
 </html>

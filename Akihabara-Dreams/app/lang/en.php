@@ -155,6 +155,7 @@ return [
     'nav_logout' => 'Logout',
     'nav_menu' => 'MENU',
     'nav_no_account' => 'Don\'t have an account?',
+    'nav_wishlist' => 'Favourites',
 
     // Home
     'home_welcome' => 'Welcome to Akihabara Dreams',

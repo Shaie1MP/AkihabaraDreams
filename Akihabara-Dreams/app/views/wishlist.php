@@ -17,6 +17,8 @@ include_once '../app/includes/checkCurrency.php';
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/wishlist.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/footer.css">
     <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/notification.css">
+    <link rel="stylesheet" href="/Akihabara-Dreams/resources/css/cart.css">
+
 </head>
 
 <body>
@@ -135,5 +137,6 @@ include_once '../app/includes/checkCurrency.php';
 
     <script src="/Akihabara-Dreams/resources/js/cart.js"></script>
     <script src="/Akihabara-Dreams/resources/js/wishlist.js"></script>
+        
 </body>
 </html>

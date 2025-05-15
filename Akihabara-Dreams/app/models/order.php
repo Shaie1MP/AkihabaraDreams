@@ -9,7 +9,7 @@ class Order{
     private $state;
     private $orderDetails;
     
-    public function __construct($id_order, $id_user, $order_date = null, $arrival_date = null, $billing, $address, $state) {
+    public function __construct($id_order, $id_user, $billing, $address, $state, $order_date = null, $arrival_date = null) {
         $this->id_order = $id_order;
         $this->id_user = $id_user;
         $this->order_date = $order_date ?: (new DateTime())->format('d-m-Y');

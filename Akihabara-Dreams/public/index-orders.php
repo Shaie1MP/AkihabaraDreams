@@ -30,11 +30,11 @@ switch ($action) {
         $order = new Order(
             0,
             $userSession->getId(),
-            null,
-            null,
             trim(strip_tags($_POST['billing'] ?? null)), 
             trim(strip_tags($_POST['address'] ?? null)), 
-            'Pendiente'
+            'Pendiente',
+            null,
+            null,
         );
         $controller->create($order, $cartSession);
         break;

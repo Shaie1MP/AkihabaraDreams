@@ -22,5 +22,7 @@ include '../app/includes/checkSession.php';
         include '../app/includes/generateFormUpdateAccount.php';
         ?>
     </div>
+        
+
 </body>
 </html>

@@ -229,6 +229,8 @@ if (isset($_COOKIE['tarjeta'])) {
             </div>
         </div>
     </div>
+        
+
 </body>
 
 </html>

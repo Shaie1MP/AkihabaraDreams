@@ -116,6 +116,7 @@ $userSession = unserialize($_SESSION['usuario']);
     </div>
 
     <?php include '../resources/commons/footer.php'; ?>
+        
 </body>
 
 </html>

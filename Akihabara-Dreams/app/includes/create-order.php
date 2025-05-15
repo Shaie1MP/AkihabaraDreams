@@ -61,11 +61,11 @@ $user = unserialize($_SESSION['usuario']);
 $order = new Order(
     0, 
     $user->getId(),
-    null,
-    null, 
     $billing, 
     $address, 
-    'Pendiente' 
+    'Pendiente', 
+    null,
+    null 
 );
 
 // Crear el controlador y repositorio

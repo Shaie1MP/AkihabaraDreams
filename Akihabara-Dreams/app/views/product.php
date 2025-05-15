@@ -27,6 +27,8 @@
 
     <script src="/Akihabara-Dreams/resources/js/product.js"></script>
     <script src="/Akihabara-Dreams/resources/js/wishlist.js"></script>
+    
+
 </body>
 
 </html>

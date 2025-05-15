@@ -72,7 +72,7 @@ return [
     'admin_update_product' => 'Actualizar Producto',
     'admin_modify_product' => 'Modificar la información del producto',
     'admin_actual_front_page' => 'Portada actual',
-    'admin_actual_additional_photos' => 'Fotos adicionales actuales',
+    'admin_product_actual_additional_photos_form' => 'Fotos adicionales actuales',
     'admin_default_note' => 'Nota: Los valores por defecto son los originales. Se sustituirá cualquier elemento introducido.',
 
 
@@ -153,6 +153,7 @@ return [
     'nav_logout' => 'Cerrar Sesión',
     'nav_menu' => 'MENÚ',
     'nav_no_account' => '¿Aún no tienes cuenta?',
+    'nav_wishlist' => 'Favoritos',
 
     // Home
     'home_welcome' => 'Bienvenido a Akihabara Dreams',

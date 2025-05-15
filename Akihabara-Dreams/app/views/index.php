@@ -119,6 +119,6 @@
     <?php include '../resources/commons/footer.php' ?>
 
     <script src="/Akihabara-Dreams/resources/js/cart.js"></script>
-    <script src="/Akihabara-Dreams/resources/js/navbar.js"></script>
+    
     <script src="/Akihabara-Dreams/resources/js/carousel.js"></script>
 </body>
